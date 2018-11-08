@@ -71,25 +71,35 @@ function tarkistaRekis($asiakas)
 	$nimi = $asiakas["nimi"];
 
 	global $conn;
-	result= array();
 
-	if ( isset($_POST["rekisteroidy"]))
+	try
 	{
-		$stmt = $conn->prepare("SELECT COUNT FROM asiakas WHERE TUNNUS ='$tunnus'");
+		$stmt = $conn->prepare
+		("SELECT TUNNUS FROM asiakas WHERE EXISTS (SELECT TUNNUS FROM asiakas WHERE TUNNUS='$tunnus')");
 		$stmt->execute();
-		if($stmt == 0)
+		$rivi = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if(!$rivi)
 		{
 			luoAsiakas($asiakas);
-			header("Location: aloitus.php");
-			echo"<script type='text/javascript'>alert('Käyttäjätunnus luotu');</script>";
+			echo"<script type='text/javascript'>alert('Käyttäjätunnus luotu');
+			location='aloitus.php';
+			</script>";							
 
 		}
-		else()
+		else
 		{
-			echo"<script type='text/javascript'>alert('Käyttäjätunnus jo olemassa');</script>";
+		echo"<script type='text/javascript'>alert('Käyttäjätunnus jo olemassa');
+		location='rekisteroidy.php';
+		</script>";
+		
+		
 		}
-	}
 
+	}
+	catch(PDOException $e) {		
+		error_log("Error in fetchAsiakas: " . $e->getMessage());
+	}
 
 }
 

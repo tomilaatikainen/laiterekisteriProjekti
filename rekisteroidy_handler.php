@@ -6,5 +6,10 @@
 		$asiakas["salasana"] = parsePost("salasana");
 		$asiakas["nimi"] = parsePost("nimi");
 
-		tarkistaRekis($asiakas);
+			if ( isset($_POST["rekisteroidy"])){
+			tarkistaRekis($asiakas);
+			}
+			
+	
+		
 ?>
