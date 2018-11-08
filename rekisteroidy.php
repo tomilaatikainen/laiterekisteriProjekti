@@ -28,7 +28,7 @@
 </head>
 <body>
     <div css="text-align:center" id="parent">
-        <form id="form_login">
+        <form id="form_login" action="rekisteroidy_handler.php" method="post">
             <div id="div_login">
                 <h1>Rekisteröidy</h1>
 
@@ -36,7 +36,7 @@
                 Salasana: <input type="text" name="salasana" /><br />
                 Nimi: <input type="text" name="nimi" /><br />
 
-                <input type="button" value="Rekisteröidy" /><br />
+                <input type="submit" value="Rekisteröidy" /><br />
             </div>
         </form>
     </div>
