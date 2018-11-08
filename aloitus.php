@@ -38,7 +38,7 @@
                 <input type="submit" value="Kirjaudu" /><br />
 
                 Uusi asiakas?
-                <a href="http://localhost:8080/woproj/rekisteroidy.php">Luo uusi käyttäjä</a><br /><br />
+                <a href="http://localhost:8081/woproj/rekisteroidy.php">Luo uusi käyttäjä</a><br /><br />
             </div>
         </form>
     </div>

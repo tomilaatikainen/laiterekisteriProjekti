@@ -36,7 +36,7 @@
                 Salasana: <input type="text" name="salasana" /><br />
                 Nimi: <input type="text" name="nimi" /><br />
 
-                <input type="submit" value="Rekisteröidy" /><br />
+                <input type="submit" value="Rekisteröidy" name="rekisteroidy"/><br />
             </div>
         </form>
     </div>

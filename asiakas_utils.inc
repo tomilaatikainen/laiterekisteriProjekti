@@ -51,7 +51,7 @@ function haeAsiakas($asiakas)
 		while($rivi = $stmt->fetch(PDO::FETCH_ASSOC)){
 			$tunnus = $rivi["Tunnus"];
 			$salasana = $rivi["Salasana"];
-			$Nimi = $rivi["Nimi"];
+			$nimi = $rivi["Nimi"];
 			$result[] = $rivi;
 		}
 	}
@@ -62,6 +62,34 @@ function haeAsiakas($asiakas)
 	}
 
 	return $result;	
+
+}
+function tarkistaRekis($asiakas)
+{
+	$tunnus = $asiakas["tunnus"];
+	$salasana = $asiakas["salasana"];
+	$nimi = $asiakas["nimi"];
+
+	global $conn;
+	result= array();
+
+	if ( isset($_POST["rekisteroidy"]))
+	{
+		$stmt = $conn->prepare("SELECT COUNT FROM asiakas WHERE TUNNUS ='$tunnus'");
+		$stmt->execute();
+		if($stmt == 0)
+		{
+			luoAsiakas($asiakas);
+			header("Location: aloitus.php");
+			echo"<script type='text/javascript'>alert('Käyttäjätunnus luotu');</script>";
+
+		}
+		else()
+		{
+			echo"<script type='text/javascript'>alert('Käyttäjätunnus jo olemassa');</script>";
+		}
+	}
+
 
 }
 
