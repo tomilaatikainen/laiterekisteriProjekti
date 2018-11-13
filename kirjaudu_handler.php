@@ -10,6 +10,8 @@
 		if(tarkistaAsiakas($asiakas) == 1)
 		{		
 		$_SESSION["login"] = 1;
+		$_SESSION["tunnus"] = $asiakas["tunnus"];
+		$_SESSION["nimi"] = $asiakas["nimi"];
 		header("Location: kayttaja.php");
 		exit();
 		}

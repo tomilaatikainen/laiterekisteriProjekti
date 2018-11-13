@@ -147,4 +147,31 @@ function tarkistaRekis($asiakas)
 
 }
 
+function haeVaraukset($asiakas)
+{
+	global $conn;
+	$tunnus = $asiakas["tunnus"];
+	$nimi = $asiakas["nimi"];
+	$result = array();
+	try
+	{
+	
+	$stmt = $conn->prepare
+		("SELECT * FROM varaus WHERE STATUS = 'varattu' AND TUNNUS='$tunnus'");
+		$stmt->execute();
+
+			while ($rivi = $stmt->fetch(PDO::FETCH_ASSOC)) { 
+			$id = $rivi["id"];
+			$laiteid = $rivi["laiteid"];
+			$alkupvm = $rivi["alkupvm"];
+			$loppupvm = $rivi["loppupvm"];
+			$result[] = $rivi;
+	}
+	catch(PDOException $e)
+	{	
+	$result = array("status" => "not ok", "error" => $e->getMessage());
+	error_log("Error in fetchAsiakas: " . $e->getMessage());
+	}
+	return $result;
+}
 ?>
