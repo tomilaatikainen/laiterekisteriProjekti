@@ -33,7 +33,7 @@
                 <h1>Kirjaudu</h1>
 
                 Tunnus: <input type="text" name="tunnus" /><br />
-                Salasana: <input type="text" name="salasana" /><br />
+                Salasana: <input type="password" name="salasana" /><br />
 
                 <input type="submit" value="Kirjaudu" /><br />
 

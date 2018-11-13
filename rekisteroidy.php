@@ -32,8 +32,9 @@
             <div id="div_login">
                 <h1>Rekisteröidy</h1>
 
-                Tunnus: <input type="text" name="tunnus" /><br />
-                Salasana: <input type="text" name="salasana" /><br />
+                Käyttäjätunnus: <input type="text" name="tunnus" /><br />
+                Salasana: <input type="password" name="salasana" /><br />
+				Vahvista salasana: <input type="password" name="salasana2" /><br />
                 Nimi: <input type="text" name="nimi" /><br />
 
                 <input type="submit" value="Rekisteröidy" name="rekisteroidy"/><br />
