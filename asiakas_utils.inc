@@ -31,8 +31,25 @@ function luoAsiakas($asiakas){
 
 function tarkistaAsiakas($asiakas)
 {
+	global $conn;
+	$tunnus = $asiakas["tunnus"];
+	$salasana = $asiakas["salasana"];
+	try
+	{
+		$q = "SELECT TUNNUS,SALASANA FROM asiakas WHERE 1=1";
+		if(!empty($tunnus) && !empty($salasana) $q.= "AND TUNNUS ='$tunnus'  AND SALASANA ='$salasana'";
 
+		$stmt = $conn->prepare($q);
+		$stmt->execute();
 
+		$rivi = $stmt->fetch(PDO::FETCH_ASSOC);
+
+	}
+	catch(PDOException $e) {		
+		error_log("Error in fetchAsiakas: " . $e->getMessage());
+		$rivi = 0;
+	}
+	return $rivi;
 }
 
 function haeAsiakas($asiakas)

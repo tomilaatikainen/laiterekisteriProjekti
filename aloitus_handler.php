@@ -6,11 +6,9 @@
 		$asiakas["salasana"] = parsePost("ss");
 		$asiakas["nimi"] = parsePost("nimi");
 
-		tarkistaAsiakas($asiakas);
 
-		if($result)
-		{
-		
+		if(tarkistaAsiakas($asiakas) == 1)
+		{		
 		$_SESSION["login"] = 1;
 		header("Location: kayttaja.php");
 		exit();
@@ -18,7 +16,8 @@
 
 		else
 		{
-		
+		header("Location: aloitus.php?virhe=1");
+		exit();
 		}
 		
 
