@@ -28,6 +28,13 @@ function luoAsiakas($asiakas){
 	return $result;
 }
 
+
+function tarkistaAsiakas($asiakas)
+{
+
+
+}
+
 function haeAsiakas($asiakas)
 {
 	global $conn;
