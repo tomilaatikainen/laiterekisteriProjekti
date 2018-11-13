@@ -28,7 +28,7 @@
 <body>	
 	
 	<div css="text-align:center" id="parent">
-        <form id="form_login" action="aloitus_handler.php" method="post">
+        <form id="form_login" action="kirjaudu_handler.php" method="post">
             <div id="div_login">
                 <h1>Kirjaudu</h1>
 

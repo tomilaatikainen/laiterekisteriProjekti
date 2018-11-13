@@ -1,5 +1,5 @@
 <?php
-	require_once("asiakas_utils.inc");
+	require_once("database_utils.inc");
 	require_once("getpost.inc");
 
 		$asiakas["tunnus"] = parsePost("tunnus");

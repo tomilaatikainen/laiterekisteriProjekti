@@ -118,13 +118,19 @@ function tarkistaRekis($asiakas)
 		$stmt->execute();
 		$rivi = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		if(!$rivi)
+		if(!$rivi && !empty($tunnus) && !empty($salasana) && !empty($nimi))
 		{
 			luoAsiakas($asiakas);
 			echo"<script type='text/javascript'>alert('Käyttäjätunnus luotu');
-			location='aloitus.php';
+			location='kirjaudu.php';
 			</script>";							
 
+		}		
+		else if(empty($tunnus) || empty($salasana) || empty($nimi))
+		{
+		echo"<script type='text/javascript'>alert('Jokin kentistä on tyhjä');
+		location='rekisteroidy.php';
+		</script>";
 		}
 		else
 		{

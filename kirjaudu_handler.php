@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	require_once("asiakas_utils.inc");
+	require_once("database_utils.inc");
 	require_once("getpost.inc");
 		$asiakas["tunnus"] = parsePost("tunnus");
 		$asiakas["salasana"] = parsePost("salasana");
@@ -16,7 +16,7 @@
 
 		else
 		{
-		header("Location: aloitus.php?virhe=1");
+		header("Location: kirjaudu.php?virhe=1");
 		exit();
 		}
 		
