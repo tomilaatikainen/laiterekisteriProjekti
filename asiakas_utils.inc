@@ -34,22 +34,37 @@ function tarkistaAsiakas($asiakas)
 	global $conn;
 	$tunnus = $asiakas["tunnus"];
 	$salasana = $asiakas["salasana"];
+	$result = 1;
 	try
 	{
-		$q = "SELECT TUNNUS,SALASANA FROM asiakas WHERE 1=1";
-		if(!empty($tunnus) && !empty($salasana) $q.= "AND TUNNUS ='$tunnus'  AND SALASANA ='$salasana'";
-
+		if (empty($tunnus) || empty($salasana))
+		{
+		$result = 0;
+		}
+		
+		else 
+		{
+		$q = "SELECT TUNNUS FROM asiakas WHERE EXISTS 
+		(SELECT TUNNUS FROM asiakas WHERE TUNNUS='$tunnus' AND SALASANA='$salasana')";
+		
 		$stmt = $conn->prepare($q);
 		$stmt->execute();
 
 		$rivi = $stmt->fetch(PDO::FETCH_ASSOC);
-
+		
+		if(!$rivi)
+		{
+			$result = 0;	
+		}
+		}
+		
 	}
 	catch(PDOException $e) {		
 		error_log("Error in fetchAsiakas: " . $e->getMessage());
-		$rivi = 0;
+		$result = 0;
 	}
-	return $rivi;
+	
+	return $result;
 }
 
 function haeAsiakas($asiakas)
@@ -116,8 +131,7 @@ function tarkistaRekis($asiakas)
 		echo"<script type='text/javascript'>alert('Käyttäjätunnus jo olemassa');
 		location='rekisteroidy.php';
 		</script>";
-		
-		
+
 		}
 
 	}
