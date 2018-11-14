@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /*
 	Palauttaa parametrina tulleen datan takaisin UTF8 muodossa.

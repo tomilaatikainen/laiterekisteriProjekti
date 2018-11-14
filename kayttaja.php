@@ -19,7 +19,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
     <style>
 		#main {
-			width: 500px;
+			width: 700px;
 			border: 1px dotted black;
 		}
 		
@@ -30,22 +30,9 @@
 		#varaaButton {
 			float: right;
 		}
-		
-		#logout {
-			float: right;
-		}
-		
-		b {
-			font-size: 20px;
-		}
     </style>
 </head>
 <body>	
-	<div id="profile">
-		<b><a href="http://localhost:8081/woproj/muokkaa.php">Muokkaa omia tietoja</b>
-		<b id="logout"><a href="logout.php">Kirjaudu ulos</a></b>
-	</div>
-	
 	<div id="main">
 	<h1>Varaukset</h1>
 	<input type="button" id="varaaButton" value="Varaa uusi">
@@ -54,20 +41,39 @@
 	<table id="varaustaulu" name="varaustaulu" class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Asd</th>
-                        <th>Asd</th>
-                        <th>Asd</th>
-                        
+                        <th>ID</th>
+                        <th>LAITE_ID</th>
+                        <th>ALKUPVM</th>
+						<th>LOPPUPVM</th>  
+						<th>STATUS</th>
+						<th>ASIAKAS_TUNNUS</th>
                     </tr>
 
                 </thead>
 
-                <tbody>
-                    <tr></tr>
-
-                </tbody>
-
             </table>
+
+
+			<script type="text/javascript">
+				$(document).ready(function(){
+					$("#varaustaulu").DataTable({
+						"ajax":{
+						"url":"kayttaja_handler.php",
+						"dataSrc": ""
+						},					
+						"columns": [
+							{"data": "ID"},
+							{"data": "LAITE_ID"},
+							{"data": "ALKUPVM"},
+							{"data": "LOPPUPVM"},
+							{"data": "STATUS"},
+							{"data": "ASIAKAS_TUNNUS"}
+						]
+					});
+				});
+				
+				
+			</script>
 	
 	<input type="checkbox" name="lainatCheckbox"<br>Näytä lainat <br>
 	

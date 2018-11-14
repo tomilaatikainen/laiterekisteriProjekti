@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 require_once("db.inc");
-
+require_once("getpost.inc");
 
 function luoAsiakas($asiakas){
 	global $conn;
@@ -151,28 +151,25 @@ function haeVaraukset($asiakas)
 {
 	global $conn;
 	$tunnus = $asiakas["tunnus"];
-	$nimi = $asiakas["nimi"];
 	$result = array();
 	try
 	{
 	
 	$stmt = $conn->prepare
-		("SELECT * FROM varaus WHERE STATUS = 'varattu' AND TUNNUS='$tunnus'");
+		("SELECT ID, LAITE_ID, ALKUPVM, LOPPUPVM, STATUS, ASIAKAS_TUNNUS FROM varaus");
 		$stmt->execute();
 
 			while ($rivi = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-			$id = $rivi["id"];
-			$laiteid = $rivi["laiteid"];
-			$alkupvm = $rivi["alkupvm"];
-			$loppupvm = $rivi["loppupvm"];
-			$result[] = $rivi;
-			}
+
+			$result = $rivi;
+		}
 	}
+
 	catch(PDOException $e)
 	{	
 	$result = array("status" => "not ok", "error" => $e->getMessage());
 	error_log("Error in fetchAsiakas: " . $e->getMessage());
 	}
-	return $result;
+	echo json_encode($result);
 }
 ?>
