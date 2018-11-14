@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 06.11.2018 klo 16:30
+-- Generation Time: 14.11.2018 klo 21:57
 -- Palvelimen versio: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -41,7 +41,9 @@ CREATE TABLE IF NOT EXISTS `asiakas` (
 --
 
 INSERT INTO `asiakas` (`TUNNUS`, `SALASANA`, `NIMI`) VALUES
-('Admin', 'root', 'Admini');
+('Admin', 'root', 'Admini'),
+('Juha', 'kurkku', 'Juha'),
+('Pekka', 'kurkku', 'Pekka');
 
 -- --------------------------------------------------------
 
@@ -54,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `kategoria` (
   `KATEGORIA_ID` int(11) NOT NULL AUTO_INCREMENT,
   `KATEGORIA_NIMI` varchar(50) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`KATEGORIA_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
 -- Vedos taulusta `kategoria`
@@ -81,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `laite` (
   `KATEGORIA_ID` int(11) NOT NULL,
   `OMISTAJA_ID` int(11) NOT NULL,
   PRIMARY KEY (`LAITE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -97,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `omistaja` (
   `POSTINRO` varchar(5) CHARACTER SET latin1 NOT NULL,
   `POSTITMP` varchar(30) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`OMISTAJA_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
 -- Vedos taulusta `omistaja`
@@ -121,9 +123,16 @@ CREATE TABLE IF NOT EXISTS `varaus` (
   `ALKUPVM` date NOT NULL,
   `LOPPUPVM` date NOT NULL,
   `STATUS` varchar(10) CHARACTER SET latin1 NOT NULL,
-  `ASIAKAS_NIMI` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `ASIAKAS_TUNNUS` varchar(50) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Vedos taulusta `varaus`
+--
+
+INSERT INTO `varaus` (`ID`, `LAITE_ID`, `ALKUPVM`, `LOPPUPVM`, `STATUS`, `ASIAKAS_TUNNUS`) VALUES
+(1, '2', '2018-11-13', '2018-11-15', 'varattu', 'Pekka');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
