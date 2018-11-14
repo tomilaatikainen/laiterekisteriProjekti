@@ -30,9 +30,22 @@
 		#varaaButton {
 			float: right;
 		}
+		
+		#logout {
+			float: right;
+		}
+		
+		b {
+			font-size: 20px;
+		}
     </style>
 </head>
 <body>	
+	<div id="profile">
+		<b><a href="http://localhost:8081/woproj/muokkaa.php">Muokkaa omia tietoja</b>
+		<b id="logout"><a href="logout.php">Kirjaudu ulos</a></b>
+	</div>
+	
 	<div id="main">
 	<h1>Varaukset</h1>
 	<input type="button" id="varaaButton" value="Varaa uusi">

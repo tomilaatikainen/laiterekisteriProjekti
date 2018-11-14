@@ -166,6 +166,7 @@ function haeVaraukset($asiakas)
 			$alkupvm = $rivi["alkupvm"];
 			$loppupvm = $rivi["loppupvm"];
 			$result[] = $rivi;
+			}
 	}
 	catch(PDOException $e)
 	{	

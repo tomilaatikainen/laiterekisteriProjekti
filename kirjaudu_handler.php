@@ -6,12 +6,12 @@
 		$asiakas["salasana"] = parsePost("salasana");
 		$asiakas["nimi"] = parsePost("nimi");
 
-
 		if(tarkistaAsiakas($asiakas) == 1)
 		{		
 		$_SESSION["login"] = 1;
 		$_SESSION["tunnus"] = $asiakas["tunnus"];
 		$_SESSION["nimi"] = $asiakas["nimi"];
+		$_SESSION["salasana"] = $asiakas["salasana"];
 		header("Location: kayttaja.php");
 		exit();
 		}

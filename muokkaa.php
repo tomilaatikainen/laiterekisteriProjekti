@@ -1,5 +1,20 @@
 <?php
-	require_once("getpost.inc");
+	require_once("db.inc");
+	session_start();
+	
+	$tunnus = $_SESSION["tunnus"];
+	
+	$us = $_SESSION["salasana"];
+	
+	global $conn;
+	
+	$stmt = $conn->prepare
+	("SELECT * FROM asiakas WHERE TUNNUS='$tunnus'");
+	$stmt->execute();
+	
+	while($rivi = $stmt->fetch(PDO::FETCH_ASSOC)){
+			$un = $rivi["NIMI"];
+		}
 	
 ?>
 
@@ -16,9 +31,9 @@
 	<div>
         <h1>Muokkaa tietoja</h1>
 
-        Uusi salasana: <input type="passoword" name="uusiSalasana" /><br />
-		Vahvista salasana: <input type="password" name="uusiSalasana2" /><br />
-        Nimi: <input type="text" name="uusiNimi" /><br />
+        Uusi salasana: <input type="password" name="uusiSalasana" value="<?php echo $us; ?>" /><br />
+		Vahvista salasana: <input type="password" name="uusiSalasana2" value="<?php echo $us; ?>" /><br />
+        Nimi: <input type="text" name="uusiNimi" value="<?php echo $un; ?>" /><br/>
 
         <input type="submit" value="Tallenna muutokset" name="muuta"/><br />
     </div>
