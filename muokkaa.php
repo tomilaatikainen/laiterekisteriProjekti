@@ -4,7 +4,7 @@
 	
 	$tunnus = $_SESSION["tunnus"];
 	
-	$us = $_SESSION["salasana"];
+	$us = $_SESSION["salasana"]; //salasana sessiosta
 	
 	global $conn;
 	
@@ -13,7 +13,7 @@
 	$stmt->execute();
 	
 	while($rivi = $stmt->fetch(PDO::FETCH_ASSOC)){
-			$un = $rivi["NIMI"];
+			$un = $rivi["NIMI"]; //nimi tietokannasta
 		}
 	
 ?>
@@ -28,6 +28,7 @@
     </style>
 </head>
 <body>	
+	<form id="form_login" action="muokkaa_handler.php" method="post">
 	<div>
         <h1>Muokkaa tietoja</h1>
 
@@ -37,5 +38,6 @@
 
         <input type="submit" value="Tallenna muutokset" name="muuta"/><br />
     </div>
+	</form>
 </body>
 </html>
