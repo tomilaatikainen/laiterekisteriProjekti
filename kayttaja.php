@@ -50,9 +50,7 @@
 							{"data": "ID"},
 							{"data": "LAITE_ID"},
 							{"data": "ALKUPVM"},
-							{"data": "LOPPUPVM"},
-							{"data": "STATUS"},
-							{"data": "ASIAKAS_TUNNUS"}
+							{"data": "LOPPUPVM"}
 						]
 					});
 				});
@@ -78,22 +76,10 @@
                         <th>LAITE_ID</th>
                         <th>ALKUPVM</th>
 						<th>LOPPUPVM</th>  
-						<th>STATUS</th>
-						<th>ASIAKAS_TUNNUS</th>
                     </tr>
 
                 </thead>
-				
-				<tbody>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				</tbody>
+
             </table>
 
 	<input type="checkbox" name="lainatCheckbox"<br>Näytä lainat <br>

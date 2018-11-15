@@ -6,5 +6,6 @@
 	$asiakas["nimi"] = $_SESSION["nimi"];
 	$asiakas["salasana"] = $_SESSION["salasana"];
 	
+	header('Content-Type: application/json');
 	haeVaraukset($asiakas);
 ?>

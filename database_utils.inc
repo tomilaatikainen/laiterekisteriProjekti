@@ -156,11 +156,15 @@ function haeVaraukset($asiakas)
 	{
 	
 	$stmt = $conn->prepare
-		("SELECT ID, LAITE_ID, ALKUPVM, LOPPUPVM, STATUS, ASIAKAS_TUNNUS FROM varaus");
+		("SELECT ID, LAITE_ID, ALKUPVM, LOPPUPVM FROM varaus WHERE STATUS = 'varattu' AND ASIAKAS_TUNNUS='$tunnus'");
 		$stmt->execute();
 
 			while ($rivi = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-
+			$id = $rivi["ID"];
+			$laiteid = $rivi["LAITE_ID"];
+			$alkupvm = $rivi["ALKUPVM"];
+			$loppupvm = $rivi["LOPPUPVM"];
+			
 			$result[] = $rivi;
 		}
 	}
@@ -171,9 +175,8 @@ function haeVaraukset($asiakas)
 	error_log("Error in fetchAsiakas: " . $e->getMessage());
 	}
 	
-	header('Content-Type: application/json');
 	echo json_encode(utf8ize($result));
-	//echo json_encode($result);
+	
 	
 	
 }
