@@ -6,7 +6,5 @@
 	$asiakas["nimi"] = $_SESSION["nimi"];
 	$asiakas["salasana"] = $_SESSION["salasana"];
 	
-    $data = haeVaraukset($asiakas);
-
-
+	haeVaraukset($asiakas);
 ?>

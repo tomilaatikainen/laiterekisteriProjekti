@@ -161,7 +161,7 @@ function haeVaraukset($asiakas)
 
 			while ($rivi = $stmt->fetch(PDO::FETCH_ASSOC)) { 
 
-			$result = $rivi;
+			$result[] = $rivi;
 		}
 	}
 
@@ -170,6 +170,11 @@ function haeVaraukset($asiakas)
 	$result = array("status" => "not ok", "error" => $e->getMessage());
 	error_log("Error in fetchAsiakas: " . $e->getMessage());
 	}
-	echo json_encode($result);
+	
+	header('Content-Type: application/json');
+	echo json_encode(utf8ize($result));
+	//echo json_encode($result);
+	
+	
 }
 ?>

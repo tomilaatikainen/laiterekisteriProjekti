@@ -39,40 +39,12 @@
 			font-size: 20px;
 		}
     </style>
-</head>
-<body>	
-	<div id="profile">
-		<b><a href="http://localhost:8081/woproj/muokkaa.php">Muokkaa omia tietoja</b>
-		<b id="logout"><a href="logout.php">Kirjaudu ulos</a></b>
-	</div>
-	
-	<div id="main">
-	<h1>Varaukset</h1>
-	<input type="button" id="varaaButton" value="Varaa uusi">
-	
-	<p>Varaukset tähän</p>
-	<table id="varaustaulu" name="varaustaulu" class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>LAITE_ID</th>
-                        <th>ALKUPVM</th>
-						<th>LOPPUPVM</th>  
-						<th>STATUS</th>
-						<th>ASIAKAS_TUNNUS</th>
-                    </tr>
-
-                </thead>
-
-            </table>
-
-
-			<script type="text/javascript">
+	<script type="text/javascript">
 				$(document).ready(function(){
 					$("#varaustaulu").DataTable({
-						"ajax":{
-						"url":"kayttaja_handler.php",
-						"dataSrc": ""
+						ajax:{
+							url: 'kayttaja_handler.php',
+							dataSrc: ''
 						},					
 						"columns": [
 							{"data": "ID"},
@@ -87,7 +59,43 @@
 				
 				
 			</script>
+</head>
+<body>	
+	<div id="profile">
+		<b><a href="http://localhost:8081/woproj/muokkaa.php">Muokkaa omia tietoja</b>
+		<b id="logout"><a href="logout.php">Kirjaudu ulos</a></b>
+	</div>
 	
+	<div id="main">
+	<h1>Varaukset</h1>
+	<input type="button" id="varaaButton" value="Varaa uusi">
+	
+	<p>Varaukset tähän</p>
+	<table id="varaustaulu" name="varaustaulu" class="table table-bordered">
+                <thead>
+					<tr>
+                        <th>ID</th>
+                        <th>LAITE_ID</th>
+                        <th>ALKUPVM</th>
+						<th>LOPPUPVM</th>  
+						<th>STATUS</th>
+						<th>ASIAKAS_TUNNUS</th>
+                    </tr>
+
+                </thead>
+				
+				<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				</tbody>
+            </table>
+
 	<input type="checkbox" name="lainatCheckbox"<br>Näytä lainat <br>
 	
 	<h2>Lainaukset</h2>
