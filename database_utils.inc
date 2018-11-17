@@ -280,6 +280,7 @@ function haeLaite($laite){
 			
 			$result[] = $rivi;
 
+			}
 	}
 	catch(PDOException $e)
 	{	
