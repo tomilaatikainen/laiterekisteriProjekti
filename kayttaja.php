@@ -26,7 +26,7 @@
 			display: inline-block;
 		}
 		
-		#varaaButton {
+		#varaaUusi {
 			float: right;
 		}
 		
@@ -65,7 +65,7 @@
 	
 	<div id="main">
 	<h1>Varaukset</h1>
-	<input type="button" id="varaaButton" value="Varaa uusi">
+	<a href="http://localhost:8081/woproj/varaa.php" id="varaaUusi">Varaa uusi</a>
 	
 	<p>Varaukset tähän</p>
 	<table id="varaustaulu" name="varaustaulu" class="table table-bordered">

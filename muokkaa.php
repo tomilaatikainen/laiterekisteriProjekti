@@ -40,9 +40,10 @@
 
         Uusi salasana: <input type="password" name="uusiSalasana" value="<?php echo $us; ?>" /><br />
 		Vahvista salasana: <input type="password" name="uusiSalasana2" value="<?php echo $us; ?>" /><br />
-        Nimi: <input type="text" id="uusiNimi"/><br/>
+        Nimi: <input type="text" id="uusiNimi" name="uusiNimi"/><br/>
 
         <input type="submit" value="Tallenna muutokset" name="tallenna"/><br />
+		<a href="http://localhost:8081/woproj/kayttaja.php">Takaisin</a>
     </div>
 	</form>
 </body>
