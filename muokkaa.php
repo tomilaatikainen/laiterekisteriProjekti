@@ -2,19 +2,7 @@
 	require_once("db.inc");
 	session_start();
 	
-	$tunnus = $_SESSION["tunnus"];
-	
 	$us = $_SESSION["salasana"]; //salasana sessiosta
-	
-	global $conn;
-	
-	$stmt = $conn->prepare
-	("SELECT * FROM asiakas WHERE TUNNUS='$tunnus'");
-	$stmt->execute();
-	
-	while($rivi = $stmt->fetch(PDO::FETCH_ASSOC)){
-			$un = $rivi["NIMI"]; //nimi tietokannasta
-		}
 	
 ?>
 
@@ -26,6 +14,24 @@
     <style>
         
     </style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script type="text/javascript">
+				$(document).ready(function(){
+					$.ajax({
+						url: "muokkaa_handler.php",
+						type: "GET",
+						
+						success: function (result) {
+							$("#uusiNimi").val(result.replace(/['"]+/g, ''));
+						},
+						error: function (xhr, status, err) {
+							alert(err);
+						}
+					});
+				});
+				
+			</script>
 </head>
 <body>	
 	<form id="form_login" action="muokkaa_handler.php" method="post">
@@ -34,9 +40,9 @@
 
         Uusi salasana: <input type="password" name="uusiSalasana" value="<?php echo $us; ?>" /><br />
 		Vahvista salasana: <input type="password" name="uusiSalasana2" value="<?php echo $us; ?>" /><br />
-        Nimi: <input type="text" name="uusiNimi" value="<?php echo $un; ?>" /><br/>
+        Nimi: <input type="text" id="uusiNimi"/><br/>
 
-        <input type="submit" value="Tallenna muutokset" name="muuta"/><br />
+        <input type="submit" value="Tallenna muutokset" name="tallenna"/><br />
     </div>
 	</form>
 </body>

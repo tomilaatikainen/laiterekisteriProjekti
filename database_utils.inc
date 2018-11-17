@@ -107,6 +107,7 @@ function tarkistaRekis($asiakas)
 {
 	$tunnus = $asiakas["tunnus"];
 	$salasana = $asiakas["salasana"];
+	$salasana2 = $asiakas["salasana2"];
 	$nimi = $asiakas["nimi"];
 
 	global $conn;
@@ -118,23 +119,32 @@ function tarkistaRekis($asiakas)
 		$stmt->execute();
 		$rivi = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		if(!$rivi && !empty($tunnus) && !empty($salasana) && !empty($nimi))
+		if(!$rivi && !empty($tunnus) && !empty($salasana) && !empty($nimi) && $salasana == $salasana2)//tiedot kelpaa
 		{
+			
 			luoAsiakas($asiakas);
 			echo"<script type='text/javascript'>alert('Käyttäjätunnus luotu');
 			location='kirjaudu.php';
 			</script>";							
 
 		}		
-		else if(empty($tunnus) || empty($salasana) || empty($nimi))
+		else if(empty($tunnus) || empty($salasana) || empty($salasana) || empty($nimi)) //tyhjä kenttä
 		{
 		echo"<script type='text/javascript'>alert('Jokin kentistä on tyhjä');
 		location='rekisteroidy.php';
 		</script>";
 		}
-		else
+		
+		else if ($salasana != $salasana2) //salasanat ei mätsää
 		{
-		echo"<script type='text/javascript'>alert('Käyttäjätunnus jo olemassa');
+			echo"<script type='text/javascript'>alert('Salasanat eivät täsmää');
+		location='rekisteroidy.php';
+		</script>";
+		}
+		
+		else //tunnus jo käytössä
+		{
+		echo"<script type='text/javascript'>alert('Käyttäjätunnus on jo käytössä');
 		location='rekisteroidy.php';
 		</script>";
 
@@ -179,5 +189,61 @@ function haeVaraukset($asiakas)
 	
 	
 	
+}
+
+function tuoNimi($asiakas) //tuo nimen "Muokkaa tietoja" -sivulle
+{
+	$tunnus = $asiakas["tunnus"];
+	$un = array();
+	
+	global $conn;
+	
+	try{
+		$stmt = $conn->prepare
+	("SELECT NIMI FROM asiakas WHERE TUNNUS='$tunnus'");
+	$stmt->execute();
+	
+	while($rivi = $stmt->fetch(PDO::FETCH_ASSOC)){
+			$un = $rivi["NIMI"]; //nimi tietokannasta
+		}
+		
+	}
+	
+	catch(PDOException $e)
+	{	
+	$result = array("status" => "not ok", "error" => $e->getMessage());
+	error_log("Error in fetchAsiakas: " . $e->getMessage());
+	}
+	
+	echo json_encode(utf8ize($un));
+}
+
+function muutaAsiakas($asiakas) //asiakas muokkaa omia tietojaan
+{
+	$tunnus = $asiakas["tunnus"];
+	//uusi $salasana textboxista
+	//$nimi tietokannasta
+	
+	global $conn;
+	$result = "OK";
+
+	try
+	{
+		$stmt = $conn->prepare
+		("UPDATE asiakas SET SALASANA='$salasana', NIMI='$nimi' WHERE TUNNUS='$tunnus')");
+		$stmt->execute();
+		
+		echo"<script type='text/javascript'>alert('Muokatut tiedot tallennettu');
+			location='kayttaja.php';
+			</script>";
+	}
+	
+	catch(PDOException $e) {		
+		error_log("Error in fetchAsiakas: " . $e->getMessage());
+		echo"<script type='text/javascript'>alert('catchiin meni :D');
+			location='kayttaja.php';
+			</script>";
+	}
+	return $result;
 }
 ?>

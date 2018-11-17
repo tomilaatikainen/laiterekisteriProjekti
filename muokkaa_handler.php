@@ -1,19 +1,16 @@
 <?php
+	require_once("database_utils.inc");
 	session_start();
 	
-	/*
-	if (kentät kelpaa)
-	{
-		muokkaaAsiakas($asiakas);
-		header("Location: kayttaja.php");
-		exit();
-	}
+	$asiakas["tunnus"] = $_SESSION["tunnus"];
+	$asiakas["salasana"] = $_SESSION["salasana"];
 	
-	else 
-	{
-		header("Location: muokkaa.php?virhe=1");
-		exit();
-	}
-	*/
+	tuoNimi($asiakas);
 	
+	
+	if ( isset($_POST["tallenna"])){
+			muutaAsiakas($asiakas);
+			//header("Location: kayttaja.php");
+			}
+			
 ?>

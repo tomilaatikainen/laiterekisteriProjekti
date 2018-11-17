@@ -37,7 +37,9 @@
 				Vahvista salasana: <input type="password" name="salasana2" /><br />
                 Nimi: <input type="text" name="nimi" /><br />
 
-                <input type="submit" value="Rekisteröidy" name="rekisteroidy"/><br />
+                <input type="submit" value="Rekisteröidy" name="rekisteroidy"/><br /><br>
+				
+				<a href="http://localhost:8081/woproj/kirjaudu.php">Takaisin kirjautumissivulle</a>
             </div>
         </form>
     </div>

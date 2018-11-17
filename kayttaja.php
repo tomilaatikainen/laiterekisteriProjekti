@@ -2,7 +2,6 @@
 	session_start();
 	require_once("kirjaudu_utils.inc");
 	check_session();
-
 ?>
 
 
