@@ -239,11 +239,54 @@ function muutaAsiakas($asiakas) //asiakas muokkaa omia tietojaan
 	}
 	
 	catch(PDOException $e) {		
-		error_log("Error in fetchAsiakas: " . $e->getMessage());
+		error_log("Error in muutaAsiakas: " . $e->getMessage());
 		echo"<script type='text/javascript'>alert('catchiin meni :D');
 			location='kayttaja.php';
 			</script>";
 	}
 	return $result;
 }
+
+function haeLaite($laite){
+	$nimi = $laite["nimi"];
+	$malli = $laite["malli"];
+	$merkki = $laite["merkki"];
+	$sijainti = $laite["sijainti"];
+	$omistaja = $laite["omistaja"];
+	$kategoria = $laite["kategoria"];
+	
+	global $conn;
+	$result = "OK";
+	
+	try {
+		$q = "SELECT LAITE_ID, LAITE_NIMI, MERKKI, KATEGORIA_ID, OMISTAJA_ID, MALLI FROM laite WHERE 1=1 ";
+		if ( !empty($nimi) ) $q .= " AND LAITE_NIMI like '%$nimi%'";
+		if ( !empty($malli) ) $q .= " AND MALLI like '%$malli%'";
+		if ( !empty($merkki) ) $q .= " AND MERKKI like '%$merkki%'";
+		if ( !empty($sijainti) ) $q .= " AND SIJAINTI like '%$sijainti%'";
+		if ( !empty($omistaja) ) $q .= " AND OMISTAJA like '%$omistaja%'";
+		if ( !empty($kategoria) ) $q .= " AND KATEGORIA like '%$kategoria%'";
+		
+		$stmt = $conn->prepare($q);
+		$stmt->execute();
+		
+			while ($rivi = $stmt->fetch(PDO::FETCH_ASSOC)) { 
+			$ni = $rivi["nimi"];
+			$ma = $rivi["malli"];
+			$me = $rivi["merkki"];
+			$si = $rivi["sijainti"];
+			$om = $rivi["omistaja"];
+			$kat = $rivi["kategoria"];
+			
+			$result[] = $rivi;
+
+	}
+	catch(PDOException $e)
+	{	
+	$result = array("status" => "not ok", "error" => $e->getMessage());
+	error_log("Error in haeLaite: " . $e->getMessage());
+	}
+	return $result;
+}
+
 ?>
