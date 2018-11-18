@@ -1,5 +1,9 @@
 <?php
 	session_start();
+	require_once("kirjaudu_utils.inc");
+	check_session();
+	
+	
 ?>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -15,46 +19,76 @@
     <style>
        
     </style>
+	
+		<script type="text/javascript">
+				$(document).ready(function(){
+					$("#laitetaulu").DataTable({
+						ajax:{
+							url: 'varaa_handler.php',
+							dataSrc: ''
+						},					
+						"columns": [
+							{"data": "LAITE_ID"},
+							{"data": "LAITE_NIMI"},
+							{"data": "MERKKI"},
+							{"data": "KATEGORIA_ID"},
+							{"data": "OMISTAJA_ID"},
+							{"data": "MALLI"},
+							{"data": "KUVAUS"},
+							{"data": "SIJAINTI"}
+						]
+					});
+				});
+				
+				
+			</script>
 </head>
 <body>
+<form id="form_varaa" action="varaa_handler.php" method="post">
     <div>
 		<h1>Varaa laite</h1>
+		
 		Nimi <input type="text" name="nimi" /><br />
-		Kategoria <select name="sijainti">
-				<option value="tyhja">- valitse kategoria -</option>
-				<option value="puhelin">puhelin</option>
-				<option value="tabletti">tabletti</option>
-				<option value="kannettava tietokone">kannettava tietokone</option>
-				<option value="alykello">älykello</option>
-				<option value="poytakone">pöytäkone</option>
+		Kategoria <select name="kategoria">
+				<option value="">- valitse kategoria -</option>
+				<option value="1">puhelin</option>
+				<option value="2">tabletti</option>
+				<option value="3">kannettava tietokone</option>
+				<option value="4">älykello</option>
+				<option value="5">pöytäkone</option>
 			</select><br />
 		Merkki <select name="merkki">
-				<option value="tyhja">- valitse merkki -</option>
+				<option value="">- valitse merkki -</option>
 			</select><br />
 		Malli <select name="malli">
-				<option value="tyhja">- valitse malli -</option>
+				<option value="">- valitse malli -</option>
 			</select><br />
 		Sijainti <select name="sijainti">
-				<option value="tyhja">- valitse sijainti -</option>
+				<option value="">- valitse sijainti -</option>
+				<option value="Kuopio">Kuopio</option>
 			</select><br />
-		Omistaja <select name="sijainti">
-				<option value="tyhja">- valitse omistaja -</option>
-				<option value="gigantti">Gigantti</option>
-				<option value="power">Power</option>
-				<option value="dna">DNA</option>
+		Omistaja <select name="omistaja">
+				<option value="">- valitse omistaja -</option>
+				<option value="1">Gigantti</option>
+				<option value="2">Power</option>
+				<option value="3">DNA</option>
 			</select><br />
+			
+			<input type="submit" value="Hae" /><br />
     </div>
+	</form>
 	<div>
 		<table id="laitetaulu" name="laitetaulu" class="table table-bordered">
                 <thead>
 					<tr>
-                        <th>NIMI</th>
-                        <th>KATEGORIA</th>
-                        <th>MERKKI</th>
-						<th>MALLI</th>  
-						<th>SIJAINTI</th>
-						<th>OMISTAJA</th>  
-						<th></th>
+                        <th>ID</th>
+                        <th>Nimi</th>
+                        <th>Merkki</th>
+						<th>Kategoria</th>  
+						<th>Omistaja</th>
+						<th>Malli</th>  
+						<th>Kuvaus</th>  
+						<th>Sijainti</th> 
                     </tr>
 
                 </thead>

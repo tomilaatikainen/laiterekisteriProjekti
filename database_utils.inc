@@ -256,37 +256,29 @@ function haeLaite($laite){
 	$kategoria = $laite["kategoria"];
 	
 	global $conn;
-	$result = "OK";
+	$result = array();
 	
 	try {
-		$q = "SELECT LAITE_ID, LAITE_NIMI, MERKKI, KATEGORIA_ID, OMISTAJA_ID, MALLI FROM laite WHERE 1=1 ";
+		$q = "SELECT * FROM laite WHERE 1=1 ";
 		if ( !empty($nimi) ) $q .= " AND LAITE_NIMI like '%$nimi%'";
 		if ( !empty($malli) ) $q .= " AND MALLI like '%$malli%'";
 		if ( !empty($merkki) ) $q .= " AND MERKKI like '%$merkki%'";
 		if ( !empty($sijainti) ) $q .= " AND SIJAINTI like '%$sijainti%'";
-		if ( !empty($omistaja) ) $q .= " AND OMISTAJA like '%$omistaja%'";
-		if ( !empty($kategoria) ) $q .= " AND KATEGORIA like '%$kategoria%'";
+		if ( !empty($omistaja) ) $q .= " AND OMISTAJA_ID like '%$omistaja%'";
+		if ( !empty($kategoria) ) $q .= " AND KATEGORIA_ID like '%$kategoria%'";
 		
 		$stmt = $conn->prepare($q);
 		$stmt->execute();
 		
-			while ($rivi = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-			$ni = $rivi["nimi"];
-			$ma = $rivi["malli"];
-			$me = $rivi["merkki"];
-			$si = $rivi["sijainti"];
-			$om = $rivi["omistaja"];
-			$kat = $rivi["kategoria"];
-			
+		while ($rivi = $stmt->fetch(PDO::FETCH_ASSOC)) { 
 			$result[] = $rivi;
-
-			}
+		}
 	}
 	catch(PDOException $e)
 	{	
 	$result = array("status" => "not ok", "error" => $e->getMessage());
 	error_log("Error in haeLaite: " . $e->getMessage());
 	}
-	return $result;
+	echo json_encode(utf8ize($result));
 }
 ?>
