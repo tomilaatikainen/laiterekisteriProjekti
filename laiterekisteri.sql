@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 14.11.2018 klo 21:57
+-- Generation Time: 18.11.2018 klo 11:56
 -- Palvelimen versio: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -82,8 +82,13 @@ CREATE TABLE IF NOT EXISTS `laite` (
   `MERKKI` varchar(30) CHARACTER SET latin1 NOT NULL,
   `KATEGORIA_ID` int(11) NOT NULL,
   `OMISTAJA_ID` int(11) NOT NULL,
-  PRIMARY KEY (`LAITE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+  `MALLI` varchar(30) COLLATE utf8_swedish_ci NOT NULL,
+  `KUVAUS` tinytext COLLATE utf8_swedish_ci NOT NULL,
+  `SIJAINTI` varchar(30) COLLATE utf8_swedish_ci NOT NULL,
+  PRIMARY KEY (`LAITE_ID`),
+  KEY `KATEGORIA_ID` (`KATEGORIA_ID`),
+  KEY `OMISTAJA_ID` (`OMISTAJA_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -119,20 +124,33 @@ INSERT INTO `omistaja` (`OMISTAJA_ID`, `OMISTAJA_NIMI`, `OSOITE`, `POSTINRO`, `P
 DROP TABLE IF EXISTS `varaus`;
 CREATE TABLE IF NOT EXISTS `varaus` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `LAITE_ID` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `LAITE_ID` int(11) NOT NULL,
   `ALKUPVM` date NOT NULL,
   `LOPPUPVM` date NOT NULL,
   `STATUS` varchar(10) CHARACTER SET latin1 NOT NULL,
-  `ASIAKAS_TUNNUS` varchar(50) CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+  `ASIAKAS_TUNNUS` varchar(20) CHARACTER SET latin1 NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `LAITE_ID` (`LAITE_ID`),
+  KEY `ASIAKAS_TUNNUS` (`ASIAKAS_TUNNUS`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Vedos taulusta `varaus`
+-- Rajoitteet vedostauluille
 --
 
-INSERT INTO `varaus` (`ID`, `LAITE_ID`, `ALKUPVM`, `LOPPUPVM`, `STATUS`, `ASIAKAS_TUNNUS`) VALUES
-(1, '2', '2018-11-13', '2018-11-15', 'varattu', 'Pekka');
+--
+-- Rajoitteet taululle `laite`
+--
+ALTER TABLE `laite`
+  ADD CONSTRAINT `laite_ibfk_1` FOREIGN KEY (`KATEGORIA_ID`) REFERENCES `kategoria` (`KATEGORIA_ID`),
+  ADD CONSTRAINT `laite_ibfk_2` FOREIGN KEY (`OMISTAJA_ID`) REFERENCES `omistaja` (`OMISTAJA_ID`);
+
+--
+-- Rajoitteet taululle `varaus`
+--
+ALTER TABLE `varaus`
+  ADD CONSTRAINT `varaus_ibfk_1` FOREIGN KEY (`LAITE_ID`) REFERENCES `laite` (`LAITE_ID`),
+  ADD CONSTRAINT `varaus_ibfk_2` FOREIGN KEY (`ASIAKAS_TUNNUS`) REFERENCES `asiakas` (`TUNNUS`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
