@@ -22,7 +22,58 @@
 	
 		<script type="text/javascript">
 				$(document).ready(function(){
-					$("#laitetaulu").DataTable({
+				
+			HaeData();
+				
+			var data;
+				
+			function HaeData() { //Datan haku
+				$.ajax({
+					'url': "varaa_handler.php",
+					'method': 'GET'
+
+				}).done(function (data) {
+					$('#laitetaulu').DataTable({
+						"data": data,
+						"columns": [
+							{"data": "LAITE_ID"},
+							{"data": "LAITE_NIMI"},
+							{"data": "MERKKI"},
+							{"data": "KATEGORIA_ID"},
+							{"data": "OMISTAJA_ID"},
+							{"data": "MALLI"},
+							{"data": "KUVAUS"},
+							{"data": "SIJAINTI"},
+							{"defaultContent": '<button id="varaa">Varaa</button>'}
+						]
+					})
+
+				})
+			}
+			 function load_data(is_category){
+	
+				  var dataTable = $('#laitetaulu').DataTable({
+				   "processing":true,
+				   "serverSide":true,
+				   "order":[],
+				   "ajax":{
+					url:"fetch.php",
+					type:"POST",
+					data:{is_category:is_category}
+					},
+				   "columnDefs":[
+					{
+					 "targets":[2],
+					 "orderable":false,
+					},
+				   ],
+				  });
+				 }
+					
+					
+					
+					
+					/*$("#laitetaulu").DataTable({
 						ajax:{
 							url: 'varaa_handler.php',
 							dataSrc: ''
@@ -37,7 +88,7 @@
 							{"data": "KUVAUS"},
 							{"data": "SIJAINTI"}
 						]
-					});
+					});*/
 				});
 				
 				
@@ -49,32 +100,6 @@
 		<h1>Varaa laite</h1>
 		
 		Nimi <input type="text" name="nimi" /><br />
-		Kategoria <select name="kategoria">
-				<option value="">- valitse kategoria -</option>
-				<option value="1">puhelin</option>
-				<option value="2">tabletti</option>
-				<option value="3">kannettava tietokone</option>
-				<option value="4">älykello</option>
-				<option value="5">pöytäkone</option>
-			</select><br />
-		Merkki <select name="merkki">
-				<option value="">- valitse merkki -</option>
-			</select><br />
-		Malli <select name="malli">
-				<option value="">- valitse malli -</option>
-			</select><br />
-		Sijainti <select name="sijainti">
-				<option value="">- valitse sijainti -</option>
-				<option value="Kuopio">Kuopio</option>
-			</select><br />
-		Omistaja <select name="omistaja">
-				<option value="">- valitse omistaja -</option>
-				<option value="1">Gigantti</option>
-				<option value="2">Power</option>
-				<option value="3">DNA</option>
-			</select><br />
-			
-			<input type="submit" value="Hae" /><br />
     </div>
 	</form>
 	<div>
@@ -83,12 +108,42 @@
 					<tr>
                         <th>ID</th>
                         <th>Nimi</th>
-                        <th>Merkki</th>
-						<th>Kategoria</th>  
-						<th>Omistaja</th>
-						<th>Malli</th>  
+                        <th>
+							<select name="merkki">
+								<option value="">Merkki</option>
+							</select>
+						</th>
+						<th>
+						<select name="kategoria" id="kategoria">
+							<option value="">Kategoria</option>
+							<option value="1">puhelin</option>
+							<option value="2">tabletti</option>
+							<option value="3">kannettava tietokone</option>
+							<option value="4">älykello</option>
+							<option value="5">pöytäkone</option>
+						</select>
+						</th>  
+						<th>
+							<select name="omistaja">
+								<option value="">Omistaja</option>
+								<option value="1">Gigantti</option>
+								<option value="2">Power</option>
+								<option value="3">DNA</option>
+							</select>
+						</th>
+						<th>
+							<select name="malli">
+								<option value="">Malli</option>
+							</select>
+						</th>  
 						<th>Kuvaus</th>  
-						<th>Sijainti</th> 
+						<th>
+							<select name="sijainti">
+								<option value="">Sijainti</option>
+								<option value="Kuopio">Kuopio</option>
+							</select>
+						</th> 
+						<th></th> 
                     </tr>
 
                 </thead>
