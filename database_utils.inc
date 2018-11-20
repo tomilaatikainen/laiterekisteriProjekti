@@ -174,6 +174,7 @@ function haeVaraukset($asiakas)
 			$laiteid = $rivi["LAITE_ID"];
 			$alkupvm = $rivi["ALKUPVM"];
 			$loppupvm = $rivi["LOPPUPVM"];
+			$status = $rivi["STATUS"];
 			
 			$result[] = $rivi;
 		}

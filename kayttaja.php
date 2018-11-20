@@ -41,15 +41,30 @@
 	<script type="text/javascript">
 	
 	
-				$(document).ready(function(){
-					
+				$(document).ready(function(){	
 				HaeVarausData();				
-				var data;
+				//var data;
 				
-				function HaeVarausData() { //Datan haku
-				$.ajax({
-					'url': "kayttaja_handler.php?STATUS=varattu",
-					'method': 'GET'
+				function HaeVarausData() { 
+				
+				
+					$("#varaustaulu").DataTable({
+						ajax:{
+							url: 'kayttaja_handler.php',
+							dataSrc: '',
+							data : {STATUS: 'varattu'}
+						},					
+						"columns": [
+							{"data": "ID"},
+							{"data": "LAITE_ID"},
+							{"data": "ALKUPVM"},
+							{"data": "LOPPUPVM"}
+						]
+					});		//Datan haku
+				/*$.ajax({
+					'url': "kayttaja_handler.php",
+					'method': 'GET',
+					'data': {"STATUS" : varattu}
 
 				}).done(function (data) {
 					$('#varaustaulu').DataTable({
@@ -62,14 +77,15 @@
 						]
 					})
 
-				})
+				})*/
 			}
 			
-						function HaeLainausData(id) { //Datan haku
+						function HaeLainausData() { //Datan haku
 						$.ajax({
 							'url': "kayttaja_handler.php?STATUS=lainattu",
 							'method': 'GET',
-							data: {'id' : id}
+							data: {'STATUS' : 'lainattu'}
+							
 
 						}).done(function (data) {
 							$('#lainaustaulu').DataTable({
@@ -86,17 +102,18 @@
 					}
 			
 			
-					$("#lainatCheckbox").live("click", function(){					
-					var id = parseInt($(this).val(),10);
-					if($(this).is(":checked")) {
+					$("#lainatCheckbox").change( function(){					
+					//var id = parseInt($(this).val(),10);
+					if(this.checked) {
 						// checkbox is checked -> do something
-						HaeLainausData(id);
-						$('#lainaus').style.display = 'block';
+						HaeLainausData();
+						$('#lainaus').show();
 								
 					} 
 					else {
 						// checkbox is not checked -> do something different
-						$('#lainaus').style.display= 'none';
+						$('#lainaustaulu').DataTable().destroy();
+						$('#lainaus').hide();
 					}
 					});	
 					
@@ -144,9 +161,9 @@
 
             </table>
 
-	<input type="checkbox" name="lainatCheckbox"<br>Näytä lainat <br>
+	<input type="checkbox" id="lainatCheckbox"<br>Näytä lainat <br>
 	</div>
-	<div id="lainaus" style="display:none;">
+	<div id="lainaus" style="display:none; ">
 	<h2>Lainaukset</h2>
 	
 	Vuosi
