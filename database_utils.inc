@@ -166,7 +166,7 @@ function haeVaraukset($asiakas)
 	{
 	
 	$stmt = $conn->prepare
-		("SELECT ID, LAITE_ID, ALKUPVM, LOPPUPVM FROM varaus WHERE STATUS = 'varattu' AND ASIAKAS_TUNNUS='$tunnus'");
+		("SELECT * FROM varaus WHERE ASIAKAS_TUNNUS='$tunnus'");
 		$stmt->execute();
 
 			while ($rivi = $stmt->fetch(PDO::FETCH_ASSOC)) { 
