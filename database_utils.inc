@@ -161,20 +161,20 @@ function haeVaraukset($asiakas)
 {
 	global $conn;
 	$tunnus = $asiakas["tunnus"];
+	$status = $asiakas["status"];
 	$result = array();
 	try
 	{
 	
 	$stmt = $conn->prepare
-		("SELECT * FROM varaus WHERE ASIAKAS_TUNNUS='$tunnus'");
+		("SELECT * FROM varaus WHERE ASIAKAS_TUNNUS='$tunnus' AND STATUS='$status'");
 		$stmt->execute();
 
 			while ($rivi = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-			$id = $rivi["ID"];
+			/*$id = $rivi["ID"];
 			$laiteid = $rivi["LAITE_ID"];
 			$alkupvm = $rivi["ALKUPVM"];
-			$loppupvm = $rivi["LOPPUPVM"];
-			$status = $rivi["STATUS"];
+			$loppupvm = $rivi["LOPPUPVM"];*/
 			
 			$result[] = $rivi;
 		}

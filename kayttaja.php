@@ -43,7 +43,6 @@
 	
 				$(document).ready(function(){	
 				HaeVarausData();				
-				//var data;
 				
 				function HaeVarausData() { 
 				
@@ -60,15 +59,16 @@
 							{"data": "ALKUPVM"},
 							{"data": "LOPPUPVM"}
 						]
-					});		//Datan haku
+					});	
+
+					//Datan haku
 				/*$.ajax({
 					'url': "kayttaja_handler.php",
 					'method': 'GET',
-					'data': {"STATUS" : varattu}
+					'data': {STATUS: 'varattu'}
 
 				}).done(function (data) {
 					$('#varaustaulu').DataTable({
-						"data": data,
 						"columns": [
 							{"data": "ID"},
 							{"data": "LAITE_ID"},
@@ -81,15 +81,14 @@
 			}
 			
 						function HaeLainausData() { //Datan haku
-						$.ajax({
-							'url': "kayttaja_handler.php?STATUS=lainattu",
+						/*$.ajax({
+							'url': "kayttaja_handler.php",
 							'method': 'GET',
-							data: {'STATUS' : 'lainattu'}
+							'data': {STATUS : 'lainattu'}
 							
 
 						}).done(function (data) {
 							$('#lainaustaulu').DataTable({
-								"data": data,
 								"columns": [
 									{"data": "ID"},
 									{"data": "LAITE_ID"},
@@ -98,7 +97,21 @@
 								]
 							})
 
-						})
+						})*/
+						
+						$("#lainaustaulu").DataTable({
+						ajax:{
+							url: 'kayttaja_handler.php',
+							dataSrc: '',
+							'data': {STATUS : 'lainattu'}
+						},					
+						"columns": [
+							{"data": "ID"},
+							{"data": "LAITE_ID"},
+							{"data": "ALKUPVM"},
+							{"data": "LOPPUPVM"}
+						]
+					});
 					}
 			
 			
@@ -117,21 +130,6 @@
 					}
 					});	
 					
-					
-					
-					
-					/*$("#varaustaulu").DataTable({
-						ajax:{
-							url: 'kayttaja_handler.php',
-							dataSrc: ''
-						},					
-						"columns": [
-							{"data": "ID"},
-							{"data": "LAITE_ID"},
-							{"data": "ALKUPVM"},
-							{"data": "LOPPUPVM"}
-						]
-					});*/
 				});
 				
 				
@@ -154,7 +152,7 @@
                         <th>ID</th>
                         <th>Laite ID</th>
                         <th>ALKUPVM</th>
-						<th>LOPPUPVM</th>  
+						<th>LOPPUPVM</th>    
                     </tr>
 
                 </thead>
