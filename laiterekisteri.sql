@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 18.11.2018 klo 11:56
+-- Generation Time: 24.11.2018 klo 15:41
 -- Palvelimen versio: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -90,6 +90,14 @@ CREATE TABLE IF NOT EXISTS `laite` (
   KEY `OMISTAJA_ID` (`OMISTAJA_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
+--
+-- Vedos taulusta `laite`
+--
+
+INSERT INTO `laite` (`LAITE_ID`, `LAITE_NIMI`, `MERKKI`, `KATEGORIA_ID`, `OMISTAJA_ID`, `MALLI`, `KUVAUS`, `SIJAINTI`) VALUES
+(1, 'Huawei Honor 9', 'Huawei', 1, 1, 'Honor', 'Erittäin kiva puhelin.', 'Kuopio'),
+(2, 'OnePlus 6', 'OnePlus', 1, 3, '6', 'Kivempi puhelin', 'Kuopio');
+
 -- --------------------------------------------------------
 
 --
@@ -132,7 +140,15 @@ CREATE TABLE IF NOT EXISTS `varaus` (
   PRIMARY KEY (`ID`),
   KEY `LAITE_ID` (`LAITE_ID`),
   KEY `ASIAKAS_TUNNUS` (`ASIAKAS_TUNNUS`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Vedos taulusta `varaus`
+--
+
+INSERT INTO `varaus` (`ID`, `LAITE_ID`, `ALKUPVM`, `LOPPUPVM`, `STATUS`, `ASIAKAS_TUNNUS`) VALUES
+(1, 1, '2018-11-08', '2018-11-06', 'varattu', 'Pekka'),
+(2, 2, '2018-11-20', '2018-11-22', 'lainattu', 'Pekka');
 
 --
 -- Rajoitteet vedostauluille
