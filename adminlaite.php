@@ -40,14 +40,14 @@
 							{"data": "MALLI"},
 							{"data": "KUVAUS"},
 							{"data": "SIJAINTI"},
-							{"defaultContent": '<button id="delete">Poista</button>'}
+							{"defaultContent": '<button id="delete" name="delete">Poista</button>'}
 						]
 					})
 
 				})
 			}
 				
-			function update_data(id, column_name, value) { //Muokkaa laitetta
+			/*function update_data(id, column_name, value) { //Muokkaa laitetta
             $.ajax({
                 url: "adminlaite_handler.php",
                 method: "GET",
@@ -69,10 +69,10 @@
             var value = $(this).text();
             update_data(id, column_name, value);
 			});
-
+*/
 			$('#lisaa').click(function () {
             var html = '<tr>';
-            html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Lisää</button></td>';
+            html += '<td><input type="submit" name="insert" id="insert" value="Lisää" class="btn btn-success btn-xs"></td>';
             html += '<td contenteditable id="data1"></td>';
             html += '<td contenteditable id="data2"></td>';
             html += '<td contenteditable id="data3"></td>';
@@ -86,29 +86,38 @@
 			});
 
 			$(document).on('click', '#insert', function () {
-            var LAITE_NIMI = $('#data1').text();
-            var MERKKI = $('#data2').text();
-            var KATEGORIA_ID = $('#data3').text();
-            var OMISTAJA_ID = $('#data4').text();
-            var MALLI = $('#data5').text();
-            var KUVAUS = $('#data6').text();
-			var SIJAINTI = $('#data7').text();
+            var laitenimi = $('#data1').text();
+            var merkki = $('#data2').text();
+            var kategoria = $('#data3').text();
+            var omistaja = $('#data4').text();
+            var malli = $('#data5').text();
+            var kuvaus = $('#data6').text();
+			var sijainti = $('#data7').text();
             
-            $.post("https://codez.savonia.fi/jussi/api/asiakas/lisaa.php", //KORJAA TÄMÄ
+			/*if (confirm("Lisätäänkö varmasti?")){
+				$.ajax({
+					url: "lisaa.php",
+					method: "POST"
+				});
+			}*/
+			
+			
+            $.post("lisaa.php", //KORJAA TÄMÄ
                 {
-                    nimi: Nimi,
-                    osoite: Osoite,
-                    postinro: Postinumero,
-                    postitmp: Postitoimipaikka,
-                    luontipvm: LuontiPVM,
-                    asty_avain: Avain
+                    LAITE_NIMI: laitenimi,
+                    MERKKI: merkki ,
+                    KATEGORIA_ID: kategoria ,
+                    OMISTAJA_ID: omistaja,
+                    MALLI: malli,
+                    KUVAUS: kuvaus,
+					SIJAINTI: sijainti
                 });
             $('#laitetaulu').DataTable().destroy();
             HaeData();
 			
 			 });
 			
-			$('#laitetaulu').on('click', '#delete', function () { //Laitteen poistaminen
+			/*$('#laitetaulu').on('click', '#delete', function () { //Laitteen poistaminen
             
             var LAITE_ID = $(this).closest('tr').find('td:eq(0)').text();
             if (confirm("Poistetaanko varmasti?")) {
@@ -126,14 +135,15 @@
                     $('#alert_message').html('');
                 }, 5000);
 				}
-			});
+			});*/
 			
 		});	
 			</script>
 </head>
 <body>
     <h1>Lisää, muokkaa tai poista laite</h1>
-	<input type="button" id="lisaa" name="Lisaa" value="Lisää uusi laite"/>  
+	<input type="button" id="lisaa" name="Lisaa" value="Lisää uusi laite"/> 
+	<form action="lisaa.php" method="post">
 	<div>
 		<table id="laitetaulu" name="laitetaulu" class="table table-bordered">
                 <thead>
@@ -153,6 +163,7 @@
 
             </table>
 	</div>
+	</form>
 	
 </body>
 </html>
