@@ -1,8 +1,31 @@
 <?php
 	session_start();
 	require_once("kirjaudu_utils.inc");
+	require_once("db.inc");
+	require_once("getpost.inc");
 	check_session();
+	global $conn;
 	
+	$query = "SELECT DISTINCT MERKKI FROM laite ORDER BY MERKKI ASC";
+	$merkki= $conn->prepare($query);
+	$merkki->execute();
+	
+
+	$query = "SELECT DISTINCT KATEGORIA_ID, KATEGORIA_NIMI FROM kategoria ORDER BY KATEGORIA_NIMI ASC";
+	$kategoria = $conn->prepare($query);
+	$kategoria->execute();
+	
+	$query = "SELECT DISTINCT OMISTAJA_ID, OMISTAJA_NIMI FROM omistaja ORDER BY OMISTAJA_NIMI ASC";
+	$omistaja= $conn->prepare($query);
+	$omistaja->execute();
+	
+	$query = "SELECT DISTINCT MALLI FROM laite ORDER BY MALLI ASC";
+	$malli= $conn->prepare($query);
+	$malli->execute();
+	
+	$query = "SELECT DISTINCT SIJAINTI FROM laite ORDER BY SIJAINTI ASC";
+	$sijainti= $conn->prepare($query);
+	$sijainti->execute();
 	
 ?>
 
@@ -45,12 +68,17 @@
 							{"data": "KUVAUS"},
 							{"data": "SIJAINTI"},
 							{"defaultContent": '<button id="varaa">Varaa</button>'}
-						]
+						],
+						  "columnDefs": [ {
+						  "targets": [ 0,1,2,3,4,5,6,7 ],
+						  "orderable": false
+						} ]
+
 					})
 
 				})
 			}
-			 function load_data(is_category){
+			 /*function load_data(is_category){
 	
 				  var dataTable = $('#laitetaulu').DataTable({
 				   "processing":true,
@@ -68,7 +96,7 @@
 					},
 				   ],
 				  });
-				 }
+				 }*/
 					
 					
 					
@@ -111,36 +139,58 @@
                         <th>
 							<select name="merkki">
 								<option value="">Merkki</option>
+							<?php
+							$value = 0;
+								while($rivi = $merkki->fetch(PDO::FETCH_ASSOC)){
+									echo utf8ize('<option value ="'.$value.'">'.$rivi["MERKKI"].'</option>');
+									$value++;
+								}
+							?>								
 							</select>
 						</th>
 						<th>
 						<select name="kategoria" id="kategoria">
 							<option value="">Kategoria</option>
-							<option value="1">puhelin</option>
-							<option value="2">tabletti</option>
-							<option value="3">kannettava tietokone</option>
-							<option value="4">älykello</option>
-							<option value="5">pöytäkone</option>
+							<?php
+								while($rivi = $kategoria->fetch(PDO::FETCH_ASSOC)){
+									echo utf8ize('<option value ="'.$rivi["KATEGORIA_ID"].'">'.$rivi["KATEGORIA_NIMI"].'</option>');
+								}
+							?>
 						</select>
 						</th>  
 						<th>
 							<select name="omistaja">
-								<option value="">Omistaja</option>
-								<option value="1">Gigantti</option>
-								<option value="2">Power</option>
-								<option value="3">DNA</option>
+							<option value="">Omistaja</option>
+							<?php
+								while($rivi = $omistaja->fetch(PDO::FETCH_ASSOC)){
+									echo utf8ize('<option value ="'.$rivi["OMISTAJA_ID"].'">'.$rivi["OMISTAJA_NIMI"].'</option>');
+								}
+							?>
 							</select>
 						</th>
 						<th>
 							<select name="malli">
 								<option value="">Malli</option>
+							<?php
+							$value = 0;
+								while($rivi = $malli->fetch(PDO::FETCH_ASSOC)){
+									echo utf8ize('<option value ="'.$value.'">'.$rivi["MALLI"].'</option>');
+									$value++;
+								}
+							?>								
 							</select>
 						</th>  
 						<th>Kuvaus</th>  
 						<th>
 							<select name="sijainti">
 								<option value="">Sijainti</option>
-								<option value="Kuopio">Kuopio</option>
+							<?php
+								$value = 0;
+								while($rivi = $sijainti->fetch(PDO::FETCH_ASSOC)){
+									echo utf8ize('<option value ="'.$value.'">'.$rivi["SIJAINTI"].'</option>');
+									$value++;
+								}
+							?>								
 							</select>
 						</th> 
 						<th></th> 

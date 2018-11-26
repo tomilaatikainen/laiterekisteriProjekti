@@ -282,4 +282,6 @@ function haeLaite($laite){
 	}
 	echo json_encode(utf8ize($result));
 }
+
+
 ?>

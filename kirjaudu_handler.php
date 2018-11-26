@@ -12,8 +12,18 @@
 		$_SESSION["tunnus"] = $asiakas["tunnus"];
 		$_SESSION["nimi"] = $asiakas["nimi"];
 		$_SESSION["salasana"] = $asiakas["salasana"];
-		header("Location: kayttaja.php");
-		exit();
+		
+			if($_SESSION["tunnus"] == 'Admin')
+			{
+				header("Location: adminlaite.php");
+				exit();
+			}
+			else
+			{
+				header("Location: kayttaja.php");
+				exit();
+			}
+
 		}
 
 		else
