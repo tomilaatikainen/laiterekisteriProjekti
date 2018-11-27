@@ -105,13 +105,9 @@
 			
 			//muokkaus alkaa
 			
-			$(document).on('#edit', function () { //Käyttäjä painaa muokkaa-nappia
+			$(document).on('click' ,'#edit', function () { //Käyttäjä painaa muokkaa-nappia
 				//insert killer kode here
-			});
-			
-			$(document).on('submit', function () { //Käyttäjä painaa tallenna-nappia
-            
-            var laiteid = $(this).closest('tr').find('td:eq(0)').text();
+			var laiteid = $(this).closest('tr').find('td:eq(0)').text();
 			$.ajax({ 
 				url:"fetch_single.php",
 				method: "POST",
@@ -130,6 +126,11 @@
 				}
 			
 			});
+			});
+			
+			$(document).on('submit', function () { //Käyttäjä painaa tallenna-nappia
+            
+
 		});	
 		
 		//muokkaus loppuu
