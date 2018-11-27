@@ -11,7 +11,7 @@
 			$stmt = $conn->prepare("SELECT * FROM laite WHERE LAITE_ID ='$laiteid'");
 			$stmt->execute();
 			while($rivi = $stmt->fetch(PDO::FETCH_ASSOC)){
-			$result[] = $rivi;
+			$result = $rivi;
 			}
 			
 		}

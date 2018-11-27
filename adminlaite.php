@@ -118,23 +118,58 @@
 				success: function(data)
 				{					
 					$('#myModal').modal('show');
-					$('#laiteid').val(data.LAITE_ID);
-					$('#laitenimi').val(data.LAITE_NIMI);
-					$('#merkki').val(data.MERKKI);
-					$('#kategoria').val(data.KATEGORIA_ID);
-					$('#omistaja').val(data.OMISTAJA_ID);
-					$('#malli').val(data.MALLI);
-					$('#kuvaus').val(data.KUVAUS);
-					$('#sijainti').val(data.SIJAINTI);
+					$('#LAITE_ID').val(data.LAITE_ID);
+					$('#LAITE_NIMI').val(data.LAITE_NIMI);
+					$('#MERKKI').val(data.MERKKI);
+					$('#KATEGORIA_ID').val(data.KATEGORIA_ID);
+					$('#OMISTAJA_ID').val(data.OMISTAJA_ID);
+					$('#MALLI').val(data.MALLI);
+					$('#KUVAUS').val(data.KUVAUS);
+					$('#SIJAINTI').val(data.SIJAINTI);
 				}
 			
 			});
 			});
 			
-			/*$(document).on('submit', function () { //Käyttäjä painaa tallenna-nappia
-            
-
-		});	*/
+			$(document).on('submit', '#user_form',  function (event) { //Käyttäjä painaa tallenna-nappia
+				event.preventDefault();
+				
+				var laitenimi = $('#LAITE_NIMI').val();
+				var laiteid = $('#LAITE_ID').val();
+				var merkki = $('#MERKKI').val();
+				var kategoria = $('#KATEGORIA_ID').val();
+				var omistaja = $('#OMISTAJA_ID').val();
+				var malli = $('#MALLI').val();
+				var kuvaus = $('#KUVAUS').val();
+				var sijainti = $('#SIJAINTI').val();
+				
+				
+				if(laitenimi != '' && merkki != '' && kategoria != '' && omistaja != '' && malli != '' && kuvaus != '' && sijainti != '')
+				{
+				
+				$.ajax({
+					url:"edit.php",
+					method: "POST",
+					data: new FormData(this),
+					contentType:false,
+					processData:false,
+					success:function(data)
+					{
+						alert(data);
+						$('#user_form')[0].reset();
+						$('#myModal').modal('hide');
+						$('#laitetaulu').DataTable().destroy();
+						HaeData();
+					}
+					
+				});
+				}
+				else
+				{
+					alert("TARKISTA KENTÄT!");
+				}
+				
+				});	
 		
 		//muokkaus loppuu
 		
@@ -176,32 +211,32 @@
         </div>
         <div class="modal-body">
 		
-		<form action="edit.php" method="post">
-          <label for="laitenimi">Laitenimi:</label>
-		  <input type="text" id="laitenimi" name="laitenimi" class="form-control"></br>
+		<form method="post" enctype="multipart/form-data" id="user_form">
+          <label for="LAITE_NIMI">Laitenimi:</label>
+		  <input type="text" id="LAITE_NIMI" name="laitenimi" class="form-control"></br>
 		  
-		  <label for="merkki">Merkki:</label>
-		  <input type="text" id="merkki" name="merkki" class="form-control"></br>
+		  <label for="MERKKI">Merkki:</label>
+		  <input type="text" id="MERKKI" name="merkki" class="form-control"></br>
 		  
-		  <label for="kategoria">Kategoria:</label>
-		  <input type="text" id="kategoria" name="kategoria" class="form-control"></br>
+		  <label for="KATEGORIA_ID">Kategoria:</label>
+		  <input type="text" id="KATEGORIA_ID" name="kategoria" class="form-control"></br>
 		  
-		  <label for="omistaja">Omistaja:</label>
-		  <input type="text" id="omistaja" name="omistaja" class="form-control"></br>
+		  <label for="OMISTAJA_ID">Omistaja:</label>
+		  <input type="text" id="OMISTAJA_ID" name="omistaja" class="form-control"></br>
 		  
-		  <label for="malli">Malli:</label>
-		  <input type="text" id="malli" name="malli" class="form-control"></br>
+		  <label for="MALLI">Malli:</label>
+		  <input type="text" id="MALLI" name="malli" class="form-control"></br>
 		  
-		  <label for="kuvaus">Kuvaus:</label>
-		  <input type="text" id="kuvaus" name="kuvaus" class="form-control"></br>
+		  <label for="KUVAUS">Kuvaus:</label>
+		  <input type="text" id="KUVAUS" name="kuvaus" class="form-control"></br>
 		  
-		  <label for="sijainti">Sijainti:</label>
-		  <input type="text" id="sijainti" name="sijainti" class="form-control"></br>
+		  <label for="SIJAINTI">Sijainti:</label>
+		  <input type="text" id="SIJAINTI" name="sijainti" class="form-control"></br>
 		  
         </div>
         <div class="modal-footer">
-			<input type="hidden" name="laiteid" id="laiteid" />
-          <button type="submit" name="tallenna" id="tallenna" class="btn btn-default">Tallenna</button>
+			<input type="hidden" name="LAITE_ID" id="LAITE_ID" />
+          <input type="submit" name="tallenna" id="tallenna" class="btn btn-default" value="Tallenna"/ >
 		  </form>
 		  
         </div>
