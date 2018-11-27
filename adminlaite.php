@@ -12,6 +12,7 @@
     <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
        
     </style>
@@ -40,36 +41,13 @@
 							{"data": "MALLI"},
 							{"data": "KUVAUS"},
 							{"data": "SIJAINTI"},
-							{"defaultContent": '<button id="delete" name="delete">Poista</button>'}
+							{"defaultContent": '<button id="delete" name="delete">Poista</button> <button id="edit" name="edit" data-toggle="modal" data-target="#myModal">Muokkaa</button>'}
 						]
 					})
 
 				})
 			}
 				
-			/*function update_data(id, column_name, value) { //Muokkaa laitetta
-            $.ajax({
-                url: "adminlaite_handler.php",
-                method: "GET",
-                data: { id: id, column_name: column_name, value: value },
-                success: function (data) {
-                    $('#alert_message').html('<div class="alert alert-success">' + data + '</div>');
-                    $('#user_data').DataTable().destroy();
-                    fetch_data();
-                }
-            });
-            setInterval(function () {
-                $('#alert_message').html('');
-            }, 5000);
-			}
-
-			$(document).on('blur', '.update', function () {
-            var id = $(this).data("id");
-            var column_name = $(this).data("column");
-            var value = $(this).text();
-            update_data(id, column_name, value);
-			});
-*/
 			$('#lisaa').click(function () {
             var html = '<tr>';
             html += '<td><input type="submit" name="insert" id="insert" value="Lisää" class="btn btn-success btn-xs"></td>';
@@ -94,15 +72,7 @@
             var kuvaus = $('#data6').text();
 			var sijainti = $('#data7').text();
             
-			/*if (confirm("Lisätäänkö varmasti?")){
-				$.ajax({
-					url: "lisaa.php",
-					method: "POST"
-				});
-			}*/
-			
-			
-            $.post("lisaa.php", //KORJAA TÄMÄ
+            $.post("lisaa.php", 
                 {
                     LAITE_NIMI: laitenimi,
                     MERKKI: merkki ,
@@ -110,40 +80,67 @@
                     OMISTAJA_ID: omistaja,
                     MALLI: malli,
                     KUVAUS: kuvaus,
-					SIJAINTI: sijainti
+					SIJAINTI: sijainti,
+					insert: ''
                 });
             $('#laitetaulu').DataTable().destroy();
             HaeData();
 			
 			 });
 			
-			/*$('#laitetaulu').on('click', '#delete', function () { //Laitteen poistaminen
+			$(document).on('click', '#delete', function () { //Laitteen poistaminen
             
-            var LAITE_ID = $(this).closest('tr').find('td:eq(0)').text();
+            var laiteid = $(this).closest('tr').find('td:eq(0)').text();
             if (confirm("Poistetaanko varmasti?")) {
-                $.ajax({
-                    url: "adminlaite_handler.php?LAITE_ID=" + LAITE_ID, //Muokkaa tätä(?)
-                    method: "GET",
-                    //data: { id: id },
-                    success: function (data) {
-                        $('#alert_message').html('<div class="alert alert-success">' + data + '</div>');
-                        $('#laitetaulu').DataTable().destroy();
-                        HaeData();
-                    }
+                
+				 $.post("poista.php", 
+                {
+                    LAITE_ID: laiteid,
+					poista: ''
                 });
-                setInterval(function () {
-                    $('#alert_message').html('');
-                }, 5000);
-				}
-			});*/
+            $('#laitetaulu').DataTable().destroy();
+            HaeData();
+			}
+			});
 			
+			//muokkaus alkaa
+			
+			$(document).on('#edit', function () { //Käyttäjä painaa muokkaa-nappia
+				//insert killer kode here
+			});
+			
+			$(document).on('submit', function () { //Käyttäjä painaa tallenna-nappia
+            
+            var laiteid = $(this).closest('tr').find('td:eq(0)').text();
+			$.ajax({ 
+				url:"fetch_single.php",
+				method: "POST",
+				data:{LAITE_ID: laiteid},
+				dataType: "json",
+				success: function(data)
+				{
+					$('#myModal').modal('show');
+					$('#laitenimi').val(data.laitenimi);
+					$('#merkki').val(data.merkki);
+					$('#kategoria').val(data.kategoria);
+					$('#omistaja').val(data.omistaja);
+					$('#malli').val(data.malli);
+					$('#kuvaus').val(data.kuvaus);
+					$('#sijainti').val(data.sijainti);
+				}
+			
+			});
 		});	
+		
+		//muokkaus loppuu
+		
+	});	
 			</script>
 </head>
 <body>
     <h1>Lisää, muokkaa tai poista laite</h1>
 	<input type="button" id="lisaa" name="Lisaa" value="Lisää uusi laite"/> 
-	<form action="lisaa.php" method="post">
+	
 	<div>
 		<table id="laitetaulu" name="laitetaulu" class="table table-bordered">
                 <thead>
@@ -163,7 +160,49 @@
 
             </table>
 	</div>
-	</form>
+	
+	<div class="modal fade" id="myModal" role="dialog">
+	  <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Muokkaa tietoja</h4>
+        </div>
+        <div class="modal-body">
+		
+		<form action="edit.php" method="post">
+          <label for="laitenimi">Laitenimi:</label>
+		  <input type="text" id="laitenimi"><br>
+		  
+		  <label for="merkki">Merkki:</label>
+		  <input type="text" id="merkki"><br>
+		  
+		  <label for="kategoria">Kategoria:</label>
+		  <input type="text" id="kategoria"><br>
+		  
+		  <label for="omistaja">Omistaja:</label>
+		  <input type="text" id="omistaja"><br>
+		  
+		  <label for="malli">Malli:</label>
+		  <input type="text" id="malli"><br>
+		  
+		  <label for="kuvaus">Kuvaus:</label>
+		  <input type="text" id="kuvaus"><br>
+		  
+		  <label for="sijainti">Sijainti:</label>
+		  <input type="text" id="sijainti"><br>
+		  
+        </div>
+        <div class="modal-footer">
+          <button type="submit" name="tallenna" id="tallenna" class="btn btn-default">Tallenna</button>
+		  </form>
+		  
+        </div>
+      </div>
+      
+	</div>
 	
 </body>
 </html>
