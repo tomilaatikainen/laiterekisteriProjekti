@@ -18,6 +18,7 @@
 		catch(PDOException $e) {
 		error_log("Error in fetch_single: " . $e->getMessage());
 	}
+	header('Content-Type: application/json');
 	echo json_encode (utf8ize($result));
 	}
 	

@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
     <style>
        
     </style>
@@ -114,24 +116,25 @@
 				data:{LAITE_ID: laiteid},
 				dataType: "json",
 				success: function(data)
-				{
+				{					
 					$('#myModal').modal('show');
-					$('#laitenimi').val(data.laitenimi);
-					$('#merkki').val(data.merkki);
-					$('#kategoria').val(data.kategoria);
-					$('#omistaja').val(data.omistaja);
-					$('#malli').val(data.malli);
-					$('#kuvaus').val(data.kuvaus);
-					$('#sijainti').val(data.sijainti);
+					$('#laiteid').val(data.LAITE_ID);
+					$('#laitenimi').val(data.LAITE_NIMI);
+					$('#merkki').val(data.MERKKI);
+					$('#kategoria').val(data.KATEGORIA_ID);
+					$('#omistaja').val(data.OMISTAJA_ID);
+					$('#malli').val(data.MALLI);
+					$('#kuvaus').val(data.KUVAUS);
+					$('#sijainti').val(data.SIJAINTI);
 				}
 			
 			});
 			});
 			
-			$(document).on('submit', function () { //Käyttäjä painaa tallenna-nappia
+			/*$(document).on('submit', function () { //Käyttäjä painaa tallenna-nappia
             
 
-		});	
+		});	*/
 		
 		//muokkaus loppuu
 		
@@ -162,7 +165,7 @@
             </table>
 	</div>
 	
-	<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal fade" id="myModal" name="myModal" role="dialog">
 	  <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -175,28 +178,29 @@
 		
 		<form action="edit.php" method="post">
           <label for="laitenimi">Laitenimi:</label>
-		  <input type="text" id="laitenimi"><br>
+		  <input type="text" id="laitenimi" name="laitenimi" class="form-control"></br>
 		  
 		  <label for="merkki">Merkki:</label>
-		  <input type="text" id="merkki"><br>
+		  <input type="text" id="merkki" name="merkki" class="form-control"></br>
 		  
 		  <label for="kategoria">Kategoria:</label>
-		  <input type="text" id="kategoria"><br>
+		  <input type="text" id="kategoria" name="kategoria" class="form-control"></br>
 		  
 		  <label for="omistaja">Omistaja:</label>
-		  <input type="text" id="omistaja"><br>
+		  <input type="text" id="omistaja" name="omistaja" class="form-control"></br>
 		  
 		  <label for="malli">Malli:</label>
-		  <input type="text" id="malli"><br>
+		  <input type="text" id="malli" name="malli" class="form-control"></br>
 		  
 		  <label for="kuvaus">Kuvaus:</label>
-		  <input type="text" id="kuvaus"><br>
+		  <input type="text" id="kuvaus" name="kuvaus" class="form-control"></br>
 		  
 		  <label for="sijainti">Sijainti:</label>
-		  <input type="text" id="sijainti"><br>
+		  <input type="text" id="sijainti" name="sijainti" class="form-control"></br>
 		  
         </div>
         <div class="modal-footer">
+			<input type="hidden" name="laiteid" id="laiteid" />
           <button type="submit" name="tallenna" id="tallenna" class="btn btn-default">Tallenna</button>
 		  </form>
 		  
