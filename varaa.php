@@ -33,30 +33,51 @@
 <head>
     <meta charset="utf-8" />
     <title>Varaa laite</title>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>  
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <style>
        
     </style>
 	
 		<script type="text/javascript">
-				$(document).ready(function(){
+		$(document).ready(function(){
 				
 			HaeData();
 				
-			var data;
+			//var data;
 				
-			function HaeData() { //Datan haku
+			function HaeData(hae_laite = '', hae_merkki = '' ,hae_kategoria = '', hae_omistaja= '', hae_malli = '', hae_sijainti = '') {
+				$('#laitetaulu').DataTable({
+					"processing" : true,
+					"serverSide" : true,
+					"order" : [],
+					"searching" : false,
 				$.ajax({
-					'url': "varaa_handler.php",
-					'method': 'GET'
 
-				}).done(function (data) {
+					url: "fetch.php",
+					type: 'POST',
+					data:{
+						hae_laite:hae_laite,
+						hae_merkki:hae_merkki,
+						hae_kategoria:hae_kategoria,
+						hae_omistaja:hae_omistaja,
+						hae_malli:hae_malli,
+						hae_sijainti:hae_sijainti
+					}
+
+				});					
+			});
+			}	
+
+				
+				
+				/*.done(function (data) {
 					$('#laitetaulu').DataTable({
+
 						"data": data,
 						"columns": [
 							{"data": "LAITE_ID"},
@@ -76,123 +97,102 @@
 
 					})
 
-				})
+				})*/
 			}
-			 /*function load_data(is_category){
-	
-				  var dataTable = $('#laitetaulu').DataTable({
-				   "processing":true,
-				   "serverSide":true,
-				   "order":[],
-				   "ajax":{
-					url:"fetch.php",
-					type:"POST",
-					data:{is_category:is_category}
-					},
-				   "columnDefs":[
-					{
-					 "targets":[2],
-					 "orderable":false,
-					},
-				   ],
-				  });
-				 }*/
-					
-					
-					
-					
-					/*$("#laitetaulu").DataTable({
-						ajax:{
-							url: 'varaa_handler.php',
-							dataSrc: ''
-						},					
-						"columns": [
-							{"data": "LAITE_ID"},
-							{"data": "LAITE_NIMI"},
-							{"data": "MERKKI"},
-							{"data": "KATEGORIA_ID"},
-							{"data": "OMISTAJA_ID"},
-							{"data": "MALLI"},
-							{"data": "KUVAUS"},
-							{"data": "SIJAINTI"}
-						]
-					});*/
-				});
+			
+			$('#hae').click(function(){
+				var hae_laite = $('#nimi').val();
+				var hae_merkki = $('#merkki').val();
+				var hae_kategoria = $('#kategoria').val();
+				var hae_omistaja = $('#omistaja').val();
+				var hae_malli = $('#malli').val();
+				var hae_sijainti = $('#sijainti').val();
+				
+				$('#laitetaulu').DataTable().destroy();
+				haeData(hae_laite,hae_merkki,hae_kategoria,hae_omistaja,hae_malli,hae_sijainti);
+				
+			})
+		});
 				
 				
 			</script>
 </head>
 <body>
-<form id="form_varaa" action="varaa_handler.php" method="post">
     <div>
 		<h1>Varaa laite</h1>
+		<label for="nimi">Laitenimi:</label>
+		<input type="text" name="nimi" id="nimi"/>
 		
-		Nimi <input type="text" name="nimi" /><br />
+		<label for="merkki">Merkki:</label>
+		<select name="merkki" id="merkki">
+				<option value="">Merkki</option>
+					<?php
+						$value = 0;
+						while($rivi = $merkki->fetch(PDO::FETCH_ASSOC)){
+							echo utf8ize('<option value ="'.$rivi["MERKKI"].'">'.$rivi["MERKKI"].'</option>');
+							$value++;
+							}
+					?>								
+			 </select>
+			 
+		<label for="kategoria">Kategoria:</label>
+		<select name="kategoria" id="kategoria">
+					<option value="">Kategoria</option>
+						<?php
+							while($rivi = $kategoria->fetch(PDO::FETCH_ASSOC)){
+								echo utf8ize('<option value ="'.$rivi["KATEGORIA_ID"].'">'.$rivi["KATEGORIA_NIMI"].'</option>');
+								}
+						?>
+				</select>	
+
+				<label for="omistaja">Omistaja:</label>
+				<select name="omistaja" id="omistaja">
+					<option value="">Omistaja</option>
+						<?php
+							while($rivi = $omistaja->fetch(PDO::FETCH_ASSOC)){
+								echo utf8ize('<option value ="'.$rivi["OMISTAJA_ID"].'">'.$rivi["OMISTAJA_NIMI"].'</option>');
+								}
+						?>
+				</select>
+				
+				<label for="nalli">Malli:</label>
+				<select name="malli" id="malli">
+					<option value="">Malli</option>
+						<?php
+							$value = 0;
+							while($rivi = $malli->fetch(PDO::FETCH_ASSOC)){
+								echo utf8ize('<option value ="'.$rivi["MALLI"].'">'.$rivi["MALLI"].'</option>');
+								$value++;
+								}
+						?>								
+				</select>
+				
+				<label for="sijainti">Sijainti:</label>
+				<select name="sijainti" id="sijainti">
+					<option value="">Sijainti</option>
+						<?php
+							$value = 0;
+							while($rivi = $sijainti->fetch(PDO::FETCH_ASSOC)){
+							echo utf8ize('<option value ="'.$rivi["SIJAINTI"].'">'.$rivi["SIJAINTI"].'</option>');
+							$value++;
+							}
+						?>								
+				</select>	
+
+			<button id="hae" name="hae" class="btn btn-info" type="button">Hae</button>	
     </div>
-	</form>
 	<div>
 		<table id="laitetaulu" name="laitetaulu" class="table table-bordered">
                 <thead>
 					<tr>
                         <th>ID</th>
                         <th>Nimi</th>
-                        <th>
-							<select name="merkki">
-								<option value="">Merkki</option>
-							<?php
-							$value = 0;
-								while($rivi = $merkki->fetch(PDO::FETCH_ASSOC)){
-									echo utf8ize('<option value ="'.$value.'">'.$rivi["MERKKI"].'</option>');
-									$value++;
-								}
-							?>								
-							</select>
-						</th>
-						<th>
-						<select name="kategoria" id="kategoria">
-							<option value="">Kategoria</option>
-							<?php
-								while($rivi = $kategoria->fetch(PDO::FETCH_ASSOC)){
-									echo utf8ize('<option value ="'.$rivi["KATEGORIA_ID"].'">'.$rivi["KATEGORIA_NIMI"].'</option>');
-								}
-							?>
-						</select>
-						</th>  
-						<th>
-							<select name="omistaja">
-							<option value="">Omistaja</option>
-							<?php
-								while($rivi = $omistaja->fetch(PDO::FETCH_ASSOC)){
-									echo utf8ize('<option value ="'.$rivi["OMISTAJA_ID"].'">'.$rivi["OMISTAJA_NIMI"].'</option>');
-								}
-							?>
-							</select>
-						</th>
-						<th>
-							<select name="malli">
-								<option value="">Malli</option>
-							<?php
-							$value = 0;
-								while($rivi = $malli->fetch(PDO::FETCH_ASSOC)){
-									echo utf8ize('<option value ="'.$value.'">'.$rivi["MALLI"].'</option>');
-									$value++;
-								}
-							?>								
-							</select>
-						</th>  
+                        <th>Merkki</th>
+						<th>Kategoria</th>  
+						<th>Omistaja</th>
+						<th>Malli</th>  
 						<th>Kuvaus</th>  
-						<th>
-							<select name="sijainti">
-								<option value="">Sijainti</option>
-							<?php
-								$value = 0;
-								while($rivi = $sijainti->fetch(PDO::FETCH_ASSOC)){
-									echo utf8ize('<option value ="'.$value.'">'.$rivi["SIJAINTI"].'</option>');
-									$value++;
-								}
-							?>								
-							</select>
-						</th> 
+						<th>Sijainti</th> 
 						<th></th> 
                     </tr>
 

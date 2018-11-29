@@ -260,13 +260,13 @@ function haeLaite($laite){
 	$result = array();
 	
 	try {
-		$q = "SELECT * FROM laite WHERE 1=1 ";
+		$q = "SELECT * FROM laite WHERE 1=1";
 		if ( !empty($nimi) ) $q .= " AND LAITE_NIMI like '%$nimi%'";
-		if ( !empty($malli) ) $q .= " AND MALLI like '%$malli%'";
-		if ( !empty($merkki) ) $q .= " AND MERKKI like '%$merkki%'";
-		if ( !empty($sijainti) ) $q .= " AND SIJAINTI like '%$sijainti%'";
-		if ( !empty($omistaja) ) $q .= " AND OMISTAJA_ID like '%$omistaja%'";
-		if ( !empty($kategoria) ) $q .= " AND KATEGORIA_ID like '%$kategoria%'";
+		if ( !empty($malli) ) $q .= " AND MALLI='$malli'";
+		if ( !empty($merkki) ) $q .= " AND MERKKI='$merkki'";
+		if ( !empty($sijainti) ) $q .= " AND SIJAINTI='$sijainti'";
+		if ( !empty($omistaja) ) $q .= " AND OMISTAJA_ID= $omistaja";
+		if ( !empty($kategoria) ) $q .= " AND KATEGORIA_ID=$kategoria";
 		
 		$stmt = $conn->prepare($q);
 		$stmt->execute();
@@ -283,5 +283,19 @@ function haeLaite($laite){
 	echo json_encode(utf8ize($result));
 }
 
+/*function filterLaite($laite){
+	$nimi = $laite["hae_laite"];
+	$malli = $laite["hae_malli"];
+	$merkki = $laite["hae_merkki"];
+	$sijainti = $laite["hae_sijainti"];
+	$omistaja = $laite["hae_omistaja"];
+	$kategoria = $laite["hae_kategoria"];
+	
+	global $conn;
+	
+	$query = "SELECT * FROM laite WHERE 1=1";
+	
+	if ( !empty($nimi) ) $q .= " AND LAITE_NIMI like '%$nimi%'";
+}*/
 
 ?>

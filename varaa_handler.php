@@ -2,13 +2,14 @@
 	session_start();
 	require_once("database_utils.inc");
 	require_once("getpost.inc");
-
-	$laite["nimi"] = parsePost("nimi");
-	$laite["malli"] = parsePost("malli");
-	$laite["merkki"] = parsePost("merkki");
-	$laite["sijainti"] = parsePost("sijainti");
-	$laite["omistaja"] = parsePost("omistaja");
-	$laite["kategoria"] = parsePost("kategoria");
+	
+	error_log("Ei tule tanne lolololol laite:". $_POST['hae_laite']);
+	$laite["nimi"] = parsePost("hae_laite");
+	$laite["malli"] = parsePost("hae_malli");
+	$laite["merkki"] = parsePost("hae_merkki");
+	$laite["sijainti"] = parsePost("hae_sijainti");
+	$laite["omistaja"] = parsePost("hae_omistaja");
+	$laite["kategoria"] = parsePost("hae_kategoria");
 	
 	haeLaite($laite);
 	
