@@ -3,6 +3,8 @@
 	require_once("kirjaudu_utils.inc");
 	require_once("db.inc");
 	require_once("getpost.inc");
+	require 'filterLaite.php';
+	require 'laiteConn.php';
 	check_session();
 	global $conn;
 	
@@ -10,7 +12,6 @@
 	$merkki= $conn->prepare($query);
 	$merkki->execute();
 	
-
 	$query = "SELECT DISTINCT KATEGORIA_ID, KATEGORIA_NIMI FROM kategoria ORDER BY KATEGORIA_NIMI ASC";
 	$kategoria = $conn->prepare($query);
 	$kategoria->execute();
@@ -33,93 +34,23 @@
 <head>
     <meta charset="utf-8" />
     <title>Varaa laite</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>  
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
     <style>
-       
     </style>
 	
-		<script type="text/javascript">
-		$(document).ready(function(){
-				
-			HaeData();
-				
-			//var data;
-				
-			function HaeData(hae_laite = '', hae_merkki = '' ,hae_kategoria = '', hae_omistaja= '', hae_malli = '', hae_sijainti = '') {
-				$('#laitetaulu').DataTable({
-					"processing" : true,
-					"serverSide" : true,
-					"order" : [],
-					"searching" : false,
-				$.ajax({
-
-					url: "fetch.php",
-					type: 'POST',
-					data:{
-						hae_laite:hae_laite,
-						hae_merkki:hae_merkki,
-						hae_kategoria:hae_kategoria,
-						hae_omistaja:hae_omistaja,
-						hae_malli:hae_malli,
-						hae_sijainti:hae_sijainti
-					}
-
-				});					
-			});
-			}	
-
-				
-				
-				/*.done(function (data) {
-					$('#laitetaulu').DataTable({
-
-						"data": data,
-						"columns": [
-							{"data": "LAITE_ID"},
-							{"data": "LAITE_NIMI"},
-							{"data": "MERKKI"},
-							{"data": "KATEGORIA_ID"},
-							{"data": "OMISTAJA_ID"},
-							{"data": "MALLI"},
-							{"data": "KUVAUS"},
-							{"data": "SIJAINTI"},
-							{"defaultContent": '<button id="varaa">Varaa</button>'}
-						],
-						  "columnDefs": [ {
-						  "targets": [ 0,1,2,3,4,5,6,7 ],
-						  "orderable": false
-						} ]
-
-					})
-
-				})*/
-			}
-			
-			$('#hae').click(function(){
-				var hae_laite = $('#nimi').val();
-				var hae_merkki = $('#merkki').val();
-				var hae_kategoria = $('#kategoria').val();
-				var hae_omistaja = $('#omistaja').val();
-				var hae_malli = $('#malli').val();
-				var hae_sijainti = $('#sijainti').val();
-				
-				$('#laitetaulu').DataTable().destroy();
-				haeData(hae_laite,hae_merkki,hae_kategoria,hae_omistaja,hae_malli,hae_sijainti);
-				
-			})
-		});
-				
-				
-			</script>
 </head>
+
 <body>
-    <div>
-		<h1>Varaa laite</h1>
+<form action="" method="GET">
+
+<div>
+
+<h1>Varaa laite</h1>
 		<label for="nimi">Laitenimi:</label>
 		<input type="text" name="nimi" id="nimi"/>
 		
@@ -179,27 +110,44 @@
 						?>								
 				</select>	
 
-			<button id="hae" name="hae" class="btn btn-info" type="button">Hae</button>	
-    </div>
-	<div>
-		<table id="laitetaulu" name="laitetaulu" class="table table-bordered">
-                <thead>
-					<tr>
-                        <th>ID</th>
-                        <th>Nimi</th>
-                        <th>Merkki</th>
-						<th>Kategoria</th>  
-						<th>Omistaja</th>
-						<th>Malli</th>  
-						<th>Kuvaus</th>  
-						<th>Sijainti</th> 
-						<th></th> 
-                    </tr>
+</div>
 
-                </thead>
 
-            </table>
-	</div>
+<input type="submit" name="search" value="Hae">
+
+        <table border=1 cellpadding="5">
+        <tr>
+        <th>ID</th>
+        <th>Nimi</th>
+        <th>Merkki</th>
+        <th>Kategoria</th>
+        <th>Omistaja</th>
+        <th>Malli</th>
+        <th>Kuvaus</th>
+		<th>Sijainti</th>
+        </tr>
+		
+		<?php
+if (isset($_GET['search'])) { // jos Hae- nappia painettu
+    $nimi = $_GET['nimi'];
+    $merkki = $_GET['merkki'];
+    $kategoria = $_GET['kategoria'];
+    $omistaja = $_GET['omistaja'];
+    $malli = $_GET['malli'];
+    $sijainti = $_GET['sijainti'];
+    // sijoitetaan muuttujat sessioon
+    $_SESSION['n'] = $nimi;
+    $_SESSION['me'] = $merkki;
+    $_SESSION['ka'] = $kategoria;
+    $_SESSION['o'] = $omistaja;
+    $_SESSION['ma'] = $malli;
+    $_SESSION['s'] = $sijainti;
+    // kutsutaan funktiota, joka hakee hakuehtojen mukaiset laitteet
+    getLaite($_SESSION['n'], $_SESSION['me'], $_SESSION['ka'], $_SESSION['o'], $_SESSION['ma'], $_SESSION['s'],$con);
+}
+?>
+	</table>
+	</form>
 	
 </body>
 </html>
