@@ -34,8 +34,7 @@ function getLaite($nimi, $merkki, $kategoria, $omistaja, $malli, $sijainti, $con
                 $row['OMISTAJA_ID'] . '</td><td>' .
                 $row['MALLI'] . '</td><td>' .
                 $row['KUVAUS'] . '</td><td>' .
-                $row['SIJAINTI'] . '</td><td><button id=' .
-				$row['LAITE_ID'] . '">Varaa</button></td>';
+                $row['SIJAINTI'] . '</td><td><input type="button" id="varaa" name="varaa" value="Varaa"/></td>';
             echo '</tr>';
         }
     } else { // virheen sattuessa

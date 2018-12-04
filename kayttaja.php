@@ -61,43 +61,9 @@
 						]
 					});	
 
-					//Datan haku
-				/*$.ajax({
-					'url': "kayttaja_handler.php",
-					'method': 'GET',
-					'data': {STATUS: 'varattu'}
-
-				}).done(function (data) {
-					$('#varaustaulu').DataTable({
-						"columns": [
-							{"data": "ID"},
-							{"data": "LAITE_ID"},
-							{"data": "ALKUPVM"},
-							{"data": "LOPPUPVM"}
-						]
-					})
-
-				})*/
 			}
 			
 						function HaeLainausData() { //Datan haku
-						/*$.ajax({
-							'url': "kayttaja_handler.php",
-							'method': 'GET',
-							'data': {STATUS : 'lainattu'}
-							
-
-						}).done(function (data) {
-							$('#lainaustaulu').DataTable({
-								"columns": [
-									{"data": "ID"},
-									{"data": "LAITE_ID"},
-									{"data": "ALKUPVM"},
-									{"data": "LOPPUPVM"}
-								]
-							})
-
-						})*/
 						
 						$("#lainaustaulu").DataTable({
 						ajax:{
@@ -116,7 +82,6 @@
 			
 			
 					$("#lainatCheckbox").change( function(){					
-					//var id = parseInt($(this).val(),10);
 					if(this.checked) {
 						// checkbox is checked -> do something
 						HaeLainausData();

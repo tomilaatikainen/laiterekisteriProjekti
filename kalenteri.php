@@ -1,6 +1,22 @@
 <?php
+	session_start();
+	require_once("kirjaudu_utils.inc");
+	check_session();
 	
+	$id = $_SESSION['id'];
+	$nimi = $_SESSION['nimi']; 
+	$merkki = $_SESSION['merkki']; 
+	$kategoria = $_SESSION['kategoria']; 
+	$omistaja = $_SESSION['omistaja'];  
+	$malli = $_SESSION['malli'];
+	$kuvaus = $_SESSION['kuvaus'];
+	$sijainti = $_SESSION['sijainti'];
+	echo "<label>$nimi</label></br>";
+	echo "<label>$kategoria</label></br>";
+	echo "<label>$omistaja</label></br>";
+	echo "<label>$sijainti</label>";
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -57,6 +73,8 @@
 	
 </head>
 <body>	
+	<p value="$nimi"></p>
+	
 	<p>Alkupvm: <input type="text" id="alkupvm"></p>
 	<p>Loppupvm: <input type="text" id="loppupvm"></p>
 </body>

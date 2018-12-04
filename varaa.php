@@ -62,11 +62,43 @@
 		color: white;
 	}
     </style>
+	<script type="text/javascript">
 	
+			$(document).on('click' ,'#varaa', function () { //Käyttäjä painaa varaa-nappia           
+            var laiteid = $(this).closest('tr').find('td:eq(0)').text();
+                
+				 $.post("fetch_varaus.php", 
+                {
+                    LAITE_ID: laiteid,
+					varaa: ''
+                });
+
+			
+			/*var laiteid = $(this).closest('tr').find('td:eq(0)').text();
+			$.ajax({ 
+				url:"fetch_single.php",
+				method: "POST",
+				data:{LAITE_ID: laiteid},
+				dataType: "json",
+				success: function(data)
+				{					
+					$lid = data.LAITE_ID;
+					$ni = data.LAITE_NIMI;
+					$merk = data.MERKKI;
+					$kate = data.KATEGORIA_ID;
+					$om = data.OMISTAJA_ID;
+					$mal = data.MALLI;
+					$kuv = data.KUVAUS;
+					$sij = data.SIJAINTI;
+				}
+			
+			});*/
+			});
+	</script>
 </head>
 
 <body>
-<form action="" method="GET">
+<form action="" method="GET" id="hae_form">
 
 <div>
 
@@ -106,7 +138,7 @@
 						?>
 				</select>
 				
-				<label for="nalli">Malli:</label>
+				<label for="malli">Malli:</label>
 				<select name="malli" id="malli">
 					<option value="">Malli</option>
 						<?php
@@ -134,6 +166,8 @@
 
 
 <input type="submit" name="search" value="Hae">
+</form>
+
 
         <table id="laitetaulu" border=1 cellpadding="5">
         <tr>
@@ -164,10 +198,12 @@ if (isset($_GET['search'])) { // jos Hae- nappia painettu
     $_SESSION['s'] = $sijainti;
     // kutsutaan funktiota, joka hakee hakuehtojen mukaiset laitteet
     getLaite($_SESSION['n'], $_SESSION['me'], $_SESSION['ka'], $_SESSION['o'], $_SESSION['ma'], $_SESSION['s'],$con);
-}
-?>
-	</table>
-	</form>
+	 
 	
+}
+
+?>
+
+		</table>
 </body>
 </html>
