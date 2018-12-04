@@ -41,6 +41,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
     <style>
+		#laitetaulu {
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	#laitetaulu td, #laitetaulu th {
+		border: 1px solid #ddd;
+		padding: 8px;
+	}
+
+	#laitetaulu tr:nth-child(even){background-color: #f2f2f2;}
+
+	#laitetaulu th {
+		padding-top: 12px;
+		padding-bottom: 12px;
+		text-align: left;
+		background-color: #4CAF50;
+		color: white;
+	}
     </style>
 	
 </head>
@@ -115,7 +135,7 @@
 
 <input type="submit" name="search" value="Hae">
 
-        <table border=1 cellpadding="5">
+        <table id="laitetaulu" border=1 cellpadding="5">
         <tr>
         <th>ID</th>
         <th>Nimi</th>
