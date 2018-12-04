@@ -23,7 +23,7 @@ function luoAsiakas($asiakas){
 	catch(PDOException $e) {
 		$result = array("status" => "not ok", "error" => $e->getMessage());
 		// Kirjoittaa virheviestin PHP:n error lokiin (löytyy WAMP:n ikonin alta PHP -> PHP error log)
-		error_log("Error in createAsiakas: " . $e->getMessage());
+		error_log("Error in luoAsiakas: " . $e->getMessage());
 	}
 	return $result;
 }
@@ -60,7 +60,7 @@ function tarkistaAsiakas($asiakas)
 		
 	}
 	catch(PDOException $e) {		
-		error_log("Error in fetchAsiakas: " . $e->getMessage());
+		error_log("Error in tarkistaAsiakas: " . $e->getMessage());
 		$result = 0;
 	}
 	
@@ -97,7 +97,7 @@ function haeAsiakas($asiakas)
 
 		catch(PDOException $e) {
 		$result = array("status" => "not ok", "error" => $e->getMessage());
-		error_log("Error in fetchAsiakas: " . $e->getMessage());
+		error_log("Error in haeAsiakas: " . $e->getMessage());
 	}
 
 	return $result;	
@@ -152,7 +152,7 @@ function tarkistaRekis($asiakas)
 
 	}
 	catch(PDOException $e) {		
-		error_log("Error in fetchAsiakas: " . $e->getMessage());
+		error_log("Error in tarkistaRekis: " . $e->getMessage());
 	}
 
 }
@@ -183,7 +183,7 @@ function haeVaraukset($asiakas)
 	catch(PDOException $e)
 	{	
 	$result = array("status" => "not ok", "error" => $e->getMessage());
-	error_log("Error in fetchAsiakas: " . $e->getMessage());
+	error_log("Error in haeVaraukset: " . $e->getMessage());
 	}
 	
 	echo json_encode(utf8ize($result));
@@ -213,7 +213,7 @@ function tuoNimi($asiakas) //tuo nimen "Muokkaa tietoja" -sivulle
 	catch(PDOException $e)
 	{	
 	$result = array("status" => "not ok", "error" => $e->getMessage());
-	error_log("Error in fetchAsiakas: " . $e->getMessage());
+	error_log("Error in tuoNimi: " . $e->getMessage());
 	}
 	
 	echo json_encode(utf8ize($un));
@@ -240,10 +240,7 @@ function muutaAsiakas($asiakas) //asiakas muokkaa omia tietojaan
 	}
 	
 	catch(PDOException $e) {		
-		error_log("Error in fetchAsiakas: " . $e->getMessage());
-		echo"<script type='text/javascript'>alert('catchiin meni :D');
-			location='muokkaa.php';
-			</script>";
+		error_log("Error in muutaAsiakas: " . $e->getMessage());
 	}
 	return $result;
 }
@@ -283,19 +280,5 @@ function haeLaite($laite){
 	echo json_encode(utf8ize($result));
 }
 
-/*function filterLaite($laite){
-	$nimi = $laite["hae_laite"];
-	$malli = $laite["hae_malli"];
-	$merkki = $laite["hae_merkki"];
-	$sijainti = $laite["hae_sijainti"];
-	$omistaja = $laite["hae_omistaja"];
-	$kategoria = $laite["hae_kategoria"];
-	
-	global $conn;
-	
-	$query = "SELECT * FROM laite WHERE 1=1";
-	
-	if ( !empty($nimi) ) $q .= " AND LAITE_NIMI like '%$nimi%'";
-}*/
 
 ?>
