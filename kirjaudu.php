@@ -16,13 +16,36 @@
         #form_login {
             margin: 0 auto;
             border: 3px solid black;
-            width: 400px;
-            height: 250px;
+			border-radius: 20px;
+            width: 500px;
+            height: 400px;
         }
 
         #div_login {
             margin-left: 20px;
+			margin-right: 20px;
         }
+		
+		input[type=text], input[type=password] {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		box-sizing: border-box;
+		}
+		
+		input[type=submit] {
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		cursor: pointer;
+		width: 100%;
+		}
+
+
     </style>
 </head>
 <body>	
