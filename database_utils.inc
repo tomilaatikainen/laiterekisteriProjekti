@@ -28,6 +28,30 @@ function luoAsiakas($asiakas){
 	return $result;
 }
 
+function luoVaraus($laite){
+	
+	global $conn;
+	$result = "OK";
+	
+	$laiteid = $laite["laiteid"];
+	$alkupvm = $laite["alkupvm"];
+	$loppupvm = $laite["loppupvm"];
+	$status = $laite["status"];
+	$tunnus = $laite["tunnus"];
+	
+	try
+	{
+		$stmt = $conn->prepare("INSERT INTO varaus(LAITE_ID,ALKUPVM,LOPPUPVM,STATUS,ASIAKAS_TUNNUS)VALUES('$laiteid','$alkupvm','$loppupvm','$status','$tunnus')");
+
+		$stmt->execute();
+	}
+	catch(PDOException $e) {
+		$result = array("status" => "not ok", "error" => $e->getMessage());
+		error_log("Error in luoVaraus: " . $e->getMessage());
+	}
+	return $result;
+	
+}
 
 function tarkistaAsiakas($asiakas)
 {
@@ -279,6 +303,7 @@ function haeLaite($laite){
 	}
 	echo json_encode(utf8ize($result));
 }
+
 
 
 ?>

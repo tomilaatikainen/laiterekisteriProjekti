@@ -11,6 +11,7 @@
 	$malli = $_SESSION['malli'];
 	$kuvaus = $_SESSION['kuvaus'];
 	$sijainti = $_SESSION['sijainti'];
+	$tunnus = $_SESSION['tunnus'];
 	echo "<label>$nimi</label></br>";
 	echo "<label>$kategoria</label></br>";
 	echo "<label>$omistaja</label></br>";
@@ -49,7 +50,7 @@
                     dayNames: ["Sunnuntai", "Maanantai", "Tiistai", "Keskiviikko", "Torstai", "Perjantai", "Lauantai"],
                     dayNamesMin: ["Su", "Ma", "Ti", "Ke", "To", "Pe", "La"],
                     weekHeader: "Vk",
-                    dateFormat: "d.m.yy",
+                    dateFormat: "yy-m-d",
                     firstDay: 1,
                     isRTL: false,
                     showMonthAfterYear: false,
@@ -66,16 +67,39 @@
 	} );
 	
 	
-	
+	$(document).on('click' ,'#hyvaksy', function () {
+	//("#hyvaksy").click(function () {
+		 
+		var laiteid = $('#id').text();
+		var pvmalku = $(".datepiker[name=alkupvm]").datepicker('getDate');
+		var pvmloppu = $(".datepiker[name=alkupvm]").datepicker('getDate');
+		var tunnus = $('#tunnus').text();
+		
+		 $.post("kalenteri_handler.php", 
+                {
+                    LAITE_ID: laiteid,
+					ALKUPVM: pvmalku,
+					LOPPUPVM: pvmloppu,
+					STATUS: 'varattu',
+					ASIAKAS_TUNNUS: tunnus,
+					hyvaksy: ''
+                });
+
+				//document.location = 'kalenteri.php';
+	});
 	
   });
   </script>
 	
 </head>
 <body>	
-	<p value="$nimi"></p>
 	
-	<p>Alkupvm: <input type="text" id="alkupvm"></p>
-	<p>Loppupvm: <input type="text" id="loppupvm"></p>
+	<input type="text" id="id" name="id" value="<?php echo $id; ?>"/>
+	<input type="text" id="tunnus" name="tunnus" value="<?php echo $tunnus; ?>"/>
+	
+	<p>Alkupvm: <input type="text" id="alkupvm" name="alkupvm"></p>
+	<p>Loppupvm: <input type="text" id="loppupvm" name="loppupvm"></p>
+	<input type="button" id="hyvaksy" name="hyvaksy" value="Hyväksy varaus"/>
+	
 </body>
 </html>

@@ -9,8 +9,6 @@ ob_start();
 	//error_log("asdasdasdads:". $_POST["LAITE_ID"]);
 	if(isset($_POST["varaa"]))
 	{
-		echo "<script type='text/javascript'> document.location = 'kalenteri.php'; </script>";
-		header("Location: kalenteri.php");
 		$laiteid = $_POST["LAITE_ID"];
 		try
 		{
