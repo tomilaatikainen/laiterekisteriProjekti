@@ -32,7 +32,7 @@
         
     </style>
 	
-	  <script>
+	  <script type="text/javascript">
   $(document).ready(function () {
   
   $( function() {
@@ -70,10 +70,10 @@
 	$(document).on('click' ,'#hyvaksy', function () {
 	//("#hyvaksy").click(function () {
 		 
-		var laiteid = $('#id').text();
-		var pvmalku = $(".datepiker[name=alkupvm]").datepicker('getDate');
-		var pvmloppu = $(".datepiker[name=alkupvm]").datepicker('getDate');
-		var tunnus = $('#tunnus').text();
+		var laiteid = $('#id').val();
+		var pvmalku = $("#alkupvm").datepicker('getDate');
+		var pvmloppu = $("#loppupvm").datepicker('getDate');
+		var tunnus = $('#tunnus').val();
 		
 		 $.post("kalenteri_handler.php", 
                 {
@@ -83,9 +83,12 @@
 					STATUS: 'varattu',
 					ASIAKAS_TUNNUS: tunnus,
 					hyvaksy: ''
-                });
-
-				//document.location = 'kalenteri.php';
+                })
+				
+				.done(function() {
+					//document.location = 'kayttaja.php';
+				});
+				
 	});
 	
   });
@@ -93,6 +96,7 @@
 	
 </head>
 <body>	
+	
 	
 	<input type="text" id="id" name="id" value="<?php echo $id; ?>"/>
 	<input type="text" id="tunnus" name="tunnus" value="<?php echo $tunnus; ?>"/>

@@ -9,6 +9,7 @@ ob_start();
 	//error_log("asdasdasdads:". $_POST["LAITE_ID"]);
 	if(isset($_POST["varaa"]))
 	{
+		//error_log("menee postiin". $_POST["LAITE_ID"]);
 		$laiteid = $_POST["LAITE_ID"];
 		try
 		{
@@ -22,7 +23,8 @@ ob_start();
 			$_SESSION['omistaja']=$rivi["OMISTAJA_ID"]; 
 			$_SESSION['malli']=$rivi["MALLI"];
 			$_SESSION['kuvaus']=$rivi["KUVAUS"];
-			$_SESSION['sijainti']=$rivi["SIJAINTI"]; 
+			$_SESSION['sijainti']=$rivi["SIJAINTI"];
+			
 			}
 			
 		}

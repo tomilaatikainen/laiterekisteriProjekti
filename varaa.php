@@ -71,9 +71,12 @@
                 {
                     LAITE_ID: laiteid,
 					varaa: ''
-                });
+                })
+				.done(function() {
+					document.location = 'kalenteri.php';
+				});
 				
-				document.location = 'kalenteri.php';
+				
 				
 			/*var laiteid = $(this).closest('tr').find('td:eq(0)').text();
 			$.ajax({ 
