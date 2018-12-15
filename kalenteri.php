@@ -12,10 +12,10 @@
 	$kuvaus = $_SESSION['kuvaus'];
 	$sijainti = $_SESSION['sijainti'];
 	$tunnus = $_SESSION['tunnus'];
-	echo "<label>$nimi</label></br>";
-	echo "<label>$kategoria</label></br>";
-	echo "<label>$omistaja</label></br>";
-	echo "<label>$sijainti</label>";
+	//echo "<label>$nimi</label></br>";
+	//echo "<label>$kategoria</label></br>";
+	//echo "<label>$omistaja</label></br>";
+	//echo "<label>$sijainti</label>";
 ?>
 
 
@@ -67,13 +67,31 @@
 	} );
 	
 	
+	
 	$(document).on('click' ,'#hyvaksy', function () {
 	//("#hyvaksy").click(function () {
 		 
 		var laiteid = $('#id').val();
-		var pvmalku = $("#alkupvm").datepicker('getDate');
-		var pvmloppu = $("#loppupvm").datepicker('getDate');
+		var pvmalku1 = $("#alkupvm").datepicker('getDate');
+		var pvmloppu1 = $("#loppupvm").datepicker('getDate');
 		var tunnus = $('#tunnus').val();
+		
+		
+		function formatDate(date) {
+			var d = new Date(date),
+				month = '' + (d.getMonth() + 1),
+				day = '' + d.getDate(),
+				year = d.getFullYear();
+
+			if (month.length < 2) month = '0' + month;
+			if (day.length < 2) day = '0' + day;
+
+			return [year, month, day].join('-');
+		}
+		
+		var pvmalku = formatDate(pvmalku1);
+		var pvmloppu = formatDate(pvmloppu1);
+		
 		
 		 $.post("kalenteri_handler.php", 
                 {
@@ -86,7 +104,7 @@
                 })
 				
 				.done(function() {
-					//document.location = 'kayttaja.php';
+					document.location = 'kayttaja.php';
 				});
 				
 	});
@@ -96,14 +114,15 @@
 	
 </head>
 <body>	
-	
-	
+	<label for="id">LaiteID:</label>
 	<input type="text" id="id" name="id" value="<?php echo $id; ?>"/>
+	<label for="tunnus">Tunnus:</label>
 	<input type="text" id="tunnus" name="tunnus" value="<?php echo $tunnus; ?>"/>
 	
 	<p>Alkupvm: <input type="text" id="alkupvm" name="alkupvm"></p>
 	<p>Loppupvm: <input type="text" id="loppupvm" name="loppupvm"></p>
-	<input type="button" id="hyvaksy" name="hyvaksy" value="Hyväksy varaus"/>
+	<input type="button" id="hyvaksy" name="hyvaksy" value="Hyväksy varaus"/></br>
+	<a href="http://localhost:8081/woproj/varaa.php">Edelliselle sivulle</a>
 	
 </body>
 </html>

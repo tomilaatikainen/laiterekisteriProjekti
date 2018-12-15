@@ -41,61 +41,79 @@
 	<script type="text/javascript">
 	
 	
-				$(document).ready(function(){	
-				HaeVarausData();				
+		$(document).ready(function(){	
+			HaeVarausData();				
 				
-				function HaeVarausData() { 
+			function HaeVarausData() { 
 				
 				
-					$("#varaustaulu").DataTable({
-						ajax:{
-							url: 'kayttaja_handler.php',
-							dataSrc: '',
-							data : {STATUS: 'varattu'}
-						},					
-						"columns": [
-							{"data": "ID"},
-							{"data": "LAITE_ID"},
-							{"data": "ALKUPVM"},
-							{"data": "LOPPUPVM"}
-						]
-					});	
+				$("#varaustaulu").DataTable({
+					ajax:{
+						url: 'kayttaja_handler.php',
+						dataSrc: '',
+						data : {STATUS: 'varattu'}
+					},					
+					"columns": [
+						{"data": "ID"},
+						{"data": "LAITE_ID"},
+						{"data": "ALKUPVM"},
+						{"data": "LOPPUPVM"},
+						{"defaultContent": '<button id="peru" name="peru">Peru varaus</button>'}
+					]
+				});	
 
 			}
 			
-						function HaeLainausData() { //Datan haku
+			function HaeLainausData() { //Datan haku
 						
-						$("#lainaustaulu").DataTable({
-						ajax:{
-							url: 'kayttaja_handler.php',
-							dataSrc: '',
-							'data': {STATUS : 'lainattu'}
-						},					
-						"columns": [
-							{"data": "ID"},
-							{"data": "LAITE_ID"},
-							{"data": "ALKUPVM"},
-							{"data": "LOPPUPVM"}
-						]
-					});
-					}
-			
-			
-					$("#lainatCheckbox").change( function(){					
-					if(this.checked) {
-						// checkbox is checked -> do something
-						HaeLainausData();
-						$('#lainaus').show();
-								
-					} 
-					else {
-						// checkbox is not checked -> do something different
-						$('#lainaustaulu').DataTable().destroy();
-						$('#lainaus').hide();
-					}
-					});	
-					
+				$("#lainaustaulu").DataTable({
+					ajax:{
+						url: 'kayttaja_handler.php',
+						dataSrc: '',
+						'data': {STATUS : 'lainattu'}
+					},					
+					"columns": [
+						{"data": "ID"},
+						{"data": "LAITE_ID"},
+						{"data": "ALKUPVM"},
+						{"data": "LOPPUPVM"}
+					]
 				});
+			}
+			
+			
+			$("#lainatCheckbox").change( function(){					
+				if(this.checked) {
+					// checkbox is checked -> do something
+					HaeLainausData();
+					$('#lainaus').show();
+								
+				} 
+				else {
+					// checkbox is not checked -> do something different
+					$('#lainaustaulu').DataTable().destroy();
+					$('#lainaus').hide();
+				}
+				});	
+					
+					
+					
+			$(document).on('click', '#peru', function () { //Varauksen peruminen
+            
+            var varausid = $(this).closest('tr').find('td:eq(0)').text();
+            if (confirm("Perutaanko varmasti?")) {
+                
+				 $.post("peru_varaus.php", 
+                {
+                    ID: varausid,
+					peru: ''
+                });
+            $('#varaustaulu').DataTable().destroy();
+            HaeVarausData();
+			}
+			});
+					
+		});
 				
 				
 			</script>
@@ -117,7 +135,8 @@
                         <th>ID</th>
                         <th>Laite ID</th>
                         <th>ALKUPVM</th>
-						<th>LOPPUPVM</th>    
+						<th>LOPPUPVM</th>  
+						<th></th>
                     </tr>
 
                 </thead>

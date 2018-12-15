@@ -95,7 +95,7 @@
             var laiteid = $(this).closest('tr').find('td:eq(0)').text();
             if (confirm("Poistetaanko varmasti?")) {
                 
-				 $.post("poista.php", 
+				 $.post("poista_laite.php", 
                 {
                     LAITE_ID: laiteid,
 					poista: ''

@@ -169,7 +169,8 @@
 </div>
 
 
-<input type="submit" name="search" value="Hae">
+<input type="submit" name="search" value="Hae"></br>
+<a href="http://localhost:8081/woproj/kayttaja.php">Edelliselle sivulle</a>
 </form>
 
 
