@@ -28,6 +28,7 @@
 	$sijainti= $conn->prepare($query);
 	$sijainti->execute();
 	
+	//error_log("varaa.php ja asiakastunnus on ". $_SESSION["tunnus"]);
 ?>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -105,8 +106,16 @@
 
 <div>
 
-<b><a href="kayttaja.php" >Edelliselle sivulle</a></b>
 <b id="logout"><a href="logout.php">Kirjaudu ulos</a></b>
+
+<div <?php if($_SESSION["tunnus"] == 'Admin') echo 'style="height: 0px;width: 0px;overflow:hidden;"'?>>
+<b><a href="kayttaja.php" id="linkki1">Edelliselle sivulle</a></b>
+</div>
+
+<div <?php if($_SESSION["tunnus"] != 'Admin') echo 'style="height: 0px;width: 0px;overflow:hidden;"'?>>
+<b><a href='adminvaraus.php' id='adminlinkki'>Edelliselle sivulle</a></b>
+</div>
+
 
 <h1>Varaa laite</h1>
 <nav>
@@ -119,7 +128,7 @@
 					<?php
 						$value = 0;
 						while($rivi = $merkki->fetch(PDO::FETCH_ASSOC)){
-							echo utf8ize('<option value ="'.$rivi["MERKKI"].'">'.$rivi["MERKKI"].'</option>');
+							echo '<option value ="'.$rivi["MERKKI"].'">'.$rivi["MERKKI"].'</option>';
 							$value++;
 							}
 					?>								
@@ -130,7 +139,7 @@
 					<option value="">Kategoria</option>
 						<?php
 							while($rivi = $kategoria->fetch(PDO::FETCH_ASSOC)){
-								echo utf8ize('<option value ="'.$rivi["KATEGORIA_ID"].'">'.$rivi["KATEGORIA_NIMI"].'</option>');
+								echo '<option value ="'.$rivi["KATEGORIA_ID"].'">'.$rivi["KATEGORIA_NIMI"].'</option>';
 								}
 						?>
 				</select>	
@@ -140,7 +149,7 @@
 					<option value="">Omistaja</option>
 						<?php
 							while($rivi = $omistaja->fetch(PDO::FETCH_ASSOC)){
-								echo utf8ize('<option value ="'.$rivi["OMISTAJA_ID"].'">'.$rivi["OMISTAJA_NIMI"].'</option>');
+								echo '<option value ="'.$rivi["OMISTAJA_ID"].'">'.$rivi["OMISTAJA_NIMI"].'</option>';
 								}
 						?>
 				</select>
@@ -151,7 +160,7 @@
 						<?php
 							$value = 0;
 							while($rivi = $malli->fetch(PDO::FETCH_ASSOC)){
-								echo utf8ize('<option value ="'.$rivi["MALLI"].'">'.$rivi["MALLI"].'</option>');
+								echo '<option value ="'.$rivi["MALLI"].'">'.$rivi["MALLI"].'</option>';
 								$value++;
 								}
 						?>								
@@ -163,7 +172,7 @@
 						<?php
 							$value = 0;
 							while($rivi = $sijainti->fetch(PDO::FETCH_ASSOC)){
-							echo utf8ize('<option value ="'.$rivi["SIJAINTI"].'">'.$rivi["SIJAINTI"].'</option>');
+							echo '<option value ="'.$rivi["SIJAINTI"].'">'.$rivi["SIJAINTI"].'</option>';
 							$value++;
 							}
 						?>								

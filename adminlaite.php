@@ -1,5 +1,8 @@
 <?php
-
+	session_start();
+	require_once("kirjaudu_utils.inc");
+	check_session();
+	
 ?>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
