@@ -8,7 +8,7 @@
 		$laiteid = $_POST["LAITE_ID"];
 		try
 		{
-			$stmt = $conn->prepare("SELECT ALKUPVM, LOPPUPVM FROM varaus WHERE LAITE_ID ='$laiteid'");
+			$stmt = $conn->prepare("SELECT ALKUPVM, LOPPUPVM, LAITE_ID FROM varaus WHERE LAITE_ID ='$laiteid' AND STATUS='varattu'");
 			$stmt->execute();
 			while($rivi = $stmt->fetch(PDO::FETCH_ASSOC)){
 			$result = $rivi;

@@ -43,7 +43,6 @@
     </style>
 	<script type="text/javascript">
 	
-	
 		$(document).ready(function(){	
 			HaeVarausData();				
 				
@@ -139,7 +138,9 @@
 			});
 			});
 			
-			/*$(document).on('submit', '#user_form',  function () { //Käyttäjä painaa tallenna-nappia
+			//tähän asti toimii
+			
+			$(document).on('submit', '#user_form',  function () { //Käyttäjä painaa tallenna-nappia
 				
 				var laiteid = $('#LAITE_ID').val();
 				var alkupvm = $('#ALKUPVM').val();
@@ -149,17 +150,17 @@
 				if(alkupvm != '' && loppupvm != '')
 				{
 				
-				$.post("edit.php", 
+				$.post("edit_varaus.php", 
                 {
-					LAITE_ID: laiteid // ,
-                    //LAITE_NIMI: laitenimi,
-                    //MERKKI: merkki 
+					LAITE_ID: laiteid,
+                    ALKUPVM: alkupvm,
+					LOPPUPVM: loppupvm
                 })
 				.done(function() {
 					$('#user_form')[0].reset(); //Tyhjennetään muokkaus dialogi
 					$('#myModal').modal('hide');
 					$('#varaustaulu').DataTable().destroy();
-					HaeData();
+					HaeVarausData();
 				});
 
 						
@@ -168,7 +169,7 @@
 				{
 					alert("TARKISTA KENTÄT!");
 				}
-				});		*/	
+				});			
 				//////////////////// VARAUKSEN MUOKKAUS LOPPUU :DDD///////////////////////
 
 				
