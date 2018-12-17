@@ -16,13 +16,21 @@
         #form_login {
             border: 3px solid black;
 			border-radius: 20px;
-            width: 500px;
-            height: 500px;
+            width: 50%;
+            height: 60%;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			max-width: 600px;
         }
 
         #div_login {
             margin-left: 20px;
 			margin-right: 20px;
+			width:90%;
+			height:90%;
+			
         }
 		
 		input[type=text], input[type=password] {
@@ -32,6 +40,7 @@
 		display: inline-block;
 		border: 1px solid #ccc;
 		box-sizing: border-box;
+		height:9%;
 		}
 		
 		input[type=submit] {
@@ -42,6 +51,7 @@
 		border: none;
 		cursor: pointer;
 		width: 100%;
+		height: 9%;
 		}
     </style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

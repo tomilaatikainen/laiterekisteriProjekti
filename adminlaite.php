@@ -19,7 +19,28 @@
 	
 	
     <style>
-       
+       #adminlaite{
+		   	width: 80%;
+			position: fixed;
+			top: 40%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			border: 2px solid black;
+			border-radius: 10px;
+			padding: 10px;
+			display: block;
+			height: 55%;
+	   }
+	   
+	   		#logout {
+			float: right;
+			font-size: 20px;
+		}
+		h1{
+			text-align: center;
+			
+		}
+	   
     </style>
 	<script type="text/javascript">
 				
@@ -39,6 +60,7 @@
 						"language": {
 						"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Finnish.json"
 					},
+					"autoWidth": false,
 						"data": data,
 						"columns": [
 							{"data": "LAITE_ID"},
@@ -188,12 +210,15 @@
 			</script>
 </head>
 <body>
-<b id="logout"><a href="logout.php">Kirjaudu ulos</a></b></br>
+<b id="logout"><a href="logout.php">Kirjaudu ulos</a></b>
 <b id="varaukset"><a href="adminvaraus.php">Varaukset</a></b>
-    <h1>Lisää, muokkaa tai poista laite</h1>
+
+<h1>Lisää, muokkaa tai poista laite</h1>
+	<div id="adminlaite">
+    
 	<input type="button" id="lisaa" name="Lisaa" value="Lisää uusi laite"/> 
 	
-	<div>
+
 		<table id="laitetaulu" name="laitetaulu" class="table table-bordered">
                 <thead>
 					<tr>

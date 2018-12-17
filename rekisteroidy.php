@@ -18,8 +18,9 @@
             margin: 0 auto;
             border: 3px solid black;
 			border-radius: 20px;
-            width: 500px;
-            height: 500px;
+            width: 55%;
+            height: 60%;
+			max-width: 600px;
         }
 
         #div_login {

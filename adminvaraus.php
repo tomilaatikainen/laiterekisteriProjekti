@@ -21,8 +21,16 @@
 	<link rel="stylesheet" href="/resources/demos/style.css">
     <style>
 		#main {
-			width: 700px;
-			border: 1px dotted black;
+			width: 60%;
+			position: fixed;
+			top: 25%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			border: 2px solid black;
+			border-radius: 10px;
+			padding: 10px;
+			display: block;
+			height: 40%;
 		}
 		
 		h1 {
@@ -40,6 +48,11 @@
 		b {
 			font-size: 20px;
 		}
+		#varaaUusi {
+			float: right;
+			font-weight: bold;
+			font-size: 17px;
+		}
     </style>
 	<script type="text/javascript">
 	
@@ -53,6 +66,7 @@
 					"language": {
                         "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Finnish.json"
                     },
+					"autoWidth": false,
 					ajax:{
 						url: 'adminvaraus_handler.php',
 						dataSrc: ''
@@ -170,7 +184,7 @@
 					alert("TARKISTA KENTÄT!");
 				}
 				});			
-				//////////////////// VARAUKSEN MUOKKAUS LOPPUU :DDD///////////////////////
+				//////////////////// VARAUKSEN MUOKKAUS LOPPUU///////////////////////
 
 				
 		});
@@ -181,9 +195,12 @@
 <body>	
 	<div id="profile">
 		<b id="logout"><a href="logout.php">Kirjaudu ulos</a></b>
+		<b><a href='adminlaite.php'>Edelliselle sivulle</a></b></br>
 	</div>
 	
 	<div id="main">
+	
+	
 	<h1>Varaukset</h1>
 	<a href="varaa.php" id="varaaUusi">Varaa uusi</a>
 	

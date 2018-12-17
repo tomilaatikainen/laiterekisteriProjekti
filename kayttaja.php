@@ -22,25 +22,31 @@
 	<link rel="stylesheet" href="/resources/demos/style.css">
     <style>
 		#varaus {
-			width: 800px;
+			width: 60%;
 			position: fixed;
-			top: 20%;
+			top: 25%;
 			left: 50%;
 			transform: translate(-50%, -50%);
 			border: 2px solid black;
 			border-radius: 10px;
 			padding: 10px;
+			display: block;
+			height: 40%;
+			min-width: 800px;
 		}
 		
 		#lainaus {
-			width: 800px;
+			width: 60%;
 			position: fixed;
-			top: 65%;
+			top: 68%;
 			left: 50%;
 			transform: translate(-50%, -50%);
 			border: 2px solid black;
 			border-radius: 10px;
 			padding: 10px;
+			display: block;
+			height: 40%;
+			min-width: 800px;
 		}
 		
 		h1 {
@@ -61,6 +67,7 @@
 		b {
 			font-size: 20px;
 		}
+		
     </style>
 	<script type="text/javascript">
 	
@@ -76,6 +83,7 @@
 					"language": {
 						"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Finnish.json"
 					},
+					"autoWidth": false,
 					ajax:{
 						url: 'kayttaja_handler.php',
 						dataSrc: '',
@@ -98,6 +106,7 @@
 					"language": {
 						"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Finnish.json"
 					},
+					"autoWidth": false,
 					ajax:{
 						url: 'kayttaja_handler.php',
 						dataSrc: '',
@@ -230,7 +239,7 @@
 				}
 				});		
 				
-				//////////////////// VARAUKSEN MUOKKAUS LOPPUU :DDD///////////////////////
+				//////////////////// VARAUKSEN MUOKKAUS LOPPUU///////////////////////
 				
 		});
 				
@@ -267,8 +276,6 @@
 	</br>
 	
 	<div id="lainaus" style="display:none; ">
-	</br>
-	</br>
 	<h2>Lainaukset</h2>
 	<label for="vuosiCombobox">Vuosi</label>
 	<select id="vuosiCombobox">
