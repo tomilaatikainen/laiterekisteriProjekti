@@ -216,6 +216,40 @@ function haeVaraukset($asiakas)
 	
 }
 
+function haeKaikkiVaraukset($asiakas)
+{
+	global $conn;
+	$status = $asiakas["status"];
+	$result = array();
+	try
+	{
+	
+	$stmt = $conn->prepare
+		("SELECT * FROM varaus WHERE STATUS='$status'");
+		$stmt->execute();
+
+			while ($rivi = $stmt->fetch(PDO::FETCH_ASSOC)) { 
+			/*$id = $rivi["ID"];
+			$laiteid = $rivi["LAITE_ID"];
+			$alkupvm = $rivi["ALKUPVM"];
+			$loppupvm = $rivi["LOPPUPVM"];*/
+			
+			$result[] = $rivi;
+		}
+	}
+
+	catch(PDOException $e)
+	{	
+	$result = array("status" => "not ok", "error" => $e->getMessage());
+	error_log("Error in haeKaikkiVaraukset: " . $e->getMessage());
+	}
+	
+	echo json_encode(utf8ize($result));
+	
+}
+
+
+
 function tuoNimi($asiakas) //tuo nimen "Muokkaa tietoja" -sivulle
 {
 	$tunnus = $asiakas["tunnus"];

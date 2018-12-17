@@ -182,7 +182,8 @@
 			</script>
 </head>
 <body>
-<b id="logout"><a href="logout.php">Kirjaudu ulos</a></b>
+<b id="logout"><a href="logout.php">Kirjaudu ulos</a></b></br>
+<b id="varaukset"><a href="adminvaraus.php">Varaukset</a></b>
     <h1>Lisää, muokkaa tai poista laite</h1>
 	<input type="button" id="lisaa" name="Lisaa" value="Lisää uusi laite"/> 
 	
