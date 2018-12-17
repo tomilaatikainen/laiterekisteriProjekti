@@ -335,7 +335,7 @@ function haeLaite($laite){
 	$result = array("status" => "not ok", "error" => $e->getMessage());
 	error_log("Error in haeLaite: " . $e->getMessage());
 	}
-	echo json_encode($result);
+	echo json_encode ($result);
 }
 
 
