@@ -210,7 +210,7 @@ function haeVaraukset($asiakas)
 	error_log("Error in haeVaraukset: " . $e->getMessage());
 	}
 	
-	echo json_encode($result));
+	echo json_encode(utf8ize($result));
 	
 	
 	

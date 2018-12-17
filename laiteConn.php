@@ -5,9 +5,6 @@ $password = "";
 $dbname = "laiterekisteri";
 // luodaan yhteys
 $con = mysqli_connect($servername, $username, $password, $dbname);
+mysqli_set_charset($con,"utf8");
 
-/*if (!$conn) {
-    die("Tietokantayhteys epäonnistui: " . mysqli_connect_error());
-}
-echo "<p style='color:green'>Tietokantayhteys muodostettu onnistuneesti </p>";*/
 ?>
