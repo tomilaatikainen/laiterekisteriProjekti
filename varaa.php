@@ -61,6 +61,25 @@
 		background-color: #4CAF50;
 		color: white;
 	}
+	
+	#logout {
+			float: right;
+			font-size: 20px;
+		}
+		
+		b {
+			font-size: 20px;
+		}
+		
+		nav [type=submit]{
+			display:inline-block;
+			width: 100px;
+			height: 23px;
+			margin-left: 10px;
+		}
+		nav select,[type=text]{
+			margin-right: 7px;
+		}
     </style>
 	<script type="text/javascript">
 	
@@ -77,26 +96,6 @@
 				});
 				
 				
-				
-			/*var laiteid = $(this).closest('tr').find('td:eq(0)').text();
-			$.ajax({ 
-				url:"fetch_single.php",
-				method: "POST",
-				data:{LAITE_ID: laiteid},
-				dataType: "json",
-				success: function(data)
-				{					
-					$lid = data.LAITE_ID;
-					$ni = data.LAITE_NIMI;
-					$merk = data.MERKKI;
-					$kate = data.KATEGORIA_ID;
-					$om = data.OMISTAJA_ID;
-					$mal = data.MALLI;
-					$kuv = data.KUVAUS;
-					$sij = data.SIJAINTI;
-				}
-			
-			});*/
 			});
 	</script>
 </head>
@@ -106,7 +105,11 @@
 
 <div>
 
+<b><a href="kayttaja.php" >Edelliselle sivulle</a></b>
+<b id="logout"><a href="logout.php">Kirjaudu ulos</a></b>
+
 <h1>Varaa laite</h1>
+<nav>
 		<label for="nimi">Laitenimi:</label>
 		<input type="text" name="nimi" id="nimi"/>
 		
@@ -164,13 +167,13 @@
 							$value++;
 							}
 						?>								
-				</select>	
-
+				</select>
+				
+				<input type="submit" name="search" value="Hae"></br>
+				</nav>
 </div>
 
 
-<input type="submit" name="search" value="Hae"></br>
-<a href="http://localhost:8081/woproj/kayttaja.php">Edelliselle sivulle</a>
 </form>
 
 

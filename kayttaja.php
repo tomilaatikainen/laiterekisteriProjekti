@@ -17,9 +17,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
     <style>
-		#main {
-			width: 700px;
-			border: 1px dotted black;
+		#varaus {
+			width: 800px;
+			position: fixed;
+			top: 20%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			border: 2px solid black;
+			border-radius: 10px;
+			padding: 10px;
+		}
+		
+		#lainaus {
+			width: 800px;
+			position: fixed;
+			top: 65%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			border: 2px solid black;
+			border-radius: 10px;
+			padding: 10px;
 		}
 		
 		h1 {
@@ -28,10 +45,13 @@
 		
 		#varaaUusi {
 			float: right;
+			font-weight: bold;
+			font-size: 17px;
 		}
 		
 		#logout {
 			float: right;
+			font-size: 20px;
 		}
 		
 		b {
@@ -41,13 +61,17 @@
 	<script type="text/javascript">
 	
 	
-		$(document).ready(function(){	
+		$(document).ready(function(){
+
 			HaeVarausData();				
 				
 			function HaeVarausData() { 
 				
 				
 				$("#varaustaulu").DataTable({
+					"language": {
+						"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Finnish.json"
+					},
 					ajax:{
 						url: 'kayttaja_handler.php',
 						dataSrc: '',
@@ -67,6 +91,9 @@
 			function HaeLainausData() { //Datan haku
 						
 				$("#lainaustaulu").DataTable({
+					"language": {
+						"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Finnish.json"
+					},
 					ajax:{
 						url: 'kayttaja_handler.php',
 						dataSrc: '',
@@ -124,11 +151,11 @@
 		<b id="logout"><a href="logout.php">Kirjaudu ulos</a></b>
 	</div>
 	
-	<div id="main">
+	<div id="varaus">
 	<h1>Varaukset</h1>
+	</br>
 	<a href="varaa.php" id="varaaUusi">Varaa uusi</a>
 	
-	<p>Varaukset tähän</p>
 	<table id="varaustaulu" name="varaustaulu" class="table table-bordered">
                 <thead>
 					<tr>
@@ -145,16 +172,21 @@
 
 	<input type="checkbox" id="lainatCheckbox"<br>Näytä lainat <br>
 	</div>
-	<div id="lainaus" style="display:none; ">
-	<h2>Lainaukset</h2>
+	</br>
 	
-	Vuosi
+	<div id="lainaus" style="display:none; ">
+	</br>
+	</br>
+	<h2>Lainaukset</h2>
+	<label for="vuosiCombobox">Vuosi</label>
 	<select id="vuosiCombobox">
   <option value="2015">2015</option>
   <option value="2016">2016</option>
   <option value="2017">2017</option>
   <option value="2018">2018</option>
 	</select>
+	</br>
+	</br>
 	
 	<table id="lainaustaulu" name="lainaustaulu" class="table table-bordered">
                 <thead>
