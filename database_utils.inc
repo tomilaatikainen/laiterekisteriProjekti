@@ -210,7 +210,7 @@ function haeVaraukset($asiakas)
 	error_log("Error in haeVaraukset: " . $e->getMessage());
 	}
 	
-	echo json_encode(utf8ize($result));
+	echo json_encode($result));
 	
 	
 	
@@ -244,7 +244,7 @@ function haeKaikkiVaraukset($asiakas)
 	error_log("Error in haeKaikkiVaraukset: " . $e->getMessage());
 	}
 	
-	echo json_encode(utf8ize($result));
+	echo json_encode($result);
 	
 }
 
@@ -274,7 +274,7 @@ function tuoNimi($asiakas) //tuo nimen "Muokkaa tietoja" -sivulle
 	error_log("Error in tuoNimi: " . $e->getMessage());
 	}
 	
-	echo json_encode(utf8ize($un));
+	echo json_encode($un);
 }
 
 function muutaAsiakas($asiakas) //asiakas muokkaa omia tietojaan
