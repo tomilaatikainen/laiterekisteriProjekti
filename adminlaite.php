@@ -33,6 +33,9 @@
 
 				}).done(function (data) {
 					$('#laitetaulu').DataTable({
+						"language": {
+						"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Finnish.json"
+					},
 						"data": data,
 						"columns": [
 							{"data": "LAITE_ID"},
