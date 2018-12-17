@@ -84,9 +84,13 @@
                     KUVAUS: kuvaus,
 					SIJAINTI: sijainti,
 					insert: ''
-                });
-            $('#laitetaulu').DataTable().destroy();
-            HaeData();
+                })
+				
+				.done(function() {
+					$('#laitetaulu').DataTable().destroy();
+					HaeData();
+				});
+            
 			
 			 });
 			
@@ -99,9 +103,12 @@
                 {
                     LAITE_ID: laiteid,
 					poista: ''
-                });
-            $('#laitetaulu').DataTable().destroy();
-            HaeData();
+                })
+				
+				.done(function() {
+					$('#laitetaulu').DataTable().destroy();
+					HaeData();
+				});
 			}
 			});
 			
@@ -156,12 +163,15 @@
                     MALLI: malli,
                     KUVAUS: kuvaus,
 					SIJAINTI: sijainti
-                });
+                })
+				.done(function() {
+					$('#user_form')[0].reset(); //Tyhjennetään muokkaus dialogi
+					$('#myModal').modal('hide');
+					$('#laitetaulu').DataTable().destroy();
+					HaeData();
+				});
 
-						$('#user_form')[0].reset(); //Tyhjennetään muokkaus dialogi
-						$('#myModal').modal('hide');
-						$('#laitetaulu').DataTable().destroy();
-						HaeData();
+						
 				}
 				else
 				{
@@ -172,6 +182,7 @@
 			</script>
 </head>
 <body>
+<b id="logout"><a href="logout.php">Kirjaudu ulos</a></b>
     <h1>Lisää, muokkaa tai poista laite</h1>
 	<input type="button" id="lisaa" name="Lisaa" value="Lisää uusi laite"/> 
 	

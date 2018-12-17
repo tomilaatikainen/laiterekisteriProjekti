@@ -120,13 +120,13 @@
 </head>
 <body>	
 	<div id="profile">
-		<b><a href="http://localhost:8081/woproj/muokkaa.php">Muokkaa omia tietoja</b>
+		<b><a href="muokkaa.php">Muokkaa omia tietoja</b>
 		<b id="logout"><a href="logout.php">Kirjaudu ulos</a></b>
 	</div>
 	
 	<div id="main">
 	<h1>Varaukset</h1>
-	<a href="http://localhost:8081/woproj/varaa.php" id="varaaUusi">Varaa uusi</a>
+	<a href="varaa.php" id="varaaUusi">Varaa uusi</a>
 	
 	<p>Varaukset tähän</p>
 	<table id="varaustaulu" name="varaustaulu" class="table table-bordered">

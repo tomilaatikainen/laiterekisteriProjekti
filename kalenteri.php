@@ -122,7 +122,7 @@
 	<p>Alkupvm: <input type="text" id="alkupvm" name="alkupvm"></p>
 	<p>Loppupvm: <input type="text" id="loppupvm" name="loppupvm"></p>
 	<input type="button" id="hyvaksy" name="hyvaksy" value="Hyväksy varaus"/></br>
-	<a href="http://localhost:8081/woproj/varaa.php">Edelliselle sivulle</a>
+	<a href="varaa.php">Edelliselle sivulle</a>
 	
 </body>
 </html>

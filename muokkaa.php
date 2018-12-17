@@ -73,7 +73,7 @@
         Nimi: <input type="text" id="uusiNimi" name="uusiNimi"/><br/>
 
         <input type="submit" value="Tallenna muutokset" name="tallenna"/><br />
-		<a href="http://localhost:8081/woproj/kayttaja.php">Takaisin</a>
+		<a href="kayttaja.php">Takaisin</a>
     </div>
 	</form>
 </body>
