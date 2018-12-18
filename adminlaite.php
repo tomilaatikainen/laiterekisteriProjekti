@@ -107,8 +107,8 @@
                 {
                     LAITE_NIMI: laitenimi,
                     MERKKI: merkki ,
-                    KATEGORIA_ID: kategoria ,
-                    OMISTAJA_ID: omistaja,
+                    KATEGORIA_NIMI: kategoria ,
+                    OMISTAJA_NIMI: omistaja,
                     MALLI: malli,
                     KUVAUS: kuvaus,
 					SIJAINTI: sijainti,
