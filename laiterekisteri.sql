@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 18.12.2018 klo 17:01
+-- Generation Time: 18.12.2018 klo 17:20
 -- Palvelimen versio: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `laite` (
   PRIMARY KEY (`LAITE_ID`),
   KEY `KATEGORIA_ID` (`KATEGORIA_ID`),
   KEY `OMISTAJA_ID` (`OMISTAJA_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
 -- Vedos taulusta `laite`
@@ -98,7 +98,15 @@ CREATE TABLE IF NOT EXISTS `laite` (
 INSERT INTO `laite` (`LAITE_ID`, `LAITE_NIMI`, `MERKKI`, `KATEGORIA_ID`, `OMISTAJA_ID`, `MALLI`, `KUVAUS`, `SIJAINTI`, `STATUS`) VALUES
 (1, 'Huawei Honor 9', 'Huawei', 1, 1, 'Honor 9', 'Erittäin kiva puhelin.', 'Kuopio', 'varattu'),
 (2, 'OnePlus 6', 'OnePlus', 1, 3, '6', 'Kivempi puhelin', 'Kuopio', 'varattu'),
-(3, 'Nokia 3310', 'Nokia', 1, 2, '3310', 'Unbreakable boi.', 'Kuopio', 'varattu');
+(3, 'Nokia 3310', 'Nokia', 1, 2, '3310', 'Unbreakable boi.', 'Kuopio', 'varattu'),
+(4, 'Asus VivoBook X505BA', 'Asus', 3, 2, 'VivoBook X505BA', 'Perus läppäri.', 'Kuopio', 'varattu'),
+(5, 'MSI GV62 8RE', 'MSI', 3, 1, 'GV62 8RE', 'Vähän kalliimpi läppäri.', 'Kuopio', 'varattu'),
+(6, 'Lenovo Legion T530', 'Lenovo', 5, 2, 'Legion T530', 'Pelikäyttöön tarkoitettu pöytäkone.', 'Kuopio', 'varattu'),
+(7, 'Asus ROG Strix GL12', 'Asus', 5, 3, 'Asus', 'Tehokas pelitietokone.', 'Kuopio', 'varattu'),
+(8, 'Samsung Galaxy Tab A', 'Samsung', 2, 3, 'Galaxy Tab A', 'Edullinen tabletti.', 'Kuopio', 'varattu'),
+(9, 'Samsung Galaxy Tab S2', 'Samsung', 2, 1, 'Galaxy Tab S2', 'Tyylikäs, metallirunkoinen tabletti.', 'Kuopio', 'varattu'),
+(10, 'Samsung Gear S3 Frontier', 'Samsung', 4, 2, 'Gear S3 Frontier', 'Älykäs kello.', 'Kuopio', 'varattu'),
+(11, 'Huawei Watch GT', 'Huawei', 4, 2, 'Watch GT', 'Tosi älykäs kello.', 'Kuopio', 'varattu');
 
 -- --------------------------------------------------------
 
