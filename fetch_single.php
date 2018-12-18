@@ -8,7 +8,9 @@
 		$laiteid = $_POST["LAITE_ID"];
 		try
 		{
-			$stmt = $conn->prepare("SELECT * FROM laite WHERE LAITE_ID ='$laiteid'");
+			$stmt = $conn->prepare("SELECT laite.*, kategoria.KATEGORIA_NIMI, omistaja.OMISTAJA_NIMI FROM ((laite 
+			INNER JOIN kategoria ON laite.KATEGORIA_ID = kategoria.KATEGORIA_ID) 
+			INNER JOIN omistaja ON laite.OMISTAJA_ID = omistaja.OMISTAJA_ID) WHERE LAITE_ID ='$laiteid'");
 			$stmt->execute();
 			while($rivi = $stmt->fetch(PDO::FETCH_ASSOC)){
 			$result = $rivi;

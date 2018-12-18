@@ -25,8 +25,6 @@
 			top: 40%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			border: 2px solid black;
-			border-radius: 10px;
 			padding: 10px;
 			display: block;
 			height: 55%;
@@ -66,8 +64,8 @@
 							{"data": "LAITE_ID"},
 							{"data": "LAITE_NIMI"},
 							{"data": "MERKKI"},
-							{"data": "KATEGORIA_ID"},
-							{"data": "OMISTAJA_ID"},
+							{"data": "KATEGORIA_NIMI"},
+							{"data": "OMISTAJA_NIMI"},
 							{"data": "MALLI"},
 							{"data": "KUVAUS"},
 							{"data": "SIJAINTI"},
@@ -159,8 +157,8 @@
 					$('#LAITE_ID').val(data.LAITE_ID);
 					$('#LAITE_NIMI').val(data.LAITE_NIMI);
 					$('#MERKKI').val(data.MERKKI);
-					$('#KATEGORIA_ID').val(data.KATEGORIA_ID);
-					$('#OMISTAJA_ID').val(data.OMISTAJA_ID);
+					$('#KATEGORIA_ID').val(data.KATEGORIA_NIMI);
+					$('#OMISTAJA_ID').val(data.OMISTAJA_NIMI);
 					$('#MALLI').val(data.MALLI);
 					$('#KUVAUS').val(data.KUVAUS);
 					$('#SIJAINTI').val(data.SIJAINTI);
@@ -192,8 +190,8 @@
 					LAITE_ID: laiteid,
                     LAITE_NIMI: laitenimi,
                     MERKKI: merkki ,
-                    KATEGORIA_ID: kategoria ,
-                    OMISTAJA_ID: omistaja,
+                    KATEGORIA_NIMI: kategoria ,
+                    OMISTAJA_NIMI: omistaja,
                     MALLI: malli,
                     KUVAUS: kuvaus,
 					SIJAINTI: sijainti,

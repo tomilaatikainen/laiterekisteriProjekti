@@ -315,13 +315,17 @@ function haeLaite($laite){
 	$result = array();
 	
 	try {
-		$q = "SELECT * FROM laite WHERE 1=1";
-		if ( !empty($nimi) ) $q .= " AND LAITE_NIMI like '%$nimi%'";
+		$q = "SELECT laite.*, kategoria.KATEGORIA_NIMI, omistaja.OMISTAJA_NIMI FROM ((laite 
+		INNER JOIN kategoria ON laite.KATEGORIA_ID = kategoria.KATEGORIA_ID) 
+		INNER JOIN omistaja ON laite.OMISTAJA_ID = omistaja.OMISTAJA_ID)";
+		
+		/*if ( !empty($nimi) ) $q .= " AND LAITE_NIMI like '%$nimi%'";
 		if ( !empty($malli) ) $q .= " AND MALLI='$malli'";
 		if ( !empty($merkki) ) $q .= " AND MERKKI='$merkki'";
 		if ( !empty($sijainti) ) $q .= " AND SIJAINTI='$sijainti'";
-		if ( !empty($omistaja) ) $q .= " AND OMISTAJA_ID= $omistaja";
-		if ( !empty($kategoria) ) $q .= " AND KATEGORIA_ID=$kategoria";
+		if ( !empty($omistaja) ) $q .= " AND OMISTAJA_NIMI= $omistaja";
+		if ( !empty($kategoria) ) $q .= " AND KATEGORIA_NIMI=$kategoria";
+		*/
 		
 		$stmt = $conn->prepare($q);
 		$stmt->execute();

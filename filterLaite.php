@@ -2,7 +2,10 @@
 function getLaite($nimi, $merkki, $kategoria, $omistaja, $malli, $sijainti, $con)
 {
     // oletuksena sql-kysely hakee kaikkien asiakkaiden tiedot
-    $query = "SELECT * FROM laite WHERE STATUS='varattu' OR STATUS='lainattu' ";
+    $query = "SELECT laite.*, kategoria.KATEGORIA_NIMI, omistaja.OMISTAJA_NIMI FROM ((laite 
+	INNER JOIN kategoria ON laite.KATEGORIA_ID = kategoria.KATEGORIA_ID) 
+	INNER JOIN omistaja ON laite.OMISTAJA_ID = omistaja.OMISTAJA_ID) 
+	WHERE (STATUS='varattu' OR STATUS='lainattu') ";
     if (!empty($nimi)) { // jos nimi-kenttään on syötetty jotain, lisätään kyselyyn hakuehto
         $query .= "AND LAITE_NIMI like '%$nimi%'";
     }
@@ -10,10 +13,10 @@ function getLaite($nimi, $merkki, $kategoria, $omistaja, $malli, $sijainti, $con
         $query .= "AND MERKKI = '" . $merkki . "'";
     }
     if (!empty($kategoria)) { 
-        $query .= "AND KATEGORIA_ID = $kategoria ";
+        $query .= "AND KATEGORIA_NIMI = '" . $kategoria . "'";
     }
 	if (!empty($omistaja)) { 
-        $query .= "AND OMISTAJA_ID = $omistaja ";
+        $query .= "AND OMISTAJA_NIMI = '" . $omistaja . "'";
     }
 	if (!empty($malli)) { 
         $query .= "AND MALLI = '" . $malli . "'";
@@ -30,8 +33,8 @@ function getLaite($nimi, $merkki, $kategoria, $omistaja, $malli, $sijainti, $con
                 $row['LAITE_ID'] . '</td><td>' .
                 $row['LAITE_NIMI'] . '</td><td>' .
                 $row['MERKKI'] . '</td><td>' .
-                $row['KATEGORIA_ID'] . '</td><td>' .
-                $row['OMISTAJA_ID'] . '</td><td>' .
+                $row['KATEGORIA_NIMI'] . '</td><td>' .
+                $row['OMISTAJA_NIMI'] . '</td><td>' .
                 $row['MALLI'] . '</td><td>' .
                 $row['KUVAUS'] . '</td><td>' .
                 $row['SIJAINTI'] . '</td><td><input type="button" id="varaa" name="varaa" value="Varaa"/></td>';

@@ -139,7 +139,7 @@
 					<option value="">Kategoria</option>
 						<?php
 							while($rivi = $kategoria->fetch(PDO::FETCH_ASSOC)){
-								echo '<option value ="'.$rivi["KATEGORIA_ID"].'">'.$rivi["KATEGORIA_NIMI"].'</option>';
+								echo '<option value ="'.$rivi["KATEGORIA_NIMI"].'">'.$rivi["KATEGORIA_NIMI"].'</option>';
 								}
 						?>
 				</select>	
@@ -149,7 +149,7 @@
 					<option value="">Omistaja</option>
 						<?php
 							while($rivi = $omistaja->fetch(PDO::FETCH_ASSOC)){
-								echo '<option value ="'.$rivi["OMISTAJA_ID"].'">'.$rivi["OMISTAJA_NIMI"].'</option>';
+								echo '<option value ="'.$rivi["OMISTAJA_NIMI"].'">'.$rivi["OMISTAJA_NIMI"].'</option>';
 								}
 						?>
 				</select>
@@ -196,6 +196,7 @@
         <th>Malli</th>
         <th>Kuvaus</th>
 		<th>Sijainti</th>
+		<th></th>
         </tr>
 		
 		<?php
