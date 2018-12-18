@@ -104,9 +104,8 @@
                 })
 				
 				.done(function() {
-					document.location = 'kayttaja.php';
+					document.location = 'varaa.php';
 				});
-				
 	});
 	
   });
@@ -114,10 +113,9 @@
 	
 </head>
 <body>	
-	<label for="id">LaiteID:</label>
-	<input type="text" id="id" name="id" value="<?php echo $id; ?>"/>
-	<label for="tunnus">Tunnus:</label>
-	<input type="text" id="tunnus" name="tunnus" value="<?php echo $tunnus; ?>"/>
+	
+	<input type="hidden" id="id" name="id" value="<?php echo $id; ?>"/>
+	<input type="hidden" id="tunnus" name="tunnus" value="<?php echo $tunnus; ?>"/>
 	
 	<p>Alkupvm: <input type="text" id="alkupvm" name="alkupvm"></p>
 	<p>Loppupvm: <input type="text" id="loppupvm" name="loppupvm"></p>

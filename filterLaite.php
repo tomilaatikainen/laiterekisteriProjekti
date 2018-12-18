@@ -2,7 +2,7 @@
 function getLaite($nimi, $merkki, $kategoria, $omistaja, $malli, $sijainti, $con)
 {
     // oletuksena sql-kysely hakee kaikkien asiakkaiden tiedot
-    $query = "SELECT * FROM laite WHERE 1 = 1 ";
+    $query = "SELECT * FROM laite WHERE STATUS='varattu' OR STATUS='lainattu' ";
     if (!empty($nimi)) { // jos nimi-kenttään on syötetty jotain, lisätään kyselyyn hakuehto
         $query .= "AND LAITE_NIMI like '%$nimi%'";
     }

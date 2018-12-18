@@ -4,7 +4,7 @@
 	session_start();
 	
 	global $conn;
-	error_log("Ei tule tanne lolololol laite:". $_POST['hae_laite']);
+	error_log("fetch.php ". $_POST['hae_laite']);
 	
 	$nimi = parsePost("hae_laite");
 	$malli = parsePost("hae_malli");

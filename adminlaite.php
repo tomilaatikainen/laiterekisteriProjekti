@@ -71,6 +71,7 @@
 							{"data": "MALLI"},
 							{"data": "KUVAUS"},
 							{"data": "SIJAINTI"},
+							{"data": "STATUS"},
 							{"defaultContent": '<button id="delete" name="delete">Poista</button> <button id="edit" name="edit" data-toggle="modal" data-target="#myModal">Muokkaa</button>'}
 						]
 					})
@@ -88,6 +89,7 @@
             html += '<td contenteditable id="data5"></td>';
             html += '<td contenteditable id="data6"></td>';
 			html += '<td contenteditable id="data7"></td>';
+			html += '<td contenteditable id="data8"></td>';
 
             html += '</tr>';
             $('#laitetaulu').prepend(html);
@@ -101,6 +103,7 @@
             var malli = $('#data5').text();
             var kuvaus = $('#data6').text();
 			var sijainti = $('#data7').text();
+			var status = $('#data8').text();
             
             $.post("lisaa.php", 
                 {
@@ -111,6 +114,7 @@
                     MALLI: malli,
                     KUVAUS: kuvaus,
 					SIJAINTI: sijainti,
+					STATUS: status,
 					insert: ''
                 })
 				
@@ -160,6 +164,7 @@
 					$('#MALLI').val(data.MALLI);
 					$('#KUVAUS').val(data.KUVAUS);
 					$('#SIJAINTI').val(data.SIJAINTI);
+					$('#STATUS').val(data.STATUS);
 				}
 			
 			});
@@ -176,9 +181,10 @@
 				var malli = $('#MALLI').val();
 				var kuvaus = $('#KUVAUS').val();
 				var sijainti = $('#SIJAINTI').val();
+				var status = $('#STATUS').val();
 				
 				
-				if(laitenimi != '' && merkki != '' && kategoria != '' && omistaja != '' && malli != '' && kuvaus != '' && sijainti != '')
+				if(laitenimi != '' && merkki != '' && kategoria != '' && omistaja != '' && malli != '' && kuvaus != '' && sijainti != '' && status != '')
 				{
 				
 				$.post("edit.php", 
@@ -190,14 +196,16 @@
                     OMISTAJA_ID: omistaja,
                     MALLI: malli,
                     KUVAUS: kuvaus,
-					SIJAINTI: sijainti
+					SIJAINTI: sijainti,
+					STATUS: status
+					
                 })
-				.done(function() {
+				//.done(function() {
 					$('#user_form')[0].reset(); //Tyhjennetään muokkaus dialogi
 					$('#myModal').modal('hide');
 					$('#laitetaulu').DataTable().destroy();
 					HaeData();
-				});
+				//});
 
 						
 				}
@@ -230,6 +238,7 @@
 						<th>Malli</th>  
 						<th>Kuvaus</th>  
 						<th>Sijainti</th> 
+						<th>Status</th>
 						<th></th>
                     </tr>
 
@@ -270,6 +279,9 @@
 		  
 		  <label for="SIJAINTI">Sijainti:</label>
 		  <input type="text" id="SIJAINTI" name="sijainti" class="form-control"></br>
+		  
+		  <label for="STATUS">Status:</label>
+		  <input type="text" id="STATUS" name="status" class="form-control"></br>
 		  
         </div>
         <div class="modal-footer">

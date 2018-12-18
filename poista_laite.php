@@ -15,8 +15,31 @@
 		}
 		catch(PDOException $e)
 		{	
-			error_log("Error in poista: " . $e->getMessage());
+			//error_log("Error in poista: " . $e->getMessage());
+			
+			try{
+			$stmt2 = $conn->prepare
+			("UPDATE varaus SET STATUS='poistettu' WHERE LAITE_ID='$laiteid'");
+			$stmt2->execute();
+			
+			
+			$stmt3 = $conn->prepare
+			("UPDATE laite SET STATUS='poistettu' WHERE LAITE_ID='$laiteid'");
+			$stmt3->execute();
+			}
+			
+			
+			catch(PDOException $e)
+			{
+				error_log("Error statusten muuttamisessa: " . $e->getMessage());
+			}
+			
+			
 		}
+		
+		/*echo"<script type='text/javascript'>alert('Laite merkattu poistetuksi');
+			location='adminlaite.php';
+			</script>";*/
 	}
 		
 ?>

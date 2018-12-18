@@ -7,8 +7,8 @@
 		   
 			try{
 			$stmt = $conn->prepare("INSERT INTO laite ".
-			"(LAITE_NIMI, MERKKI, KATEGORIA_ID, OMISTAJA_ID, MALLI, KUVAUS, SIJAINTI) ".
-			"VALUES (:ln, :merk, :kat, :om, :mal, :ku, :si)");
+			"(LAITE_NIMI, MERKKI, KATEGORIA_ID, OMISTAJA_ID, MALLI, KUVAUS, SIJAINTI, STATUS) ".
+			"VALUES (:ln, :merk, :kat, :om, :mal, :ku, :si, :st)");
 			
 			$stmt->bindParam(":ln",$ln);
 			$stmt->bindParam(":merk",$merk);
@@ -17,6 +17,7 @@
 			$stmt->bindParam(":mal",$mal);
 			$stmt->bindParam(":ku",$ku);
 			$stmt->bindParam(":si",$si);
+			$stmt->bindParam(":st",$st);
 			
 			$ln = parsePost("LAITE_NIMI");
 			$merk = parsePost("MERKKI");
@@ -25,6 +26,7 @@
 			$mal = parsePost("MALLI");
 			$ku = parsePost("KUVAUS");
 			$si = parsePost("SIJAINTI");
+			$st = parsePost("STATUS");
 			
 			$stmt->execute();
 			}

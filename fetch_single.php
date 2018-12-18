@@ -2,7 +2,7 @@
 	require_once("db.inc");
 	require_once("getpost.inc");
 	global $conn;
-	error_log("asdasdasdads:". $_POST["LAITE_ID"]);
+	//error_log("fetch_single ja laiteID on ". $_POST["LAITE_ID"]);
 	if(isset($_POST["LAITE_ID"]))
 	{
 		$laiteid = $_POST["LAITE_ID"];
