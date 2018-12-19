@@ -2,6 +2,8 @@
 	require_once("db.inc");
 	require_once("getpost.inc");
 	global $conn;
+	require_once("kirjaudu_utils.inc");
+	check_session();
 	//error_log("fetch_muokkaavaraus.php ja laiteid on ". $_POST["ID"]);
 	if(isset($_POST["ID"]))
 	{

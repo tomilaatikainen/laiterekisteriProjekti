@@ -296,7 +296,7 @@
 	<table id="lainaustaulu" name="lainaustaulu" class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Varausnumero</th>
+                        <th>Lainausnumero</th>
 						<th>Laite</th>
                         <th>ALKUPVM</th>
 						<th>LOPPUPVM</th>  
