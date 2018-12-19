@@ -10,7 +10,7 @@
 		$varausid = $_POST["ID"];
 		try
 		{
-			$stmt = $conn->prepare("SELECT ALKUPVM, LOPPUPVM, ID FROM varaus WHERE ID ='$varausid' AND STATUS='varattu'");
+			$stmt = $conn->prepare("SELECT ALKUPVM, LOPPUPVM, ID, LAITE_ID FROM varaus WHERE ID ='$varausid' AND STATUS='varattu'");
 			$stmt->execute();
 			while($rivi = $stmt->fetch(PDO::FETCH_ASSOC)){
 			$result = $rivi;

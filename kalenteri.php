@@ -144,9 +144,9 @@
 					hyvaksy: ''
                 })
 				
-				/*.done(function() {
-					document.location = 'varaa.php';
-				});*/
+				.done(function(data) {
+					alert(data);
+				});
 	});
 	
   });

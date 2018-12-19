@@ -31,7 +31,7 @@ function luoAsiakas($asiakas){
 function luoVaraus($laite){
 	
 	global $conn;
-	$result = "OK";
+	$result = "Varauksen luonti onnistui";
 	
 	$laiteid = $laite["laiteid"];
 	$alkupvm = $laite["alkupvm"];
@@ -43,11 +43,8 @@ function luoVaraus($laite){
 	{
 		if ($alkupvm == "1970-01-01"|| $loppupvm == "1970-01-01")
 		{
-			$result = "tyhjä";
-		error_log("Meni tänne kun oli oli tyhjää");
-		echo"<script type='text/javascript'>alert('Syötä päivämäärät!');
-		location='kalenteri.php';
-		</script>";
+			$result = "Jokin kentistä oli tyhjä";
+		//error_log("Meni tänne kun oli oli tyhjää");
 		}
 		else{
 		$query= "SELECT LAITE_ID FROM varaus WHERE LAITE_ID='$laiteid' AND (('$alkupvm' BETWEEN ALKUPVM AND LOPPUPVM) OR ('$loppupvm' BETWEEN ALKUPVM AND LOPPUPVM)
@@ -66,23 +63,18 @@ function luoVaraus($laite){
 			$stmt1->execute();
 		}
 		else{
-		error_log("Meni tänne kun oli päällekkäisyys");
-		$result = "päällekkäisyys";
-		echo"<script type='text/javascript'>alert('Päällekkäisyys varauksessa!');
-		location='kalenteri.php';
-		</script>";
+		//error_log("Meni tänne kun oli päällekkäisyys");
+		$result = "Päällekkäisyys varausta tehdessä";
 		}
 		}
 	}
 	catch(PDOException $e) {
-		$result = "muu";
-		error_log("Error in luoVaraus: " . $e->getMessage());
-		echo"<script type='text/javascript'>alert('Virhe varauksessa!');
-		location='kalenteri.php';
-		</script>";
+		$result = "Muu virhe";
+		//error_log("Error in luoVaraus: " . $e->getMessage());
+		
 
 	}
-	return $result;
+	echo json_encode ($result,JSON_UNESCAPED_UNICODE);
 	
 }
 
@@ -309,7 +301,7 @@ function tuoNimi($asiakas) //tuo nimen "Muokkaa tietoja" -sivulle
 	error_log("Error in tuoNimi: " . $e->getMessage());
 	}
 	
-	echo json_encode($un);
+	echo json_encode($un,JSON_UNESCAPED_UNICODE);
 }
 
 function muutaAsiakas($asiakas) //asiakas muokkaa omia tietojaan

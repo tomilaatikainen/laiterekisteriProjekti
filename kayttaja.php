@@ -91,6 +91,13 @@
 					},
 					"autoWidth": false,
 					"autoHeight": false,
+					"columnDefs": [
+						{
+							"targets": [ 5 ],
+							"visible": false,
+							"searchable": false
+						}
+						],
 					
 					ajax:{
 						url: 'kayttaja_handler.php',
@@ -102,7 +109,8 @@
 						{"data": "LAITE_NIMI"},
 						{"data": "ALKUPVM"},
 						{"data": "LOPPUPVM"},
-						{"defaultContent": '<button id="peru" name="peru">Peru varaus</button><button id="edit" name="edit" data-toggle="modal" data-target="#myModal">Muokkaa</button>'}
+						{"defaultContent": '<button id="peru" name="peru">Peru varaus</button><button id="edit" name="edit" data-toggle="modal" data-target="#myModal">Muokkaa</button>'},
+						{"data": "LAITE_ID"}
 					]
 				});	
 
@@ -198,6 +206,7 @@
 			$(document).on('click' ,'#edit', function () { //Muokkaa-nappia painetaan
 
 			var varausid = $(this).closest('tr').find('td:eq(0)').text();
+			var laiteid = $(this).closest('tr').find('td:eq(5)').text();
 			$.ajax({ 
 				url:"fetch_muokkaavaraus.php",
 				method: "POST",
@@ -206,9 +215,10 @@
 				success: function(data)
 				{					
 					$('#myModal').modal('show');
-					$('#LAITE_ID').val(data.ID);
+					$('#VARAUS_ID').val(data.ID);
 					$('#ALKUPVM').val(data.ALKUPVM);
 					$('#LOPPUPVM').val(data.LOPPUPVM);
+					$('#LAITE_ID').val(data.LAITE_ID);
 				}
 			
 			});
@@ -216,9 +226,10 @@
 			
 			$(document).on('submit', '#user_form',  function () { //Käyttäjä painaa tallenna-nappia
 				
-				var varausid = $('#LAITE_ID').val();
+				var varausid = $('#VARAUS_ID').val();
 				var alkupvm = $('#ALKUPVM').val();
 				var loppupvm = $('#LOPPUPVM').val();
+				var laiteid = $('#LAITE_ID').val();
 				
 				
 				if(alkupvm != '' && loppupvm != '')
@@ -228,7 +239,8 @@
                 {
 					ID: varausid,
                     ALKUPVM: alkupvm,
-					LOPPUPVM: loppupvm
+					LOPPUPVM: loppupvm,
+					LAITE_ID: laiteid
                 })
 				.done(function() {
 					$('#user_form')[0].reset(); //Tyhjennetään muokkaus dialogi
@@ -330,6 +342,7 @@
 		  
         </div>
         <div class="modal-footer">
+			<input type="hidden" name="VARAUS_ID" id="VARAUS_ID" />
 			<input type="hidden" name="LAITE_ID" id="LAITE_ID" />
           <input type="submit" name="tallenna" id="tallenna" class="btn btn-default" value="Tallenna"/ >
 		  </form>
