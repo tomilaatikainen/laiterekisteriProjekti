@@ -2,20 +2,18 @@
 	require_once("db.inc");
 	require_once("getpost.inc");
 	session_start();
-	require_once("kirjaudu_utils.inc");
-	check_session();
 	
 	global $conn;
-	error_log("edit_varaus.php ja laiteid on ". $_POST['LAITE_ID']);
-	if(isset($_POST['LAITE_ID'])){
+	//error_log("edit_varaus.php ja laiteid on ". $_POST['LAITE_ID']);
+	if(isset($_POST['ID'])){
 		   
-			$laiteid = parsePost("LAITE_ID");
+			$varausid = parsePost("ID");
 			$ap = parsePost("ALKUPVM");
 			$lp = parsePost("LOPPUPVM");
 			
 			try{
 			$stmt = $conn->prepare
-			("UPDATE varaus SET ALKUPVM='$ap', LOPPUPVM='$lp' WHERE LAITE_ID='$laiteid' AND STATUS='varattu'");
+			("UPDATE varaus SET ALKUPVM='$ap', LOPPUPVM='$lp' WHERE ID='$varausid' AND STATUS='varattu'");
 			
 			$stmt->execute();
 			}

@@ -191,7 +191,9 @@ function haeVaraukset($asiakas)
 	{
 	
 	$stmt = $conn->prepare
-		("SELECT * FROM varaus WHERE ASIAKAS_TUNNUS='$tunnus' AND STATUS='$status'");
+		("SELECT varaus.*, laite.LAITE_NIMI FROM (varaus 
+		INNER JOIN laite ON varaus.LAITE_ID = laite.LAITE_ID)
+		WHERE ASIAKAS_TUNNUS='$tunnus' AND varaus.STATUS='$status' ");
 		$stmt->execute();
 
 			while ($rivi = $stmt->fetch(PDO::FETCH_ASSOC)) { 

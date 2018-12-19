@@ -99,7 +99,7 @@
 					},					
 					"columns": [
 						{"data": "ID"},
-						{"data": "LAITE_ID"},
+						{"data": "LAITE_NIMI"},
 						{"data": "ALKUPVM"},
 						{"data": "LOPPUPVM"},
 						{"defaultContent": '<button id="peru" name="peru">Peru varaus</button><button id="edit" name="edit" data-toggle="modal" data-target="#myModal">Muokkaa</button>'}
@@ -122,7 +122,7 @@
 					},					
 					"columns": [
 						{"data": "ID"},
-						{"data": "LAITE_ID"},
+						{"data": "LAITE_NIMI"},
 						{"data": "ALKUPVM"},
 						{"data": "LOPPUPVM"}
 					]
@@ -197,16 +197,16 @@
 			
 			$(document).on('click' ,'#edit', function () { //Muokkaa-nappia painetaan
 
-			var laiteid = $(this).closest('tr').find('td:eq(1)').text();
+			var varausid = $(this).closest('tr').find('td:eq(0)').text();
 			$.ajax({ 
 				url:"fetch_muokkaavaraus.php",
 				method: "POST",
-				data:{LAITE_ID: laiteid},
+				data:{ID: varausid},
 				dataType: "json",
 				success: function(data)
 				{					
 					$('#myModal').modal('show');
-					$('#LAITE_ID').val(data.LAITE_ID);
+					$('#LAITE_ID').val(data.ID);
 					$('#ALKUPVM').val(data.ALKUPVM);
 					$('#LOPPUPVM').val(data.LOPPUPVM);
 				}
@@ -214,11 +214,9 @@
 			});
 			});
 			
-			//tähän asti toimii
-			
 			$(document).on('submit', '#user_form',  function () { //Käyttäjä painaa tallenna-nappia
 				
-				var laiteid = $('#LAITE_ID').val();
+				var varausid = $('#LAITE_ID').val();
 				var alkupvm = $('#ALKUPVM').val();
 				var loppupvm = $('#LOPPUPVM').val();
 				
@@ -228,7 +226,7 @@
 				
 				$.post("edit_varaus.php", 
                 {
-					LAITE_ID: laiteid,
+					ID: varausid,
                     ALKUPVM: alkupvm,
 					LOPPUPVM: loppupvm
                 })
@@ -268,8 +266,8 @@
 	<table id="varaustaulu" name="varaustaulu" class="table table-bordered">
                 <thead>
 					<tr>
-                        <th>ID</th>
-                        <th>Laite ID</th>
+                        <th>Varausnumero</th>
+						<th>Laite</th>
                         <th>ALKUPVM</th>
 						<th>LOPPUPVM</th>  
 						<th></th>
@@ -298,8 +296,8 @@
 	<table id="lainaustaulu" name="lainaustaulu" class="table table-bordered">
                 <thead>
                     <tr>
-						<th>ID</th>
-                        <th>Laite ID</th>
+                        <th>Varausnumero</th>
+						<th>Laite</th>
                         <th>ALKUPVM</th>
 						<th>LOPPUPVM</th>  
                         

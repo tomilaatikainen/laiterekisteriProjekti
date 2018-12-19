@@ -1,16 +1,14 @@
 <?php
 	require_once("db.inc");
 	require_once("getpost.inc");
-	require_once("kirjaudu_utils.inc");
-	check_session();
 	global $conn;
-	error_log("fetch_muokkaavaraus.php ja laiteid on ". $_POST["LAITE_ID"]);
-	if(isset($_POST["LAITE_ID"]))
+	//error_log("fetch_muokkaavaraus.php ja laiteid on ". $_POST["ID"]);
+	if(isset($_POST["ID"]))
 	{
-		$laiteid = $_POST["LAITE_ID"];
+		$varausid = $_POST["ID"];
 		try
 		{
-			$stmt = $conn->prepare("SELECT ALKUPVM, LOPPUPVM, LAITE_ID FROM varaus WHERE LAITE_ID ='$laiteid' AND STATUS='varattu'");
+			$stmt = $conn->prepare("SELECT ALKUPVM, LOPPUPVM, ID FROM varaus WHERE ID ='$varausid' AND STATUS='varattu'");
 			$stmt->execute();
 			while($rivi = $stmt->fetch(PDO::FETCH_ASSOC)){
 			$result = $rivi;
