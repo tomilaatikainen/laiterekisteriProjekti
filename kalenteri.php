@@ -29,7 +29,48 @@
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <style>
-        
+        #parent {
+            width: 100%;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+
+        #form {
+            margin: 0 auto;
+            border: 3px solid black;
+			border-radius: 20px;
+            width: 55%;
+            height: 70%;
+			max-width: 600px;
+        }
+
+        #div {
+            margin-left: 20px;
+			margin-right: 20px;
+        }
+		
+		input[type=text] {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		box-sizing: border-box;
+		}
+		
+		input[type=button] {
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		cursor: pointer;
+		width: 100%;
+		}
+		
     </style>
 	
 	  <script type="text/javascript">
@@ -114,13 +155,25 @@
 </head>
 <body>	
 	
+	<div css="text-align:center" id="parent">
+		<form id="form" action="kirjaudu_handler.php" method="post">
+			<div id="div">
+	
 	<input type="hidden" id="id" name="id" value="<?php echo $id; ?>"/>
 	<input type="hidden" id="tunnus" name="tunnus" value="<?php echo $tunnus; ?>"/>
 	
-	<p>Alkupvm: <input type="text" id="alkupvm" name="alkupvm"></p>
-	<p>Loppupvm: <input type="text" id="loppupvm" name="loppupvm"></p>
+	<h1>Varaa laite</h1>
+	<p>Laite: <?php echo "$nimi";?></p>
+	<p>Sijainti: <?php echo "$sijainti";?></p>
+	
+	<p>Alkupvm: <input type="text" id="alkupvm" name="alkupvm" autocomplete="off"></p>
+	<p>Loppupvm: <input type="text" id="loppupvm" name="loppupvm" autocomplete="off"></p>
 	<input type="button" id="hyvaksy" name="hyvaksy" value="Hyväksy varaus"/></br>
-	<a href="varaa.php">Edelliselle sivulle</a>
+	<a href="varaa.php" class="">Edelliselle sivulle</a></br>
+	
+			</div>
+        </form>
+    </div>
 	
 </body>
 </html>
