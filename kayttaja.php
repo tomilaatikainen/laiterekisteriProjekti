@@ -21,6 +21,11 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="/resources/demos/style.css">
     <style>
+	
+	body{		
+		overflow:auto;
+		height:100%;
+	}
 		#varaus {
 			width: 60%;
 			position: fixed;
@@ -33,6 +38,7 @@
 			display: block;
 			height: 40%;
 			min-width: 800px;
+			min-height: 400px;
 		}
 		
 		#lainaus {
@@ -84,6 +90,8 @@
 						"url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Finnish.json"
 					},
 					"autoWidth": false,
+					"autoHeight": false,
+					
 					ajax:{
 						url: 'kayttaja_handler.php',
 						dataSrc: '',
