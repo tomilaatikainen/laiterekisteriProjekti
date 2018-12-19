@@ -16,6 +16,34 @@
 		$laite["tunnus"] = parsePost("ASIAKAS_TUNNUS");
 		
 		luoVaraus($laite);
-			//header("Location: kayttaja.php");
-			}
+		/*switch(luoVaraus($laite))
+		{
+			case "OK":
+				echo"<script type='text/javascript'>alert('Varaus onnistui!');
+				</script>";
+				break;
+				
+			case "tyhjä":
+				echo"<script type='text/javascript'>alert('Jokin kentistä tyhjä!');
+				</script>";
+				break;
+				
+			case "päällekkäisyys":
+				echo"<script type='text/javascript'>alert('Päällekkäisyys varauksessa!');
+				</script>";
+				break;
+			case "muu":
+				echo"<script type='text/javascript'>alert('Catchiin meni');
+				</script>";
+				break;
+				
+			default:
+				echo"<script type='text/javascript'>alert('Virhe ohjelmoinnissa');
+				</script>";
+				break;				
+				
+		}	*/
+			
+			
+	}
 ?>

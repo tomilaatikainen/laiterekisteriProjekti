@@ -41,16 +41,46 @@ function luoVaraus($laite){
 	
 	try
 	{
-		/*$query = "SELECT COUNT (*) FROM varaus WHERE LAITE_ID='$laiteid' AND (('$alkupvm' BETWEEN ALKUPVM AND LOPPUPVM) OR ('$loppupvm' BETWEEN ALKUPVM AND LOPPUPVM)
-		OR ('$alkupvm'< ALKUPVM AND '$loppupvm'>LOPPUPVM))";*/
+		if ($alkupvm == "1970-01-01"|| $loppupvm == "1970-01-01")
+		{
+			$result = "tyhjä";
+		error_log("Meni tänne kun oli oli tyhjää");
+		echo"<script type='text/javascript'>alert('Syötä päivämäärät!');
+		location='kalenteri.php';
+		</script>";
+		}
+		else{
+		$query= "SELECT LAITE_ID FROM varaus WHERE LAITE_ID='$laiteid' AND (('$alkupvm' BETWEEN ALKUPVM AND LOPPUPVM) OR ('$loppupvm' BETWEEN ALKUPVM AND LOPPUPVM)
+		OR ('$alkupvm'< ALKUPVM AND '$loppupvm'>LOPPUPVM))"; // OR ('$loppupvm' > '$alkupvm')
 		
-		$stmt = $conn->prepare("INSERT INTO varaus(LAITE_ID,ALKUPVM,LOPPUPVM,STATUS,ASIAKAS_TUNNUS)VALUES('$laiteid','$alkupvm','$loppupvm','$status','$tunnus')");
-
+		//$stmt = $conn->prepare("INSERT INTO varaus(LAITE_ID,ALKUPVM,LOPPUPVM,STATUS,ASIAKAS_TUNNUS)VALUES('$laiteid','$alkupvm','$loppupvm','$status','$tunnus')");
+		$stmt = $conn->prepare($query);
 		$stmt->execute();
+		
+		
+		$rivi = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		if(!$rivi)
+		{
+			$stmt1 = $conn->prepare("INSERT INTO varaus(LAITE_ID,ALKUPVM,LOPPUPVM,STATUS,ASIAKAS_TUNNUS)VALUES('$laiteid','$alkupvm','$loppupvm','$status','$tunnus')");
+			$stmt1->execute();
+		}
+		else{
+		error_log("Meni tänne kun oli päällekkäisyys");
+		$result = "päällekkäisyys";
+		echo"<script type='text/javascript'>alert('Päällekkäisyys varauksessa!');
+		location='kalenteri.php';
+		</script>";
+		}
+		}
 	}
 	catch(PDOException $e) {
-		$result = array("status" => "not ok", "error" => $e->getMessage());
+		$result = "muu";
 		error_log("Error in luoVaraus: " . $e->getMessage());
+		echo"<script type='text/javascript'>alert('Virhe varauksessa!');
+		location='kalenteri.php';
+		</script>";
+
 	}
 	return $result;
 	
