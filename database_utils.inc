@@ -152,7 +152,7 @@ function tarkistaRekis($asiakas)
 			</script>";							
 
 		}		
-		else if(empty($tunnus) || empty($salasana) || empty($salasana) || empty($nimi)) //tyhjä kenttä
+		else if(empty($tunnus) || empty($salasana) || empty($salasana2) || empty($nimi)) //tyhjä kenttä
 		{
 		echo"<script type='text/javascript'>alert('Jokin kentistä on tyhjä');
 		location='rekisteroidy.php';
@@ -281,6 +281,7 @@ function muutaAsiakas($asiakas) //asiakas muokkaa omia tietojaan
 {
 	$tunnus = $asiakas["tunnus"];
 	$salasana = $asiakas["uSalasana"];
+	$salasana2 = $asiakas["uSalasana2"];
 	$nimi = $asiakas["uNimi"];
 	
 	global $conn;
@@ -290,11 +291,40 @@ function muutaAsiakas($asiakas) //asiakas muokkaa omia tietojaan
 	{
 		$stmt = $conn->prepare
 		("UPDATE asiakas SET SALASANA='$salasana', NIMI='$nimi' WHERE TUNNUS='$tunnus'");
-		$stmt->execute();
 		
-		echo"<script type='text/javascript'>alert('Muokatut tiedot tallennettu');
-			location='muokkaa.php';
-			</script>";
+		if(!empty($tunnus) && !empty($salasana) && !empty($nimi) && $salasana == $salasana2)//tiedot kelpaa
+		{
+			$stmt->execute();
+		
+			echo"<script type='text/javascript'>alert('Muokatut tiedot tallennettu');
+				location='muokkaa.php';
+				</script>";
+			
+		$_SESSION["salasana"] = $salasana;	
+		}
+		
+		else if(empty($salasana) || empty($salasana2) || empty($nimi)) //tyhjä kenttä
+		{
+		echo"<script type='text/javascript'>alert('Jokin kentistä on tyhjä');
+		location='muokkaa.php';
+		</script>";
+		}
+		
+		else if ($salasana != $salasana2) //salasanat ei mätsää
+		{
+			echo"<script type='text/javascript'>alert('Salasanat eivät täsmää');
+		location='muokkaa.php';
+		</script>";
+		}
+		
+		else
+		{
+			echo"<script type='text/javascript'>alert('Tarkista kentät');
+		location='muokkaa.php';
+		</script>";
+		}
+		
+		
 	}
 	
 	catch(PDOException $e) {		

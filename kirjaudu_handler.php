@@ -28,7 +28,10 @@
 
 		else
 		{
-		header("Location: kirjaudu.php?virhe=1");
+		//header("Location: kirjaudu.php?virhe=1");
+		echo"<script type='text/javascript'>alert('Väärä käyttäjätunnus tai salasana');
+		location='kirjaudu.php';
+		</script>";
 		exit();
 		}
 		

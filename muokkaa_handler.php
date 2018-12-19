@@ -8,6 +8,7 @@
 	
 	$asiakas["uNimi"] = parsePost("uusiNimi");
 	$asiakas["uSalasana"] = parsePost("uusiSalasana");
+	$asiakas["uSalasana2"] = parsePost("uusiSalasana2");
 	
 	tuoNimi($asiakas);
 	
