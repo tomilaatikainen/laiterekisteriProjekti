@@ -2,7 +2,7 @@
 	require_once("db.inc");
 	require_once("getpost.inc");
 	require_once("kirjaudu_utils.inc");
-	check_session();
+	//check_session(); <--- rikkoo
 	global $conn;
 	//error_log("fetch_single ja laiteID on ". $_POST["LAITE_ID"]);
 	if(isset($_POST["LAITE_ID"]))

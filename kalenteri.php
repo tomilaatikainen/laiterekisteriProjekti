@@ -109,7 +109,7 @@
 	
 	
 	
-	$(document).on('click' ,'#hyvaksy', function () {
+	$(document).on('click' ,'#hyvaksy', function () { //käyttäjä hyväksyy varauksen
 	//("#hyvaksy").click(function () {
 		 
 		var laiteid = $('#id').val();
@@ -156,9 +156,9 @@
 <body>	
 	
 	<div css="text-align:center" id="parent">
-		<form id="form" action="kirjaudu_handler.php" method="post">
+		<form id="form">
 			<div id="div">
-	
+			
 	<input type="hidden" id="id" name="id" value="<?php echo $id; ?>"/>
 	<input type="hidden" id="tunnus" name="tunnus" value="<?php echo $tunnus; ?>"/>
 	

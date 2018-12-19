@@ -41,8 +41,8 @@ function luoVaraus($laite){
 	
 	try
 	{
-		$query = "SELECT COUNT (*) FROM varaus WHERE LAITE_ID='$laiteid' AND (('$alkupvm' BETWEEN ALKUPVM AND LOPPUPVM) OR ('$loppupvm' BETWEEN ALKUPVM AND LOPPUPVM)
-		OR ('$alkupvm'< ALKUPVM AND '$loppupvm'>LOPPUPVM))";
+		/*$query = "SELECT COUNT (*) FROM varaus WHERE LAITE_ID='$laiteid' AND (('$alkupvm' BETWEEN ALKUPVM AND LOPPUPVM) OR ('$loppupvm' BETWEEN ALKUPVM AND LOPPUPVM)
+		OR ('$alkupvm'< ALKUPVM AND '$loppupvm'>LOPPUPVM))";*/
 		
 		$stmt = $conn->prepare("INSERT INTO varaus(LAITE_ID,ALKUPVM,LOPPUPVM,STATUS,ASIAKAS_TUNNUS)VALUES('$laiteid','$alkupvm','$loppupvm','$status','$tunnus')");
 

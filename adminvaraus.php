@@ -135,16 +135,16 @@
 			
 			$(document).on('click' ,'#edit', function () { //Muokkaa-nappia painetaan
 
-			var laiteid = $(this).closest('tr').find('td:eq(1)').text();
+			var varausid = $(this).closest('tr').find('td:eq(0)').text();
 			$.ajax({ 
 				url:"fetch_muokkaavaraus.php",
 				method: "POST",
-				data:{LAITE_ID: laiteid},
+				data:{ID: varausid},
 				dataType: "json",
 				success: function(data)
 				{					
 					$('#myModal').modal('show');
-					$('#LAITE_ID').val(data.LAITE_ID);
+					$('#LAITE_ID').val(data.ID);
 					$('#ALKUPVM').val(data.ALKUPVM);
 					$('#LOPPUPVM').val(data.LOPPUPVM);
 				}
@@ -152,11 +152,9 @@
 			});
 			});
 			
-			//tähän asti toimii
-			
 			$(document).on('submit', '#user_form',  function () { //Käyttäjä painaa tallenna-nappia
 				
-				var laiteid = $('#LAITE_ID').val();
+				var varausid = $('#LAITE_ID').val();
 				var alkupvm = $('#ALKUPVM').val();
 				var loppupvm = $('#LOPPUPVM').val();
 				
@@ -166,7 +164,7 @@
 				
 				$.post("edit_varaus.php", 
                 {
-					LAITE_ID: laiteid,
+					ID: varausid,
                     ALKUPVM: alkupvm,
 					LOPPUPVM: loppupvm
                 })
@@ -234,10 +232,10 @@
 		
 		<form method="post" enctype="multipart/form-data" id="user_form">
           <label for="ALKUPVM">Alkupvm:</label>
-		  <input type="text" id="ALKUPVM" name="alkupvm" class="form-control"></br>
+		  <input type="text" id="ALKUPVM" name="alkupvm" class="form-control" autocomplete="off"></br>
 		  
 		  <label for="LOPPUPVM">Loppupvm:</label>
-		  <input type="text" id="LOPPUPVM" name="loppupvm" class="form-control"></br>
+		  <input type="text" id="LOPPUPVM" name="loppupvm" class="form-control" autocomplete="off"></br>
 		  
         </div>
         <div class="modal-footer">

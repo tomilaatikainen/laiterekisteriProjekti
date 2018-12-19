@@ -245,7 +245,7 @@
 				}
 				});		
 				
-				//////////////////// VARAUKSEN MUOKKAUS LOPPUU///////////////////////
+				
 				
 		});
 				
@@ -323,10 +323,10 @@
 		
 		<form method="post" enctype="multipart/form-data" id="user_form">
           <label for="ALKUPVM">Alkupvm:</label>
-		  <input type="text" id="ALKUPVM" name="alkupvm" class="form-control"></br>
+		  <input type="text" id="ALKUPVM" name="alkupvm" class="form-control" autocomplete="off"></br>
 		  
 		  <label for="LOPPUPVM">Loppupvm:</label>
-		  <input type="text" id="LOPPUPVM" name="loppupvm" class="form-control"></br>
+		  <input type="text" id="LOPPUPVM" name="loppupvm" class="form-control" autocomplete="off"></br>
 		  
         </div>
         <div class="modal-footer">

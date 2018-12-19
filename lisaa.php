@@ -3,7 +3,7 @@
 	require_once("getpost.inc");
 	global $conn;
 	require_once("kirjaudu_utils.inc");
-	check_session();
+	//check_session(); <---- rikkoo
 	//error_log("lisaa.php ja LAITE_NIMI on:". $_POST["LAITE_NIMI"]);
 	if(isset($_POST['insert'])){
 			if(strcasecmp(parsePost("KATEGORIA_NIMI"), "Puhelin") == 0)
