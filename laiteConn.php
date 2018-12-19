@@ -1,4 +1,7 @@
 <?php
+require_once("kirjaudu_utils.inc");
+	check_session();
+
 $servername = "localhost";
 $username = "root";
 $password = "";

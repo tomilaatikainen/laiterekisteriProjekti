@@ -1,6 +1,8 @@
 <?php
 	require_once("db.inc");
 	session_start();
+	require_once("kirjaudu_utils.inc");
+	check_session();
 	
 	$us = $_SESSION["salasana"]; //salasana sessiosta
 	

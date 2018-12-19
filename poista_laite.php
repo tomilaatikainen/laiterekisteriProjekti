@@ -1,6 +1,8 @@
 <?php
 	require_once("db.inc");
 	require_once("getpost.inc");
+	require_once("kirjaudu_utils.inc");
+	check_session();
 	
 	global $conn;
 	//error_log("Poitaoigaosgoaisgs:". $_POST["LAITE_ID"]);

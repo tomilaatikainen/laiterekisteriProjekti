@@ -2,6 +2,8 @@
 	require_once("db.inc");
 	require_once("getpost.inc");
 	session_start();
+	require_once("kirjaudu_utils.inc");
+	check_session();
 	
 	global $conn;
 	error_log("edit_varaus.php ja laiteid on ". $_POST['LAITE_ID']);

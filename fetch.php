@@ -2,9 +2,11 @@
 	require_once("db.inc");
 	require_once("getpost.inc");
 	session_start();
+	require_once("kirjaudu_utils.inc");
+	check_session();
 	
 	global $conn;
-	error_log("fetch.php ". $_POST['hae_laite']);
+	//error_log("fetch.php ". $_POST['hae_laite']);
 	
 	$nimi = parsePost("hae_laite");
 	$malli = parsePost("hae_malli");

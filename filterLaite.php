@@ -1,4 +1,6 @@
 <?php
+	require_once("kirjaudu_utils.inc");
+	check_session();
 function getLaite($nimi, $merkki, $kategoria, $omistaja, $malli, $sijainti, $con)
 {
     // oletuksena sql-kysely hakee kaikkien asiakkaiden tiedot

@@ -2,6 +2,8 @@
 	require_once("database_utils.inc");
 	require_once("getpost.inc");
 	session_start();
+	require_once("kirjaudu_utils.inc");
+	check_session();
 	
 	$asiakas["tunnus"] = $_SESSION["tunnus"];
 	$asiakas["salasana"] = $_SESSION["salasana"];

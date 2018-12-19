@@ -1,6 +1,8 @@
 <?php
 	require_once("db.inc");
 	require_once("getpost.inc");
+	require_once("kirjaudu_utils.inc");
+	check_session();
 	
 	global $conn;
 	//error_log("peru_varaus.php ollaan ja varaus id on ". $_POST["ID"]);

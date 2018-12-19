@@ -1,6 +1,8 @@
 <?php
 	require_once("database_utils.inc");
 	require_once("getpost.inc");
+	require_once("kirjaudu_utils.inc");
+	check_session();
 	//error_log("menee kalenteri_handleriin ja laiteID on ". $_POST["LAITE_ID"]);
 	
 	

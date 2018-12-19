@@ -4,7 +4,7 @@
 	{
 		if ( !isset($_SESSION["login"]))
 		{
-			header("Location: aloitus.php?virhe=2");
+			header("Location: kirjaudu.php");
 			exit();
 		}
 	}
