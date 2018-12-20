@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 18.12.2018 klo 17:20
--- Palvelimen versio: 5.7.23
--- PHP Version: 7.2.10
+-- Generation Time: Dec 20, 2018 at 08:17 AM
+-- Server version: 5.7.21
+-- PHP Version: 5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,11 +21,13 @@ SET time_zone = "+00:00";
 --
 -- Database: `laiterekisteri`
 --
+CREATE DATABASE IF NOT EXISTS `laiterekisteri` DEFAULT CHARACTER SET utf8 COLLATE utf8_swedish_ci;
+USE `laiterekisteri`;
 
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `asiakas`
+-- Table structure for table `asiakas`
 --
 
 DROP TABLE IF EXISTS `asiakas`;
@@ -37,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `asiakas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Vedos taulusta `asiakas`
+-- Dumping data for table `asiakas`
 --
 
 INSERT INTO `asiakas` (`TUNNUS`, `SALASANA`, `NIMI`) VALUES
@@ -48,7 +50,7 @@ INSERT INTO `asiakas` (`TUNNUS`, `SALASANA`, `NIMI`) VALUES
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `kategoria`
+-- Table structure for table `kategoria`
 --
 
 DROP TABLE IF EXISTS `kategoria`;
@@ -59,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `kategoria` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Vedos taulusta `kategoria`
+-- Dumping data for table `kategoria`
 --
 
 INSERT INTO `kategoria` (`KATEGORIA_ID`, `KATEGORIA_NIMI`) VALUES
@@ -72,7 +74,7 @@ INSERT INTO `kategoria` (`KATEGORIA_ID`, `KATEGORIA_NIMI`) VALUES
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `laite`
+-- Table structure for table `laite`
 --
 
 DROP TABLE IF EXISTS `laite`;
@@ -89,10 +91,10 @@ CREATE TABLE IF NOT EXISTS `laite` (
   PRIMARY KEY (`LAITE_ID`),
   KEY `KATEGORIA_ID` (`KATEGORIA_ID`),
   KEY `OMISTAJA_ID` (`OMISTAJA_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Vedos taulusta `laite`
+-- Dumping data for table `laite`
 --
 
 INSERT INTO `laite` (`LAITE_ID`, `LAITE_NIMI`, `MERKKI`, `KATEGORIA_ID`, `OMISTAJA_ID`, `MALLI`, `KUVAUS`, `SIJAINTI`, `STATUS`) VALUES
@@ -111,7 +113,7 @@ INSERT INTO `laite` (`LAITE_ID`, `LAITE_NIMI`, `MERKKI`, `KATEGORIA_ID`, `OMISTA
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `omistaja`
+-- Table structure for table `omistaja`
 --
 
 DROP TABLE IF EXISTS `omistaja`;
@@ -125,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `omistaja` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Vedos taulusta `omistaja`
+-- Dumping data for table `omistaja`
 --
 
 INSERT INTO `omistaja` (`OMISTAJA_ID`, `OMISTAJA_NIMI`, `OSOITE`, `POSTINRO`, `POSTITMP`) VALUES
@@ -136,7 +138,7 @@ INSERT INTO `omistaja` (`OMISTAJA_ID`, `OMISTAJA_NIMI`, `OSOITE`, `POSTINRO`, `P
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `varaus`
+-- Table structure for table `varaus`
 --
 
 DROP TABLE IF EXISTS `varaus`;
@@ -153,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `varaus` (
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
--- Vedos taulusta `varaus`
+-- Dumping data for table `varaus`
 --
 
 INSERT INTO `varaus` (`ID`, `LAITE_ID`, `ALKUPVM`, `LOPPUPVM`, `STATUS`, `ASIAKAS_TUNNUS`) VALUES
@@ -162,18 +164,18 @@ INSERT INTO `varaus` (`ID`, `LAITE_ID`, `ALKUPVM`, `LOPPUPVM`, `STATUS`, `ASIAKA
 (10, 2, '2018-12-24', '2018-12-30', 'varattu', 'pekka');
 
 --
--- Rajoitteet vedostauluille
+-- Constraints for dumped tables
 --
 
 --
--- Rajoitteet taululle `laite`
+-- Constraints for table `laite`
 --
 ALTER TABLE `laite`
   ADD CONSTRAINT `laite_ibfk_1` FOREIGN KEY (`KATEGORIA_ID`) REFERENCES `kategoria` (`KATEGORIA_ID`),
   ADD CONSTRAINT `laite_ibfk_2` FOREIGN KEY (`OMISTAJA_ID`) REFERENCES `omistaja` (`OMISTAJA_ID`);
 
 --
--- Rajoitteet taululle `varaus`
+-- Constraints for table `varaus`
 --
 ALTER TABLE `varaus`
   ADD CONSTRAINT `varaus_ibfk_1` FOREIGN KEY (`LAITE_ID`) REFERENCES `laite` (`LAITE_ID`),
