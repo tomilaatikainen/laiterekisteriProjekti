@@ -6,7 +6,7 @@
 	check_session();
 	
 	global $conn;
-	//error_log("edit_varaus.php ja laiteid on ". $_POST['LAITE_ID']);
+	//error_log("edit_varaus.php ja laiteid on ". $_POST['LAITE_ID']. $_POST['ID']. $_POST['ALKUPVM']. $_POST['LOPPUPVM']);
 	if(isset($_POST['ID'])){
 		   
 			$varausid = parsePost("ID");
@@ -16,17 +16,15 @@
 			
 			try{
 				
-			if ($alkupvm == "1970-01-01"|| $loppupvm == "1970-01-01")
+		if ($alkupvm == "1970-01-01"|| $loppupvm == "1970-01-01")
 		{
 			$result = "tyhjä";
 		error_log("Meni tänne kun oli oli tyhjää");
-		echo"<script type='text/javascript'>alert('Syötä päivämäärät!');
-		location='kayttaja.php';
-		</script>";
+
 		}
 		else{
 		$query= "SELECT LAITE_ID FROM varaus WHERE LAITE_ID='$laiteid' AND ID!='$varausid' AND (('$alkupvm' BETWEEN ALKUPVM AND LOPPUPVM) OR ('$loppupvm' BETWEEN ALKUPVM AND LOPPUPVM)
-		OR ('$alkupvm'< ALKUPVM AND '$loppupvm'>LOPPUPVM) OR ('$loppupvm' < '$alkupvm')) ";
+		OR ('$alkupvm'< ALKUPVM AND '$loppupvm'>LOPPUPVM) OR('$loppupvm' < '$alkupvm'))";
 		
 		$stmt = $conn->prepare($query);
 		$stmt->execute();
@@ -42,9 +40,7 @@
 		else{
 		error_log("Meni tänne kun oli päällekkäisyys");
 		$result = "päällekkäisyys";
-		echo"<script type='text/javascript'>alert('Päällekkäisyys varauksessa!');
-		location='kayttaja.php';
-		</script>";
+
 		}
 		}
 			}

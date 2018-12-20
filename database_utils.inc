@@ -48,7 +48,7 @@ function luoVaraus($laite){
 		}
 		else{
 		$query= "SELECT LAITE_ID FROM varaus WHERE LAITE_ID='$laiteid' AND (('$alkupvm' BETWEEN ALKUPVM AND LOPPUPVM) OR ('$loppupvm' BETWEEN ALKUPVM AND LOPPUPVM)
-		OR ('$alkupvm'< ALKUPVM AND '$loppupvm'>LOPPUPVM))"; // OR ('$loppupvm' > '$alkupvm')
+		OR ('$alkupvm'< ALKUPVM AND '$loppupvm'>LOPPUPVM) OR('$loppupvm' < '$alkupvm'))"; // OR ('$loppupvm' < '$alkupvm')
 		
 		//$stmt = $conn->prepare("INSERT INTO varaus(LAITE_ID,ALKUPVM,LOPPUPVM,STATUS,ASIAKAS_TUNNUS)VALUES('$laiteid','$alkupvm','$loppupvm','$status','$tunnus')");
 		$stmt = $conn->prepare($query);
@@ -222,10 +222,6 @@ function haeVaraukset($asiakas)
 		$stmt->execute();
 
 			while ($rivi = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-			/*$id = $rivi["ID"];
-			$laiteid = $rivi["LAITE_ID"];
-			$alkupvm = $rivi["ALKUPVM"];
-			$loppupvm = $rivi["LOPPUPVM"];*/
 			
 			$result[] = $rivi;
 		}
@@ -252,14 +248,12 @@ function haeKaikkiVaraukset($asiakas)
 	{
 	
 	$stmt = $conn->prepare
-		("SELECT * FROM varaus WHERE STATUS='$status'");
+		("SELECT varaus.*, laite.LAITE_NIMI FROM (varaus 
+		INNER JOIN laite ON varaus.LAITE_ID = laite.LAITE_ID)
+		WHERE varaus.STATUS='$status' ");
 		$stmt->execute();
 
 			while ($rivi = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-			/*$id = $rivi["ID"];
-			$laiteid = $rivi["LAITE_ID"];
-			$alkupvm = $rivi["ALKUPVM"];
-			$loppupvm = $rivi["LOPPUPVM"];*/
 			
 			$result[] = $rivi;
 		}
@@ -271,7 +265,7 @@ function haeKaikkiVaraukset($asiakas)
 	error_log("Error in haeKaikkiVaraukset: " . $e->getMessage());
 	}
 	
-	echo json_encode($result);
+	echo json_encode (utf8ize($result));
 	
 }
 
